@@ -1,18 +1,23 @@
-Hi Ultimate Mobile V5.1
+Hi Ultimate Mobile V6
 
-업로드할 파일:
-- index.html
-- manifest.json
-- sw.js
-- icon.svg
+추가 기능
+- 종합 관심도 점수
+- 매우 높은 관심 / 높은 관심 / 보통 관심 / 관망 / 주의 표시
+- 참고 목표 범위와 방어선 자동 계산
+- 관련 대장주 6개 표시
+- 주요 뉴스 상단 표시
+- 관심종목 저장(localStorage)
+- 미국장 개장 카운트다운
+- 한국 / 미국 / 관심종목 필터
+- 실시간 데이터 실패 시 예시 데이터 자동 표시
 
-GitHub 저장소의 기존 같은 이름 파일을 모두 교체하세요.
-README.txt는 설명용이므로 업로드하지 않아도 됩니다.
+업로드 방법
+1. ZIP 압축을 풉니다.
+2. GitHub 저장소의 기존 index.html, manifest.json, sw.js, icon.svg를 새 파일로 교체합니다.
+3. Commit changes를 누릅니다.
+4. 1~3분 후 GitHub Pages 주소를 새로고침합니다.
 
-실시간 연결:
-- 뉴스: Google News RSS + rss2json
-- 현재가: Yahoo Finance chart + CORS proxy
-- 외부 무료 서비스 제한 시 예시 데이터가 자동 표시됩니다.
-
-중요:
-이 앱은 뉴스 정보 제공용이며 자동매매, 실제 주문, 수익 보장 기능이 없습니다.
+주의
+- 자동매매와 실제 주문 기능은 없습니다.
+- 점수, 목표 범위, 방어선은 교육·참고용 자동 계산값입니다.
+- 수익을 보장하지 않습니다.

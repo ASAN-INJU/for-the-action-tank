@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#17283f" />
+  <meta name="description" content="한국·미국 주식 뉴스, 관련 종목, 현재가와 뉴스 관심도 점수를 한 화면에서 확인하는 모바일 웹앱" />
+  <link rel="manifest" href="./manifest.json" />
+  <link rel="icon" href="./icon.svg" />
+  <title>Hi Ultimate Mobile V6</title>
+  <style>
+    :root{
+      --navy:#17283f; --navy2:#233954; --bg:#f3f6fa; --card:#fff;
+      --text:#172033; --muted:#6d7888; --line:#dce3ec; --good:#087f5b;
+      --warn:#e67700; --bad:#c92a2a; --blue:#2563eb; --shadow:0 10px 24px rgba(17,34,68,.08);
+      --gold:#f59f00;
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Noto Sans KR","Malgun Gothic",Arial,sans-serif}
+    button{font:inherit}
+    .hero{background:linear-gradient(135deg,var(--navy),#0f1f34);color:#fff;padding:20px 16px 20px;position:sticky;top:0;z-index:20;box-shadow:0 4px 18px rgba(0,0,0,.15)}
+    .hero-inner{max-width:1080px;margin:auto}
+    h1{font-size:28px;margin:0 0 8px;letter-spacing:-.5px}
+    .sub{font-weight:700;opacity:.95;font-size:14px}
+    .status-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+    .pill{font-size:12px;padding:7px 10px;border-radius:999px;background:rgba(255,255,255,.13);border:1px solid rgba(255,255,255,.18)}
+    .wrap{max-width:1080px;margin:0 auto;padding:14px 14px 100px}
+    .breaking{background:linear-gradient(135deg,#fff5f5,#fff);border:1px solid #ffc9c9;border-left:6px solid var(--bad);border-radius:16px;padding:14px 16px;margin-bottom:12px;box-shadow:var(--shadow)}
+    .breaking strong{display:block;color:var(--bad);margin-bottom:5px}
+    .breaking-title{font-weight:900;line-height:1.45}
+    .breaking-meta{font-size:12px;color:var(--muted);margin-top:6px}
+    .dashboard{display:grid;grid-template-columns:1fr;gap:12px;margin-bottom:14px}
+    .dash-card{background:#fff;border:1px solid var(--line);border-radius:16px;padding:14px;box-shadow:var(--shadow)}
+    .dash-card h3{font-size:14px;margin:0 0 8px;color:#415169}
+    .countdown{font-size:28px;font-weight:900;letter-spacing:1px}
+    .market-state{font-size:12px;color:var(--muted);margin-top:5px}
+    .fav-count{font-size:28px;font-weight:900}
+    .toolbar{background:#fff;border:1px solid var(--line);border-radius:16px;padding:13px;box-shadow:var(--shadow);margin-bottom:14px}
+    .toolbar-top{display:flex;gap:8px;align-items:center;justify-content:space-between;flex-wrap:wrap}
+    .tabs{display:flex;gap:7px;flex-wrap:wrap}
+    .tab,.refresh{border:0;border-radius:11px;padding:10px 14px;font-weight:800;cursor:pointer}
+    .tab{background:#e9eef5;color:#27405f}
+    .tab.active{background:var(--navy);color:#fff}
+    .refresh{background:#2563eb;color:white}
+    .refresh:disabled{opacity:.5}
+    .search{margin-top:10px;display:flex;gap:8px}
+    .search input{width:100%;border:1px solid var(--line);border-radius:11px;padding:12px 13px;font-size:15px}
+    .section-title{display:flex;align-items:end;justify-content:space-between;margin:18px 2px 10px;gap:10px}
+    .section-title h2{font-size:20px;margin:0}
+    .section-title span{color:var(--muted);font-size:12px;text-align:right}
+    .grid{display:grid;grid-template-columns:1fr;gap:12px}
+    .card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:15px;box-shadow:var(--shadow);position:relative}
+    .fav-btn{position:absolute;right:12px;top:12px;border:0;background:#edf2f7;width:36px;height:36px;border-radius:50%;font-size:18px;cursor:pointer}
+    .fav-btn.on{background:#fff3bf;color:#f08c00}
+    .card-head{display:flex;justify-content:space-between;gap:12px;align-items:flex-start;padding-right:42px}
+    .rank{width:32px;height:32px;border-radius:10px;background:#eef3f9;display:grid;place-items:center;font-weight:900;color:var(--navy);flex:none}
+    .title-wrap{flex:1}
+    .stock-name{font-size:18px;font-weight:900;margin:0}
+    .ticker{font-size:12px;color:var(--muted);margin-top:2px}
+    .score{min-width:66px;border-radius:14px;padding:8px;text-align:center;background:#edf2f8}
+    .score strong{display:block;font-size:22px;line-height:1}
+    .score small{font-size:11px;color:var(--muted)}
+    .score.high{background:#e6fcf5;color:var(--good)}
+    .score.mid{background:#fff4e6;color:var(--warn)}
+    .score.low{background:#fff0f0;color:var(--bad)}
+    .signal{margin:11px 0 8px;display:flex;align-items:center;justify-content:space-between;gap:10px}
+    .signal-badge{border-radius:999px;padding:7px 10px;font-weight:900;font-size:12px}
+    .signal-badge.high{background:#e6fcf5;color:var(--good)}
+    .signal-badge.mid{background:#fff4e6;color:var(--warn)}
+    .signal-badge.low{background:#fff0f0;color:var(--bad)}
+    .stars{font-size:14px;letter-spacing:1px;color:var(--gold)}
+    .price-row{display:flex;gap:10px;align-items:baseline;margin:10px 0 8px;flex-wrap:wrap}
+    .price{font-size:23px;font-weight:900}
+    .change.up{color:var(--bad);font-weight:800}
+    .change.down{color:var(--blue);font-weight:800}
+    .change.flat{color:var(--muted);font-weight:800}
+    .levels{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:10px 0}
+    .level{background:#f7f9fc;border:1px solid var(--line);border-radius:12px;padding:10px}
+    .level span{display:block;font-size:11px;color:var(--muted);margin-bottom:3px}
+    .level strong{font-size:14px}
+    .headline{font-size:15px;font-weight:800;line-height:1.45;margin:8px 0}
+    .headline a{color:inherit;text-decoration:none}
+    .summary{font-size:13px;line-height:1.55;color:#465469;margin:0}
+    .meta{display:flex;justify-content:space-between;gap:8px;margin-top:12px;color:var(--muted);font-size:11px}
+    .tags{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
+    .tag{background:#eef3f8;border-radius:999px;padding:6px 8px;font-size:11px;font-weight:800;color:#40536b}
+    .empty{background:#fff;border:1px dashed #b9c4d1;border-radius:16px;padding:28px;text-align:center;color:var(--muted)}
+    .footer-note{font-size:12px;line-height:1.55;color:var(--muted);padding:12px 4px}
+    .bottom{position:fixed;left:0;right:0;bottom:0;background:rgba(255,255,255,.96);backdrop-filter:blur(10px);border-top:1px solid var(--line);padding:8px 12px calc(8px + env(safe-area-inset-bottom));z-index:30}
+    .bottom-inner{max-width:1080px;margin:auto;display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+    .navbtn{border:0;border-radius:12px;background:#edf2f7;padding:10px 6px;font-weight:800;color:#334b67}
+    .navbtn.active{background:var(--navy);color:white}
+    .loader{height:3px;background:linear-gradient(90deg,transparent,#6ea8fe,transparent);background-size:200% 100%;animation:move 1.2s linear infinite;border-radius:9px;margin-top:10px;display:none}
+    .loader.on{display:block}
+    @keyframes move{to{background-position:-200% 0}}
+    @media(min-width:760px){
+      .grid{grid-template-columns:1fr 1fr}
+      .dashboard{grid-template-columns:1fr 1fr}
+      .hero{position:relative}
+    }
+  </style>
+</head>
+<body>
+<header class="hero">
+  <div class="hero-inner">
+    <h1>Hi Ultimate Mobile V6</h1>
+    <div class="sub">뉴스 · 관련 대장주 · 현재가 · 종합 관심도 · 관심종목</div>
+    <div class="status-row">
+      <span class="pill" id="modeBadge">실시간 연결 시도 중</span>
+      <span class="pill" id="updatedBadge">업데이트 대기</span>
+      <span class="pill">자동매매 기능 없음</span>
+    </div>
+    <div class="loader" id="loader"></div>
+  </div>
+</header>
+
+<main class="wrap">
+  <section class="breaking">
+    <strong>🔴 주요 뉴스</strong>
+    <div class="breaking-title" id="breakingTitle">데이터를 불러오는 중입니다.</div>
+    <div class="breaking-meta" id="breakingMeta">잠시만 기다려 주세요.</div>
+  </section>
+
+  <section class="dashboard">
+    <div class="dash-card">
+      <h3>미국장 개장까지</h3>
+      <div class="countdown" id="countdown">--:--:--</div>
+      <div class="market-state" id="marketState">뉴욕 시간 기준</div>
+    </div>
+    <div class="dash-card">
+      <h3>관심종목</h3>
+      <div class="fav-count"><span id="favCount">0</span>개</div>
+      <div class="market-state">별표를 누르면 저장됩니다.</div>
+    </div>
+  </section>
+
+  <section class="toolbar">
+    <div class="toolbar-top">
+      <div class="tabs">
+        <button class="tab active" data-market="all">통합</button>
+        <button class="tab" data-market="kr">한국</button>
+        <button class="tab" data-market="us">미국</button>
+        <button class="tab" data-market="fav">관심</button>
+      </div>
+      <button class="refresh" id="refreshBtn">새로고침</button>
+    </div>
+    <div class="search">
+      <input id="searchInput" type="search" placeholder="종목명·티커·뉴스 검색" autocomplete="off" />
+    </div>
+  </section>
+
+  <div class="section-title">
+    <h2>오늘의 종합 TOP 10</h2>
+    <span>뉴스·가격변동·시장 관심도를 단순 합산한 참고 점수</span>
+  </div>
+  <section class="grid" id="cards"></section>
+
+  <p class="footer-note">
+    V6의 점수, 목표 범위, 방어선은 교육·참고용 자동 계산값이며 투자 권유나 수익 보장이 아닙니다.
+    실제 투자 전에는 공시, 재무정보, 거래량, 가격 변동성과 본인의 위험 감수 수준을 확인하세요.
+  </p>
+</main>
+
+<nav class="bottom">
+  <div class="bottom-inner">
+    <button class="navbtn active" data-market="all">전체</button>
+    <button class="navbtn" data-market="kr">한국</button>
+    <button class="navbtn" data-market="us">미국</button>
+    <button class="navbtn" data-market="fav">관심</button>
+  </div>
+</nav>
+
+<script>
+const STOCKS = [
+  {market:"kr", name:"삼성전자", ticker:"005930.KS", query:"삼성전자 주식", related:["SK하이닉스","한미반도체","ISC","테크윙","이오테크닉스","원익IPS"]},
+  {market:"kr", name:"SK하이닉스", ticker:"000660.KS", query:"SK하이닉스 주식", related:["한미반도체","테크윙","피에스케이","ISC","유진테크","HPSP"]},
+  {market:"kr", name:"NAVER", ticker:"035420.KS", query:"네이버 AI 주식", related:["카카오","더존비즈온","솔트룩스","마음AI","한글과컴퓨터","가비아"]},
+  {market:"kr", name:"현대차", ticker:"005380.KS", query:"현대차 주식", related:["기아","현대모비스","HL만도","에스엘","화신","성우하이텍"]},
+  {market:"kr", name:"한화에어로스페이스", ticker:"012450.KS", query:"한화에어로스페이스 방산", related:["LIG넥스원","현대로템","한국항공우주","풍산","한화시스템","SNT다이내믹스"]},
+  {market:"us", name:"NVIDIA", ticker:"NVDA", query:"NVIDIA stock AI", related:["AMD","TSM","AVGO","MU","SMCI","ARM"]},
+  {market:"us", name:"Microsoft", ticker:"MSFT", query:"Microsoft stock AI", related:["GOOGL","AMZN","ORCL","CRM","NOW","NVDA"]},
+  {market:"us", name:"Tesla", ticker:"TSLA", query:"Tesla stock", related:["RIVN","GM","F","UBER","MBLY","NVDA"]},
+  {market:"us", name:"Apple", ticker:"AAPL", query:"Apple stock AI", related:["QCOM","TSM","AVGO","SWKS","QRVO","ARM"]},
+  {market:"us", name:"Amazon", ticker:"AMZN", query:"Amazon stock cloud", related:["MSFT","GOOGL","ORCL","SHOP","NFLX","META"]}
+];
+
+const FALLBACK = {
+  "005930.KS": {price:"예시 82,400원", raw:82400, change:"+1.2%", title:"HBM·AI 반도체 투자 확대 기대가 이어지고 있습니다.", source:"예시 데이터"},
+  "000660.KS": {price:"예시 236,500원", raw:236500, change:"+2.0%", title:"고대역폭메모리 수요와 공급 전망이 관심을 받고 있습니다.", source:"예시 데이터"},
+  "035420.KS": {price:"예시 205,000원", raw:205000, change:"+0.7%", title:"생성형 AI 서비스와 광고 플랫폼 개선 기대가 부각됐습니다.", source:"예시 데이터"},
+  "005380.KS": {price:"예시 230,000원", raw:230000, change:"-0.4%", title:"전기차·하이브리드 판매와 환율 영향이 함께 주목됩니다.", source:"예시 데이터"},
+  "012450.KS": {price:"예시 742,000원", raw:742000, change:"+1.6%", title:"수출 수주와 방산 산업 성장 기대가 뉴스에 반영됐습니다.", source:"예시 데이터"},
+  "NVDA": {price:"Example $168.20", raw:168.2, change:"+1.8%", title:"AI accelerator demand and data-center spending remain in focus.", source:"Fallback data"},
+  "MSFT": {price:"Example $515.40", raw:515.4, change:"+0.6%", title:"Cloud and AI service expansion continues to attract attention.", source:"Fallback data"},
+  "TSLA": {price:"Example $322.10", raw:322.1, change:"-1.1%", title:"Deliveries, margins and autonomous-driving progress are in focus.", source:"Fallback data"},
+  "AAPL": {price:"Example $224.70", raw:224.7, change:"+0.3%", title:"Device demand and on-device AI strategy remain key themes.", source:"Fallback data"},
+  "AMZN": {price:"Example $236.80", raw:236.8, change:"+0.9%", title:"AWS growth and AI infrastructure investment are being watched.", source:"Fallback data"}
+};
+
+let state = {
+  market:"all",
+  items:[],
+  favorites:new Set(JSON.parse(localStorage.getItem("hi-v6-favorites")||"[]"))
+};
+
+const $ = s => document.querySelector(s);
+const cards = $("#cards");
+const loader = $("#loader");
+
+function parsePct(v){
+  const n = parseFloat(String(v).replace("%",""));
+  return Number.isFinite(n) ? n : 0;
+}
+function scoreText(text, change){
+  const positive = ["상승","확대","성장","호조","수주","돌파","기대","개선","증가","강세","record","growth","beat","surge","expand","strong","rally"];
+  const negative = ["하락","감소","부진","우려","손실","급락","약세","규제","둔화","fall","decline","miss","weak","risk","probe","drop"];
+  let score = 64 + Math.max(-12, Math.min(12, parsePct(change)*3));
+  const t = (text||"").toLowerCase();
+  positive.forEach(k=>{ if(t.includes(k.toLowerCase())) score += 3; });
+  negative.forEach(k=>{ if(t.includes(k.toLowerCase())) score -= 4; });
+  return Math.max(30, Math.min(96, Math.round(score)));
+}
+function scoreClass(n){return n>=80?"high":n>=60?"mid":"low"}
+function changeClass(v){return String(v).includes("-")?"down":String(v).includes("+")?"up":"flat"}
+function signalFor(score){
+  if(score>=85) return {label:"매우 높은 관심", stars:5, cls:"high"};
+  if(score>=75) return {label:"높은 관심", stars:4, cls:"high"};
+  if(score>=60) return {label:"보통 관심", stars:3, cls:"mid"};
+  if(score>=45) return {label:"관망", stars:2, cls:"mid"};
+  return {label:"주의", stars:1, cls:"low"};
+}
+function formatLevel(raw, market, pct){
+  if(!raw) return "-";
+  const val = raw*(1+pct/100);
+  return market==="kr" ? Math.round(val/100)*100 .toLocaleString?.() : "$"+val.toFixed(2);
+}
+function priceLevel(raw, market, pct){
+  if(!raw) return "-";
+  const val = raw*(1+pct/100);
+  if(market==="kr") return Math.round(val/100)*100 .toLocaleString("ko-KR")+"원";
+  return "$"+val.toFixed(2);
+}
+async function fetchPrice(ticker){
+  const target = `https://query1.finance.yahoo.com/v8/finance/chart/${encodeURIComponent(ticker)}?range=1d&interval=5m`;
+  const url = `https://corsproxy.io/?${encodeURIComponent(target)}`;
+  const r = await fetch(url, {cache:"no-store"});
+  if(!r.ok) throw new Error("price");
+  const j = await r.json();
+  const meta = j?.chart?.result?.[0]?.meta;
+  if(!meta || !meta.regularMarketPrice) throw new Error("price");
+  const p = meta.regularMarketPrice;
+  const prev = meta.chartPreviousClose || meta.previousClose || p;
+  const pct = prev ? ((p-prev)/prev*100) : 0;
+  const kr = ticker.endsWith(".KS") || ticker.endsWith(".KQ");
+  return {
+    raw:p,
+    price: kr ? Math.round(p).toLocaleString("ko-KR")+"원" : "$"+Number(p).toFixed(2),
+    change:(pct>=0?"+":"")+pct.toFixed(2)+"%"
+  };
+}
+async function fetchNews(stock){
+  const rss = `https://news.google.com/rss/search?q=${encodeURIComponent(stock.query)}&hl=${stock.market==="kr"?"ko":"en"}&gl=${stock.market==="kr"?"KR":"US"}&ceid=${stock.market==="kr"?"KR:ko":"US:en"}`;
+  const url = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(rss)}`;
+  const r = await fetch(url, {cache:"no-store"});
+  if(!r.ok) throw new Error("news");
+  const j = await r.json();
+  const item = j?.items?.[0];
+  if(!item) throw new Error("news");
+  return {title:item.title, link:item.link, source:item.author || "Google News", pubDate:item.pubDate};
+}
+async function buildItem(stock){
+  const fb = FALLBACK[stock.ticker];
+  let liveParts = 0;
+  let price = {price:fb.price, raw:fb.raw, change:fb.change};
+  let news = {title:fb.title, link:"#", source:fb.source, pubDate:""};
+  try{ price = await fetchPrice(stock.ticker); liveParts++; }catch(e){}
+  try{ news = await fetchNews(stock); liveParts++; }catch(e){}
+  const score = scoreText(news.title, price.change);
+  return {...stock, ...price, ...news, score, liveParts};
+}
+function render(){
+  const q = $("#searchInput").value.trim().toLowerCase();
+  let list = state.items.filter(x => {
+    if(state.market==="fav") return state.favorites.has(x.ticker);
+    return state.market==="all" || x.market===state.market;
+  });
+  if(q) list = list.filter(x => [x.name,x.ticker,x.title,x.related.join(" ")].join(" ").toLowerCase().includes(q));
+  list = list.sort((a,b)=>b.score-a.score);
+  cards.innerHTML = "";
+  if(!list.length){
+    cards.innerHTML = '<div class="empty">표시할 종목이 없습니다.</div>';
+    return;
+  }
+  list.forEach((x,i)=>{
+    const sig = signalFor(x.score);
+    const stars = "★".repeat(sig.stars)+"☆".repeat(5-sig.stars);
+    const fav = state.favorites.has(x.ticker);
+    const targetPct = x.score>=80 ? 4 : x.score>=65 ? 2.5 : 1.5;
+    const stopPct = x.score>=80 ? -3 : -4;
+    const el = document.createElement("article");
+    el.className="card";
+    const safeLink = x.link && x.link!=="#" ? x.link : "#";
+    el.innerHTML = `
+      <button class="fav-btn ${fav?"on":""}" data-fav="${x.ticker}" aria-label="관심종목">${fav?"★":"☆"}</button>
+      <div class="card-head">
+        <div class="rank">${i+1}</div>
+        <div class="title-wrap">
+          <h3 class="stock-name">${x.name}</h3>
+          <div class="ticker">${x.market==="kr"?"한국":"미국"} · ${x.ticker}</div>
+        </div>
+        <div class="score ${scoreClass(x.score)}"><strong>${x.score}</strong><small>종합점수</small></div>
+      </div>
+      <div class="signal">
+        <span class="signal-badge ${sig.cls}">${sig.label}</span>
+        <span class="stars">${stars}</span>
+      </div>
+      <div class="price-row">
+        <span class="price">${x.price}</span>
+        <span class="change ${changeClass(x.change)}">${x.change}</span>
+      </div>
+      <div class="levels">
+        <div class="level"><span>참고 목표 범위</span><strong>${priceLevel(x.raw,x.market,targetPct)}</strong></div>
+        <div class="level"><span>참고 방어선</span><strong>${priceLevel(x.raw,x.market,stopPct)}</strong></div>
+      </div>
+      <p class="headline">${safeLink==="#" ? x.title : `<a href="${safeLink}" target="_blank" rel="noopener">${x.title}</a>`}</p>
+      <p class="summary">뉴스 제목의 긍정·부정 키워드, 가격 변동률, 시장 관심도를 단순 합산했습니다.</p>
+      <div class="tags">${x.related.map(v=>`<span class="tag">${v}</span>`).join("")}</div>
+      <div class="meta"><span>${x.source}</span><span>${x.liveParts===2?"실시간":"일부 또는 예시 데이터"}</span></div>`;
+    cards.appendChild(el);
+  });
+  document.querySelectorAll("[data-fav]").forEach(btn=>btn.addEventListener("click",()=>{
+    const t=btn.dataset.fav;
+    state.favorites.has(t)?state.favorites.delete(t):state.favorites.add(t);
+    localStorage.setItem("hi-v6-favorites",JSON.stringify([...state.favorites]));
+    updateFavCount();
+    render();
+  }));
+}
+function updateFavCount(){ $("#favCount").textContent=state.favorites.size; }
+function updateBreaking(){
+  if(!state.items.length) return;
+  const top=[...state.items].sort((a,b)=>b.score-a.score)[0];
+  $("#breakingTitle").textContent=`${top.name} · ${top.title}`;
+  $("#breakingMeta").textContent=`종합점수 ${top.score}점 · ${top.source}`;
+}
+async function refresh(){
+  $("#refreshBtn").disabled=true; loader.classList.add("on");
+  const items = await Promise.all(STOCKS.map(buildItem));
+  state.items = items;
+  const fullLive = items.filter(x=>x.liveParts===2).length;
+  const someLive = items.filter(x=>x.liveParts>0).length;
+  $("#modeBadge").textContent = fullLive===items.length ? "전체 실시간" : someLive>0 ? `실시간 ${someLive}/10` : "예시 데이터 모드";
+  $("#updatedBadge").textContent = new Date().toLocaleTimeString("ko-KR",{hour:"2-digit",minute:"2-digit"})+" 업데이트";
+  loader.classList.remove("on"); $("#refreshBtn").disabled=false;
+  updateBreaking(); render();
+}
+function setMarket(m){
+  state.market=m;
+  document.querySelectorAll("[data-market]").forEach(b=>b.classList.toggle("active",b.dataset.market===m));
+  render();
+}
+function updateCountdown(){
+  const now = new Date();
+  const ny = new Date(now.toLocaleString("en-US",{timeZone:"America/New_York"}));
+  const day = ny.getDay();
+  let target = new Date(ny);
+  target.setHours(9,30,0,0);
+  let stateText = "미국장 개장 전";
+  if(day===0){ target.setDate(target.getDate()+1); }
+  if(day===6){ target.setDate(target.getDate()+2); }
+  if(day>=1 && day<=5 && ny.getHours()>=16){
+    target.setDate(target.getDate()+1);
+    if(target.getDay()===6) target.setDate(target.getDate()+2);
+    stateText = "미국장 마감";
+  }else if(day>=1 && day<=5 && ny>=target && ny.getHours()<16){
+    const close=new Date(ny); close.setHours(16,0,0,0);
+    const diff=close-ny;
+    const h=String(Math.floor(diff/3600000)).padStart(2,"0");
+    const m=String(Math.floor((diff%3600000)/60000)).padStart(2,"0");
+    const s=String(Math.floor((diff%60000)/1000)).padStart(2,"0");
+    $("#countdown").textContent=`장중 ${h}:${m}:${s}`;
+    $("#marketState").textContent="미국 정규장 진행 중";
+    return;
+  }else if(day>=1 && day<=5 && ny<target){
+    stateText="미국장 개장 전";
+  }
+  while(target.getDay()===0 || target.getDay()===6) target.setDate(target.getDate()+1);
+  const diff=Math.max(0,target-ny);
+  const h=String(Math.floor(diff/3600000)).padStart(2,"0");
+  const m=String(Math.floor((diff%3600000)/60000)).padStart(2,"0");
+  const s=String(Math.floor((diff%60000)/1000)).padStart(2,"0");
+  $("#countdown").textContent=`${h}:${m}:${s}`;
+  $("#marketState").textContent=stateText+" · 뉴욕 시간 기준";
+}
+document.querySelectorAll("[data-market]").forEach(b=>b.addEventListener("click",()=>setMarket(b.dataset.market)));
+$("#searchInput").addEventListener("input",render);
+$("#refreshBtn").addEventListener("click",refresh);
+updateFavCount();
+updateCountdown();
+setInterval(updateCountdown,1000);
+if("serviceWorker" in navigator){window.addEventListener("load",()=>navigator.serviceWorker.register("./sw.js").catch(()=>{}));}
+refresh();
+</script>
+</body>
+</html>
