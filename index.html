@@ -2,247 +2,208 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#13253d">
-<meta name="description" content="한국·미국 주식 뉴스와 현재가, 관심도 점수, 급등 감지, 관심종목을 한 화면에서 보는 모바일 웹앱">
-<link rel="manifest" href="./manifest.json">
-<link rel="icon" href="./icon.svg">
-<title>Hi Ultimate Mobile V8</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hi Ultimate V11.0</title>
+
 <style>
-:root{
-  --navy:#13253d;--blue:#2563eb;--bg:#f3f6fa;--card:#fff;--line:#dbe3ed;
-  --text:#152033;--muted:#6c7888;--red:#d63333;--green:#087f5b;--amber:#e67700;
-  --shadow:0 10px 28px rgba(20,42,74,.09)
-}
 *{box-sizing:border-box}
-html,body{margin:0;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Noto Sans KR","Malgun Gothic",Arial,sans-serif}
-button,input{font:inherit}
-header{background:linear-gradient(135deg,#13253d,#0e1c30);color:#fff;padding:21px 15px 22px}
-.head{max-width:1080px;margin:auto}
-h1{font-size:29px;margin:0 0 8px}
-.sub{font-size:14px;font-weight:800;opacity:.95}
-.badges{display:flex;gap:7px;flex-wrap:wrap;margin-top:12px}
-.badge{font-size:12px;padding:7px 10px;border-radius:999px;border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.1)}
-.loader{height:3px;margin-top:11px;border-radius:5px;display:none;background:linear-gradient(90deg,transparent,#7db2ff,transparent);background-size:200% 100%;animation:m 1.2s linear infinite}
-.loader.on{display:block}@keyframes m{to{background-position:-200% 0}}
-main{max-width:1080px;margin:auto;padding:14px 14px 100px}
-.alert{background:#fff5f5;border:1px solid #ffc9c9;border-left:6px solid var(--red);border-radius:17px;padding:14px 16px;box-shadow:var(--shadow);margin-bottom:13px}
-.alert b{display:block;color:var(--red);margin-bottom:5px}
-.alert-title{font-weight:900;line-height:1.45}
-.alert-meta{font-size:12px;color:var(--muted);margin-top:6px}
-.hero-grid{display:grid;grid-template-columns:1fr;gap:12px;margin-bottom:14px}
-.summary-card,.toolbar,.top-card,.stock-card{background:#fff;border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow)}
-.summary-card{padding:14px}
-.summary-card h3{font-size:13px;color:#44536a;margin:0 0 6px}
-.big{font-size:27px;font-weight:900}
-.small{font-size:12px;color:var(--muted);margin-top:4px}
-.toolbar{padding:13px;margin-bottom:15px}
-.row{display:flex;justify-content:space-between;align-items:center;gap:9px;flex-wrap:wrap}
-.tabs{display:flex;gap:7px;flex-wrap:wrap}
-.tab,.refresh{border:0;border-radius:11px;padding:10px 14px;font-weight:900;cursor:pointer}
-.tab{background:#e9eef5;color:#29405f}.tab.active{background:var(--navy);color:#fff}
-.refresh{background:var(--blue);color:#fff}.refresh:disabled{opacity:.5}
-.search{width:100%;margin-top:10px;border:1px solid var(--line);border-radius:11px;padding:12px 13px}
-.section-title{display:flex;justify-content:space-between;align-items:end;gap:10px;margin:18px 2px 10px}
-.section-title h2{font-size:20px;margin:0}.section-title span{font-size:12px;color:var(--muted);text-align:right}
-.top3{display:grid;grid-template-columns:1fr;gap:12px}
-.top-card{padding:15px;position:relative}
-.medal{position:absolute;right:14px;top:14px;font-size:26px}
-.top-rank{font-size:12px;font-weight:900;color:var(--blue)}
-.top-name{font-size:22px;font-weight:900;margin:5px 0 2px}
-.ticker{font-size:12px;color:var(--muted)}
-.scoreline{display:flex;align-items:end;justify-content:space-between;gap:10px;margin:12px 0}
-.scorebig{font-size:35px;font-weight:900}
-.signal{font-size:12px;font-weight:900;padding:8px 10px;border-radius:999px}
-.high{background:#e6fcf5;color:var(--green)}.mid{background:#fff4e6;color:var(--amber)}.low{background:#fff0f0;color:var(--red)}
-.price{font-size:22px;font-weight:900}.up{color:var(--red);font-weight:900}.down{color:var(--blue);font-weight:900}
-.progress{height:9px;background:#e9eef4;border-radius:999px;overflow:hidden;margin-top:10px}
-.progress i{display:block;height:100%;background:linear-gradient(90deg,#4dabf7,#2563eb)}
-.grid{display:grid;grid-template-columns:1fr;gap:12px}
-.stock-card{padding:15px;position:relative}
-.fav{position:absolute;right:13px;top:13px;width:37px;height:37px;border:0;border-radius:50%;background:#edf2f7;font-size:19px;cursor:pointer}
-.fav.on{background:#fff3bf;color:#f08c00}
-.card-head{display:flex;gap:10px;padding-right:44px;align-items:flex-start}
-.rank{width:32px;height:32px;display:grid;place-items:center;border-radius:10px;background:#eef3f8;font-weight:900}
-.namebox{flex:1}.name{font-size:18px;font-weight:900}
-.scorebox{min-width:65px;text-align:center;padding:8px;border-radius:13px;background:#fff4e6;color:var(--amber)}
-.scorebox strong{font-size:22px;display:block}.scorebox small{font-size:10px}
-.price-row{display:flex;gap:10px;align-items:baseline;margin:13px 0 8px;flex-wrap:wrap}
-.impact{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:10px 0}
-.impact div{background:#f7f9fc;border:1px solid var(--line);border-radius:12px;padding:10px}
-.impact span{display:block;font-size:11px;color:var(--muted);margin-bottom:4px}.impact strong{font-size:14px}
-.headline{font-size:15px;font-weight:900;line-height:1.45;margin:9px 0}.headline a{color:inherit;text-decoration:none}
-.desc{font-size:13px;color:#48566b;line-height:1.55}
-.tags{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}.tag{background:#eef3f8;border-radius:999px;padding:6px 8px;font-size:11px;font-weight:800}
-.meta{display:flex;justify-content:space-between;gap:8px;margin-top:12px;color:var(--muted);font-size:11px}
-.empty{text-align:center;padding:28px;background:#fff;border:1px dashed #b9c4d1;border-radius:16px;color:var(--muted)}
-.note{font-size:12px;color:var(--muted);line-height:1.55;padding:12px 4px}
-.bottom{position:fixed;left:0;right:0;bottom:0;background:rgba(255,255,255,.96);backdrop-filter:blur(10px);border-top:1px solid var(--line);padding:8px 12px calc(8px + env(safe-area-inset-bottom));z-index:20}
-.bottom-inner{max-width:1080px;margin:auto;display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
-.nav{border:0;border-radius:12px;padding:10px 5px;background:#edf2f7;color:#334b67;font-weight:900}.nav.active{background:var(--navy);color:#fff}
-@media(min-width:760px){.hero-grid{grid-template-columns:repeat(3,1fr)}.top3{grid-template-columns:repeat(3,1fr)}.grid{grid-template-columns:1fr 1fr}}
+body{
+ margin:0;
+ font-family:Arial,"Noto Sans KR",sans-serif;
+ background:#f5f7fb;
+ color:#222;
+}
+header{
+ background:#123b7a;
+ color:white;
+ padding:20px;
+ text-align:center;
+ font-size:22px;
+ font-weight:bold;
+}
+.container{
+ padding:15px;
+}
+.card{
+ background:white;
+ border-radius:15px;
+ padding:15px;
+ margin-bottom:15px;
+ box-shadow:0 3px 8px #ddd;
+}
+.market{
+ display:flex;
+ gap:10px;
+}
+.market div{
+ flex:1;
+ text-align:center;
+}
+.up{color:red}
+.down{color:blue}
+
+.stock{
+ display:flex;
+ justify-content:space-between;
+ padding:12px;
+ border-bottom:1px solid #eee;
+ cursor:pointer;
+}
+.score{
+ background:#16a34a;
+ color:white;
+ padding:5px 10px;
+ border-radius:20px;
+}
+
+button{
+ width:100%;
+ padding:15px;
+ border:0;
+ border-radius:10px;
+ background:#123b7a;
+ color:white;
+ font-size:16px;
+}
+
+#detail{
+ display:none;
+}
+
+nav{
+ position:fixed;
+ bottom:0;
+ left:0;
+ right:0;
+ background:white;
+ display:flex;
+ justify-content:space-around;
+ padding:12px;
+ border-top:1px solid #ddd;
+}
 </style>
 </head>
+
 <body>
+
 <header>
-<div class="head">
-<h1>Hi Ultimate Mobile V8</h1>
-<div class="sub">한국·미국 뉴스 · TOP3 · 급등 감지 · 관련 대장주 · 관심종목</div>
-<div class="badges">
-<span class="badge" id="liveBadge">실시간 연결 중</span>
-<span class="badge" id="timeBadge">업데이트 대기</span>
-<span class="badge">정보 제공용 · 자동주문 없음</span>
-</div>
-<div class="loader" id="loader"></div>
-</div>
+📈 Hi Ultimate V11.0
+<br>
+AI 주식 도우미
 </header>
 
-<main>
-<section class="alert">
-<b>🔴 주요 뉴스·급등 감지</b>
-<div class="alert-title" id="alertTitle">데이터를 불러오는 중입니다.</div>
-<div class="alert-meta" id="alertMeta">잠시만 기다려 주세요.</div>
-</section>
+<div class="container">
 
-<section class="hero-grid">
-<div class="summary-card"><h3>현재 최고 관심도</h3><div class="big" id="bestScore">--점</div><div class="small" id="bestName">분석 중</div></div>
-<div class="summary-card"><h3>급등 감지</h3><div class="big" id="surgeCount">0개</div><div class="small">당일 변동률 +3% 이상</div></div>
-<div class="summary-card"><h3>관심종목</h3><div class="big"><span id="favCount">0</span>개</div><div class="small">별표를 누르면 저장됩니다.</div></div>
-</section>
-
-<section class="toolbar">
-<div class="row">
-<div class="tabs">
-<button class="tab active" data-market="all">통합</button>
-<button class="tab" data-market="kr">한국</button>
-<button class="tab" data-market="us">미국</button>
-<button class="tab" data-market="fav">관심</button>
+<div class="card market">
+<div>
+📈 코스피<br>
+<b>2985.41</b><br>
+<span class="up">▲0.83%</span>
 </div>
-<button class="refresh" id="refreshBtn">새로고침</button>
+
+<div>
+📊 코스닥<br>
+<b>812.55</b><br>
+<span class="down">▼0.15%</span>
 </div>
-<input class="search" id="searchInput" placeholder="종목명·티커·뉴스 검색">
-</section>
+</div>
 
-<div class="section-title"><h2>오늘의 AI 관심도 TOP 3</h2><span>뉴스 제목·가격 변동률 기반 참고 점수</span></div>
-<section class="top3" id="top3"></section>
 
-<div class="section-title"><h2>전체 TOP 10</h2><span>실시간 연결 실패 시 예시 데이터 표시</span></div>
-<section class="grid" id="cards"></section>
+<div id="home">
 
-<p class="note">
-V8은 브라우저에서 뉴스 제목과 가격 변동률을 단순 분석합니다. 실제 인공지능 서버가 수백 건의 뉴스를 종합 분석하는 구조는 아닙니다.
-점수와 신호는 투자 권유나 수익 보장이 아니며, 투자 전 공시와 재무정보를 반드시 확인하세요.
-</p>
-</main>
+<div class="card">
+<h3>🔥 AI 추천 종목</h3>
 
-<nav class="bottom"><div class="bottom-inner">
-<button class="nav active" data-market="all">전체</button>
-<button class="nav" data-market="kr">한국</button>
-<button class="nav" data-market="us">미국</button>
-<button class="nav" data-market="fav">관심</button>
-</div></nav>
+<div class="stock" onclick="show('삼성전자',92)">
+삼성전자
+<span class="score">92점</span>
+</div>
+
+<div class="stock" onclick="show('SK하이닉스',89)">
+SK하이닉스
+<span class="score">89점</span>
+</div>
+
+<div class="stock" onclick="show('두산에너빌리티',95)">
+두산에너빌리티
+<span class="score">95점</span>
+</div>
+
+<div class="stock" onclick="show('한화에어로스페이스',91)">
+한화에어로스페이스
+<span class="score">91점</span>
+</div>
+
+<div class="stock" onclick="show('알테오젠',88)">
+알테오젠
+<span class="score">88점</span>
+</div>
+
+</div>
+
+
+<div class="card">
+<h3>📰 오늘 뉴스</h3>
+<p>• AI 반도체 성장 기대</p>
+<p>• 외국인 순매수 확대</p>
+<p>• 기관 관심 증가</p>
+</div>
+
+</div>
+
+
+<div id="detail" class="card">
+
+<h2 id="name"></h2>
+
+<h3>
+AI 점수 :
+<span id="score"></span>점
+</h3>
+
+<hr>
+
+<p>📈 이동평균선 : 양호</p>
+<p>📊 거래량 : 증가</p>
+<p>🌎 외국인 : 매수</p>
+<p>🏦 기관 : 매수</p>
+<p>📰 뉴스 : 호재</p>
+
+<br>
+
+<button onclick="back()">목록으로</button>
+
+</div>
+
+
+</div>
+
+
+<nav>
+🏠 홈
+⭐ 관심
+🔔 알림
+📰 뉴스
+⚙ 설정
+</nav>
+
 
 <script>
-const STOCKS=[
-{market:"kr",name:"삼성전자",ticker:"005930.KS",query:"삼성전자 주식",related:["SK하이닉스","한미반도체","ISC","테크윙","원익IPS","이오테크닉스"]},
-{market:"kr",name:"SK하이닉스",ticker:"000660.KS",query:"SK하이닉스 주식",related:["한미반도체","테크윙","HPSP","유진테크","피에스케이","ISC"]},
-{market:"kr",name:"NAVER",ticker:"035420.KS",query:"네이버 AI 주식",related:["카카오","더존비즈온","솔트룩스","마음AI","한글과컴퓨터","가비아"]},
-{market:"kr",name:"현대차",ticker:"005380.KS",query:"현대차 주식",related:["기아","현대모비스","HL만도","에스엘","화신","성우하이텍"]},
-{market:"kr",name:"한화에어로스페이스",ticker:"012450.KS",query:"한화에어로스페이스 방산",related:["LIG넥스원","현대로템","한국항공우주","풍산","한화시스템","SNT다이내믹스"]},
-{market:"us",name:"NVIDIA",ticker:"NVDA",query:"NVIDIA stock AI",related:["AMD","TSM","AVGO","MU","SMCI","ARM"]},
-{market:"us",name:"Microsoft",ticker:"MSFT",query:"Microsoft stock AI",related:["GOOGL","AMZN","ORCL","CRM","NOW","NVDA"]},
-{market:"us",name:"Tesla",ticker:"TSLA",query:"Tesla stock",related:["RIVN","GM","F","UBER","MBLY","NVDA"]},
-{market:"us",name:"Apple",ticker:"AAPL",query:"Apple stock AI",related:["QCOM","TSM","AVGO","SWKS","QRVO","ARM"]},
-{market:"us",name:"Amazon",ticker:"AMZN",query:"Amazon stock cloud",related:["MSFT","GOOGL","ORCL","SHOP","META","NFLX"]}
-];
-const FB={
-"005930.KS":{price:"예시 82,400원",raw:82400,change:"+1.2%",title:"HBM·AI 반도체 투자 확대 기대가 이어지고 있습니다.",source:"예시 데이터"},
-"000660.KS":{price:"예시 236,500원",raw:236500,change:"+2.0%",title:"고대역폭메모리 수요와 공급 전망이 관심을 받고 있습니다.",source:"예시 데이터"},
-"035420.KS":{price:"예시 205,000원",raw:205000,change:"+0.7%",title:"생성형 AI 서비스와 광고 플랫폼 개선 기대가 부각됐습니다.",source:"예시 데이터"},
-"005380.KS":{price:"예시 230,000원",raw:230000,change:"-0.4%",title:"전기차와 하이브리드 판매 전망이 함께 주목됩니다.",source:"예시 데이터"},
-"012450.KS":{price:"예시 742,000원",raw:742000,change:"+1.6%",title:"방산 수출 수주와 산업 성장 기대가 뉴스에 반영됐습니다.",source:"예시 데이터"},
-"NVDA":{price:"Example $168.20",raw:168.2,change:"+1.8%",title:"AI accelerator demand and data-center spending remain in focus.",source:"Fallback data"},
-"MSFT":{price:"Example $515.40",raw:515.4,change:"+0.6%",title:"Cloud and AI service expansion continues to attract attention.",source:"Fallback data"},
-"TSLA":{price:"Example $322.10",raw:322.1,change:"-1.1%",title:"Deliveries, margins and autonomous-driving progress are in focus.",source:"Fallback data"},
-"AAPL":{price:"Example $224.70",raw:224.7,change:"+0.3%",title:"Device demand and on-device AI strategy remain key themes.",source:"Fallback data"},
-"AMZN":{price:"Example $236.80",raw:236.8,change:"+0.9%",title:"AWS growth and AI infrastructure investment are being watched.",source:"Fallback data"}
-};
-let state={market:"all",items:[],favorites:new Set(JSON.parse(localStorage.getItem("hi-v8-favorites")||"[]"))};
-const $=s=>document.querySelector(s);
-function pct(v){const n=parseFloat(String(v).replace("%",""));return Number.isFinite(n)?n:0}
-function calcScore(text,change){
-let s=64+Math.max(-15,Math.min(15,pct(change)*3.2));
-const t=(text||"").toLowerCase();
-["상승","확대","성장","호조","수주","돌파","기대","개선","증가","강세","record","growth","beat","surge","strong","rally"].forEach(k=>{if(t.includes(k))s+=3});
-["하락","감소","부진","우려","손실","급락","약세","규제","둔화","fall","decline","miss","weak","risk","drop"].forEach(k=>{if(t.includes(k))s-=4});
-return Math.max(30,Math.min(97,Math.round(s)));
+
+function show(n,s){
+ document.getElementById("home").style.display="none";
+ document.getElementById("detail").style.display="block";
+
+ document.getElementById("name").innerHTML=n;
+ document.getElementById("score").innerHTML=s;
 }
-function signal(score){return score>=82?["매우 높은 관심","high"]:score>=72?["높은 관심","high"]:score>=58?["보통 관심","mid"]:["주의","low"]}
-function cclass(v){return String(v).includes("-")?"down":"up"}
-async function price(ticker){
-const target=`https://query1.finance.yahoo.com/v8/finance/chart/${encodeURIComponent(ticker)}?range=1d&interval=5m`;
-const r=await fetch(`https://corsproxy.io/?${encodeURIComponent(target)}`,{cache:"no-store"});
-if(!r.ok)throw 0;const j=await r.json();const m=j?.chart?.result?.[0]?.meta;if(!m?.regularMarketPrice)throw 0;
-const p=m.regularMarketPrice,prev=m.chartPreviousClose||m.previousClose||p,pc=(p-prev)/prev*100,kr=ticker.endsWith(".KS")||ticker.endsWith(".KQ");
-return{raw:p,price:kr?Math.round(p).toLocaleString("ko-KR")+"원":"$"+p.toFixed(2),change:(pc>=0?"+":"")+pc.toFixed(2)+"%"};
+
+function back(){
+ document.getElementById("home").style.display="block";
+ document.getElementById("detail").style.display="none";
 }
-async function news(s){
-const rss=`https://news.google.com/rss/search?q=${encodeURIComponent(s.query)}&hl=${s.market==="kr"?"ko":"en"}&gl=${s.market==="kr"?"KR":"US"}&ceid=${s.market==="kr"?"KR:ko":"US:en"}`;
-const r=await fetch(`https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(rss)}`,{cache:"no-store"});
-if(!r.ok)throw 0;const j=await r.json();const i=j?.items?.[0];if(!i)throw 0;
-return{title:i.title,link:i.link,source:i.author||"Google News"};
-}
-async function build(s){
-const f=FB[s.ticker];let p={price:f.price,raw:f.raw,change:f.change},n={title:f.title,link:"#",source:f.source},live=0;
-try{p=await price(s.ticker);live++}catch(e){}try{n=await news(s);live++}catch(e){}
-return{...s,...p,...n,live,score:calcScore(n.title,p.change)};
-}
-function filtered(){
-const q=$("#searchInput").value.trim().toLowerCase();
-let a=state.items.filter(x=>state.market==="fav"?state.favorites.has(x.ticker):state.market==="all"||x.market===state.market);
-if(q)a=a.filter(x=>[x.name,x.ticker,x.title,x.related.join(" ")].join(" ").toLowerCase().includes(q));
-return a.sort((a,b)=>b.score-a.score);
-}
-function renderTop(){
-const list=filtered().slice(0,3),medals=["🥇","🥈","🥉"];$("#top3").innerHTML=list.length?list.map((x,i)=>{
-const sg=signal(x.score);return`<article class="top-card"><div class="medal">${medals[i]}</div><div class="top-rank">TOP ${i+1}</div><div class="top-name">${x.name}</div><div class="ticker">${x.market==="kr"?"한국":"미국"} · ${x.ticker}</div><div class="scoreline"><div><span class="scorebig">${x.score}</span>점</div><span class="signal ${sg[1]}">${sg[0]}</span></div><div><span class="price">${x.price}</span> <span class="${cclass(x.change)}">${x.change}</span></div><div class="progress"><i style="width:${x.score}%"></i></div></article>`
-}).join(""):'<div class="empty">표시할 종목이 없습니다.</div>';
-}
-function renderCards(){
-const list=filtered();$("#cards").innerHTML=list.length?list.map((x,i)=>{
-const sg=signal(x.score),fav=state.favorites.has(x.ticker),impact=Math.min(98,Math.max(35,x.score+Math.round(Math.abs(pct(x.change))*2)));
-return`<article class="stock-card">
-<button class="fav ${fav?"on":""}" data-fav="${x.ticker}">${fav?"★":"☆"}</button>
-<div class="card-head"><div class="rank">${i+1}</div><div class="namebox"><div class="name">${x.name}</div><div class="ticker">${x.market==="kr"?"한국":"미국"} · ${x.ticker}</div></div><div class="scorebox"><strong>${x.score}</strong><small>관심도</small></div></div>
-<div class="price-row"><span class="price">${x.price}</span><span class="${cclass(x.change)}">${x.change}</span><span class="signal ${sg[1]}">${sg[0]}</span></div>
-<div class="impact"><div><span>뉴스 영향도</span><strong>${impact}%</strong></div><div><span>급등 감지</span><strong>${pct(x.change)>=3?"감지됨":"해당 없음"}</strong></div></div>
-<div class="headline">${x.link!=="#"?`<a href="${x.link}" target="_blank" rel="noopener">${x.title}</a>`:x.title}</div>
-<div class="desc">뉴스 제목과 당일 가격 변동률을 바탕으로 참고 점수를 계산했습니다.</div>
-<div class="tags">${x.related.map(t=>`<span class="tag">${t}</span>`).join("")}</div>
-<div class="meta"><span>${x.source}</span><span>${x.live===2?"실시간":"일부 또는 예시"}</span></div></article>`
-}).join(""):'<div class="empty">표시할 종목이 없습니다.</div>';
-document.querySelectorAll("[data-fav]").forEach(b=>b.onclick=()=>{const t=b.dataset.fav;state.favorites.has(t)?state.favorites.delete(t):state.favorites.add(t);localStorage.setItem("hi-v8-favorites",JSON.stringify([...state.favorites]));updateSummary();render()});
-}
-function updateSummary(){
-const sorted=[...state.items].sort((a,b)=>b.score-a.score),top=sorted[0];
-$("#bestScore").textContent=top?top.score+"점":"--점";$("#bestName").textContent=top?top.name:"분석 중";
-$("#surgeCount").textContent=state.items.filter(x=>pct(x.change)>=3).length+"개";$("#favCount").textContent=state.favorites.size;
-if(top){$("#alertTitle").textContent=`${top.name} · ${top.title}`;$("#alertMeta").textContent=`관심도 ${top.score}점 · ${top.change} · ${top.source}`;}
-}
-function render(){renderTop();renderCards()}
-function setMarket(m){state.market=m;document.querySelectorAll("[data-market]").forEach(b=>b.classList.toggle("active",b.dataset.market===m));render()}
-async function refresh(){
-$("#refreshBtn").disabled=true;$("#loader").classList.add("on");
-state.items=await Promise.all(STOCKS.map(build));
-const some=state.items.filter(x=>x.live>0).length,full=state.items.filter(x=>x.live===2).length;
-$("#liveBadge").textContent=full===10?"전체 실시간":some?`실시간 ${some}/10`:"예시 데이터 모드";
-$("#timeBadge").textContent=new Date().toLocaleTimeString("ko-KR",{hour:"2-digit",minute:"2-digit"})+" 업데이트";
-$("#loader").classList.remove("on");$("#refreshBtn").disabled=false;updateSummary();render();
-}
-document.querySelectorAll("[data-market]").forEach(b=>b.onclick=()=>setMarket(b.dataset.market));
-$("#searchInput").oninput=render;$("#refreshBtn").onclick=refresh;
-if("serviceWorker" in navigator)window.addEventListener("load",()=>navigator.serviceWorker.register("./sw.js").catch(()=>{}));
-refresh();
+
 </script>
+
 </body>
 </html>
