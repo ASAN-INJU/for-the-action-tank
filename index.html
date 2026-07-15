@@ -3,207 +3,250 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Hi Ultimate V11.0</title>
+
+<title>V11.2.9 단타 분석 앱</title>
 
 <style>
-*{box-sizing:border-box}
+*{
+ box-sizing:border-box;
+}
+
 body{
  margin:0;
- font-family:Arial,"Noto Sans KR",sans-serif;
- background:#f5f7fb;
- color:#222;
+ font-family:Arial,sans-serif;
+ background:#f4f6f9;
+ padding-bottom:70px;
 }
+
 header{
- background:#123b7a;
+ background:#111827;
  color:white;
  padding:20px;
- text-align:center;
  font-size:22px;
  font-weight:bold;
 }
-.container{
+
+.market{
+ margin:15px;
  padding:15px;
-}
-.card{
  background:white;
  border-radius:15px;
- padding:15px;
- margin-bottom:15px;
- box-shadow:0 3px 8px #ddd;
 }
-.market{
- display:flex;
- gap:10px;
-}
-.market div{
- flex:1;
- text-align:center;
-}
-.up{color:red}
-.down{color:blue}
 
-.stock{
+.card{
+ margin:15px;
+ padding:18px;
+ background:white;
+ border-radius:18px;
+ box-shadow:0 3px 10px rgba(0,0,0,.1);
+}
+
+.rank{
+ font-size:18px;
+ font-weight:bold;
+}
+
+.name{
+ font-size:26px;
+ font-weight:bold;
+ margin:10px 0;
+}
+
+.score{
+ font-size:38px;
+ font-weight:bold;
+}
+
+.info{
  display:flex;
  justify-content:space-between;
- padding:12px;
- border-bottom:1px solid #eee;
- cursor:pointer;
+ margin-top:15px;
 }
-.score{
- background:#16a34a;
- color:white;
- padding:5px 10px;
- border-radius:20px;
+
+.signal{
+ margin-top:15px;
+ line-height:1.8;
 }
 
 button{
- width:100%;
- padding:15px;
+ padding:12px 15px;
  border:0;
  border-radius:10px;
- background:#123b7a;
- color:white;
- font-size:16px;
+ margin-top:15px;
+ margin-right:5px;
 }
 
-#detail{
- display:none;
+.detail{
+ background:#2563eb;
+ color:white;
+}
+
+.save{
+ background:#eee;
 }
 
 nav{
  position:fixed;
  bottom:0;
- left:0;
- right:0;
+ width:100%;
  background:white;
+ border-top:1px solid #ddd;
+ padding:15px;
  display:flex;
  justify-content:space-around;
- padding:12px;
- border-top:1px solid #ddd;
 }
+
 </style>
+
 </head>
+
 
 <body>
 
+
 <header>
-📈 Hi Ultimate V11.0
-<br>
-AI 주식 도우미
+🔥 오늘의 단타 추천
 </header>
 
-<div class="container">
 
-<div class="card market">
-<div>
-📈 코스피<br>
-<b>2985.41</b><br>
-<span class="up">▲0.83%</span>
-</div>
-
-<div>
-📊 코스닥<br>
-<b>812.55</b><br>
-<span class="down">▼0.15%</span>
-</div>
+<div class="market">
+📊 시장 상태 : 상승 관심<br>
+⚡ 분석 기준 : 이동평균 + 뉴스 + 거래량
 </div>
 
 
-<div id="home">
-
-<div class="card">
-<h3>🔥 AI 추천 종목</h3>
-
-<div class="stock" onclick="show('삼성전자',92)">
-삼성전자
-<span class="score">92점</span>
-</div>
-
-<div class="stock" onclick="show('SK하이닉스',89)">
-SK하이닉스
-<span class="score">89점</span>
-</div>
-
-<div class="stock" onclick="show('두산에너빌리티',95)">
-두산에너빌리티
-<span class="score">95점</span>
-</div>
-
-<div class="stock" onclick="show('한화에어로스페이스',91)">
-한화에어로스페이스
-<span class="score">91점</span>
-</div>
-
-<div class="stock" onclick="show('알테오젠',88)">
-알테오젠
-<span class="score">88점</span>
-</div>
-
-</div>
-
-
-<div class="card">
-<h3>📰 오늘 뉴스</h3>
-<p>• AI 반도체 성장 기대</p>
-<p>• 외국인 순매수 확대</p>
-<p>• 기관 관심 증가</p>
-</div>
-
-</div>
-
-
-<div id="detail" class="card">
-
-<h2 id="name"></h2>
-
-<h3>
-AI 점수 :
-<span id="score"></span>점
-</h3>
-
-<hr>
-
-<p>📈 이동평균선 : 양호</p>
-<p>📊 거래량 : 증가</p>
-<p>🌎 외국인 : 매수</p>
-<p>🏦 기관 : 매수</p>
-<p>📰 뉴스 : 호재</p>
-
-<br>
-
-<button onclick="back()">목록으로</button>
-
-</div>
-
-
-</div>
+<div id="stocks"></div>
 
 
 <nav>
-🏠 홈
-⭐ 관심
-🔔 알림
-📰 뉴스
-⚙ 설정
+🔥추천
+📊분석
+⭐관심
+⚙설정
 </nav>
+
 
 
 <script>
 
-function show(n,s){
- document.getElementById("home").style.display="none";
- document.getElementById("detail").style.display="block";
+const stocks=[
 
- document.getElementById("name").innerHTML=n;
- document.getElementById("score").innerHTML=s;
+{
+name:"삼성전자",
+score:92,
+trend:95,
+news:90,
+volume:91,
+risk:"보통"
+},
+
+{
+name:"SK하이닉스",
+score:88,
+trend:92,
+news:85,
+volume:89,
+risk:"낮음"
+},
+
+{
+name:"현대차",
+score:84,
+trend:87,
+news:82,
+volume:85,
+risk:"보통"
 }
 
-function back(){
- document.getElementById("home").style.display="block";
- document.getElementById("detail").style.display="none";
+];
+
+
+
+let html="";
+
+
+stocks.forEach((s,index)=>{
+
+
+html+=`
+
+<div class="card">
+
+<div class="rank">
+🥇 추천 ${index+1}위
+</div>
+
+
+<div class="name">
+${s.name}
+</div>
+
+
+<div class="score">
+⭐ ${s.score}점
+</div>
+
+
+<div class="info">
+<span>📈${s.trend}</span>
+<span>📰${s.news}</span>
+<span>📊${s.volume}</span>
+</div>
+
+
+<div class="signal">
+
+🟢 신호 : 관심<br>
+⚠ 위험도 : ${s.risk}
+
+</div>
+
+
+<button class="detail"
+onclick="alert('${s.name} 상세 분석 준비')">
+상세분석
+</button>
+
+
+<button class="save"
+onclick="save('${s.name}')">
+☆관심
+</button>
+
+
+</div>
+
+`;
+
+});
+
+
+document.getElementById("stocks").innerHTML=html;
+
+
+
+function save(name){
+
+let list=
+JSON.parse(localStorage.getItem("favorite")||"[]");
+
+
+list.push(name);
+
+
+localStorage.setItem(
+"favorite",
+JSON.stringify(list)
+);
+
+
+alert(name+" 관심 저장 완료");
+
 }
+
 
 </script>
+
 
 </body>
 </html>
