@@ -1,1 +1,1381 @@
-ㄹ
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<meta
+    name="theme-color"
+    content="#2563eb"
+>
+
+<title>봉사시간 기록</title>
+
+
+<style>
+
+/* =====================================
+   기본 설정
+===================================== */
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+
+    margin: 0;
+
+    padding: 15px 10px 50px;
+
+    font-family:
+    "Noto Sans KR",
+    Arial,
+    sans-serif;
+
+    background: #f3f4f6;
+
+    color: #111827;
+
+}
+
+
+/* =====================================
+   전체 컨테이너
+===================================== */
+
+.container {
+
+    width: 100%;
+
+    max-width: 480px;
+
+    margin: 0 auto;
+
+}
+
+
+/* =====================================
+   제목
+===================================== */
+
+header {
+
+    text-align: center;
+
+    margin-bottom: 20px;
+
+}
+
+header h1 {
+
+    margin: 10px 0;
+
+    font-size: 27px;
+
+}
+
+header p {
+
+    margin: 0;
+
+    color: #6b7280;
+
+}
+
+
+/* =====================================
+   통계 카드
+===================================== */
+
+.stats {
+
+    display: grid;
+
+    grid-template-columns:
+    1fr 1fr;
+
+    gap: 10px;
+
+    margin-bottom: 15px;
+
+}
+
+.stat-card {
+
+    background: white;
+
+    padding: 18px 10px;
+
+    border-radius: 15px;
+
+    text-align: center;
+
+    box-shadow:
+    0 3px 10px
+    rgba(0,0,0,0.08);
+
+}
+
+.stat-title {
+
+    font-size: 14px;
+
+    color: #6b7280;
+
+}
+
+.stat-value {
+
+    margin-top: 8px;
+
+    font-size: 23px;
+
+    font-weight: bold;
+
+    color: #2563eb;
+
+}
+
+
+/* =====================================
+   입력 카드
+===================================== */
+
+.card {
+
+    background: white;
+
+    padding: 20px;
+
+    margin-bottom: 15px;
+
+    border-radius: 15px;
+
+    box-shadow:
+    0 3px 10px
+    rgba(0,0,0,0.08);
+
+}
+
+.card h2 {
+
+    margin-top: 0;
+
+    font-size: 20px;
+
+}
+
+
+/* =====================================
+   입력
+===================================== */
+
+.form-group {
+
+    margin-bottom: 15px;
+
+}
+
+.form-group label {
+
+    display: block;
+
+    margin-bottom: 6px;
+
+    font-weight: bold;
+
+}
+
+input,
+textarea {
+
+    width: 100%;
+
+    padding: 13px;
+
+    border: 1px solid #d1d5db;
+
+    border-radius: 10px;
+
+    font-size: 16px;
+
+}
+
+textarea {
+
+    min-height: 80px;
+
+    resize: vertical;
+
+}
+
+
+/* =====================================
+   시간 입력
+===================================== */
+
+.time-row {
+
+    display: grid;
+
+    grid-template-columns:
+    1fr 1fr;
+
+    gap: 10px;
+
+}
+
+
+/* =====================================
+   예상 봉사시간
+===================================== */
+
+#calculatedTime {
+
+    padding: 12px;
+
+    margin-bottom: 15px;
+
+    background: #eff6ff;
+
+    border-radius: 10px;
+
+    text-align: center;
+
+    color: #2563eb;
+
+    font-weight: bold;
+
+}
+
+
+/* =====================================
+   버튼
+===================================== */
+
+button {
+
+    width: 100%;
+
+    padding: 14px;
+
+    border: none;
+
+    border-radius: 10px;
+
+    font-size: 16px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+}
+
+#saveBtn {
+
+    background: #2563eb;
+
+    color: white;
+
+}
+
+#saveBtn:hover {
+
+    background: #1d4ed8;
+
+}
+
+#cancelBtn {
+
+    display: none;
+
+    margin-top: 10px;
+
+    background: #6b7280;
+
+    color: white;
+
+}
+
+
+/* =====================================
+   기록 목록
+===================================== */
+
+.record {
+
+    padding: 15px 0;
+
+    border-bottom:
+    1px solid #e5e7eb;
+
+}
+
+.record:last-child {
+
+    border-bottom: none;
+
+}
+
+.record-date {
+
+    font-weight: bold;
+
+    font-size: 17px;
+
+}
+
+.record-time {
+
+    margin-top: 5px;
+
+    color: #2563eb;
+
+    font-weight: bold;
+
+}
+
+.record-content {
+
+    margin-top: 6px;
+
+    color: #4b5563;
+
+}
+
+.record-buttons {
+
+    display: flex;
+
+    gap: 8px;
+
+    margin-top: 10px;
+
+}
+
+.record-buttons button {
+
+    padding: 9px;
+
+    font-size: 14px;
+
+}
+
+.edit-btn {
+
+    background: #e5e7eb;
+
+    color: #111827;
+
+}
+
+.delete-btn {
+
+    background: #fee2e2;
+
+    color: #dc2626;
+
+}
+
+
+/* =====================================
+   기록 없음
+===================================== */
+
+.empty {
+
+    text-align: center;
+
+    padding: 30px 10px;
+
+    color: #9ca3af;
+
+}
+
+
+/* =====================================
+   모바일
+===================================== */
+
+@media (
+    max-width: 360px
+) {
+
+    header h1 {
+
+        font-size: 23px;
+
+    }
+
+    .stat-value {
+
+        font-size: 20px;
+
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<div class="container">
+
+
+<header>
+
+<h1>🕊️ 봉사시간 기록</h1>
+
+<p>나의 봉사활동을 기록하세요</p>
+
+</header>
+
+
+<!-- =================================
+     통계
+================================= -->
+
+<div class="stats">
+
+
+<div class="stat-card">
+
+<div class="stat-title">
+
+이번 달 봉사시간
+
+</div>
+
+<div
+    id="monthTotal"
+    class="stat-value"
+>
+
+0시간
+
+</div>
+
+</div>
+
+
+<div class="stat-card">
+
+<div class="stat-title">
+
+전체 누적시간
+
+</div>
+
+<div
+    id="allTotal"
+    class="stat-value"
+>
+
+0시간
+
+</div>
+
+</div>
+
+
+</div>
+
+
+<!-- =================================
+     기록 입력
+================================= -->
+
+<div class="card">
+
+<h2 id="formTitle">
+
+봉사시간 기록하기
+
+</h2>
+
+
+<div class="form-group">
+
+<label>
+
+봉사 날짜
+
+</label>
+
+<input
+    type="date"
+    id="date"
+>
+
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+
+봉사 시간
+
+</label>
+
+
+<div class="time-row">
+
+
+<input
+    type="time"
+    id="startTime"
+>
+
+
+<input
+    type="time"
+    id="endTime"
+>
+
+
+</div>
+
+</div>
+
+
+<div id="calculatedTime">
+
+봉사시간을 입력해주세요.
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+
+봉사 내용
+
+</label>
+
+<textarea
+    id="content"
+    placeholder="예: 호별 방문, 거리 봉사, 성서 연구 등"
+></textarea>
+
+</div>
+
+
+<button
+    id="saveBtn"
+>
+
+기록 저장
+
+</button>
+
+
+<button
+    id="cancelBtn"
+>
+
+수정 취소
+
+</button>
+
+
+</div>
+
+
+<!-- =================================
+     기록 목록
+================================= -->
+
+<div class="card">
+
+<h2>
+
+봉사 기록
+
+</h2>
+
+
+<div id="recordList">
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+<script>
+
+/* =====================================
+   데이터
+===================================== */
+
+let records =
+    JSON.parse(
+        localStorage.getItem(
+            "volunteerRecords"
+        )
+    ) || [];
+
+
+let editId = null;
+
+
+/* =====================================
+   화면 요소
+===================================== */
+
+const dateInput =
+    document.getElementById(
+        "date"
+    );
+
+const startInput =
+    document.getElementById(
+        "startTime"
+    );
+
+const endInput =
+    document.getElementById(
+        "endTime"
+    );
+
+const contentInput =
+    document.getElementById(
+        "content"
+    );
+
+const saveBtn =
+    document.getElementById(
+        "saveBtn"
+    );
+
+const cancelBtn =
+    document.getElementById(
+        "cancelBtn"
+    );
+
+const recordList =
+    document.getElementById(
+        "recordList"
+    );
+
+const calculatedTime =
+    document.getElementById(
+        "calculatedTime"
+    );
+
+
+/* =====================================
+   오늘 날짜 기본 입력
+===================================== */
+
+const today =
+    new Date();
+
+dateInput.value =
+    today.toISOString()
+        .split("T")[0];
+
+
+/* =====================================
+   봉사시간 계산
+===================================== */
+
+function calculateMinutes() {
+
+    const start =
+        startInput.value;
+
+    const end =
+        endInput.value;
+
+
+    if (
+        !start ||
+        !end
+    ) {
+
+        calculatedTime.innerText =
+            "봉사시간을 입력해주세요.";
+
+        return 0;
+
+    }
+
+
+    const startDate =
+        new Date(
+            `2000-01-01T${start}`
+        );
+
+
+    const endDate =
+        new Date(
+            `2000-01-01T${end}`
+        );
+
+
+    let diff =
+        (
+            endDate -
+            startDate
+        )
+        /
+        60000;
+
+
+    // 자정을 넘긴 경우
+
+    if (
+        diff < 0
+    ) {
+
+        diff +=
+            24 * 60;
+
+    }
+
+
+    const hours =
+        Math.floor(
+            diff / 60
+        );
+
+
+    const minutes =
+        diff % 60;
+
+
+    calculatedTime.innerText =
+
+        `총 봉사시간 : ${hours}시간 ${minutes}분`;
+
+
+    return diff;
+
+}
+
+
+startInput.addEventListener(
+    "change",
+    calculateMinutes
+);
+
+endInput.addEventListener(
+    "change",
+    calculateMinutes
+);
+
+
+/* =====================================
+   저장
+===================================== */
+
+saveBtn.addEventListener(
+    "click",
+    () => {
+
+        const date =
+            dateInput.value;
+
+        const start =
+            startInput.value;
+
+        const end =
+            endInput.value;
+
+        const content =
+            contentInput.value
+                .trim();
+
+
+        if (
+            !date
+        ) {
+
+            alert(
+                "봉사 날짜를 입력하세요."
+            );
+
+            return;
+
+        }
+
+
+        if (
+            !start ||
+            !end
+        ) {
+
+            alert(
+                "시작 시간과 종료 시간을 입력하세요."
+            );
+
+            return;
+
+        }
+
+
+        const minutes =
+            calculateMinutes();
+
+
+        if (
+            minutes <= 0
+        ) {
+
+            alert(
+                "봉사시간을 확인해주세요."
+            );
+
+            return;
+
+        }
+
+
+        if (
+            editId
+        ) {
+
+            const record =
+                records.find(
+                    item =>
+                        item.id ===
+                        editId
+                );
+
+
+            if (
+                record
+            ) {
+
+                record.date =
+                    date;
+
+                record.start =
+                    start;
+
+                record.end =
+                    end;
+
+                record.minutes =
+                    minutes;
+
+                record.content =
+                    content;
+
+            }
+
+
+            editId =
+                null;
+
+
+            saveBtn.innerText =
+                "기록 저장";
+
+            cancelBtn.style.display =
+                "none";
+
+
+        } else {
+
+
+            records.push({
+
+                id:
+                    Date.now(),
+
+                date,
+
+                start,
+
+                end,
+
+                minutes,
+
+                content
+
+            });
+
+        }
+
+
+        saveData();
+
+        render();
+
+
+        clearForm();
+
+    }
+);
+
+
+/* =====================================
+   데이터 저장
+===================================== */
+
+function saveData() {
+
+    localStorage.setItem(
+
+        "volunteerRecords",
+
+        JSON.stringify(
+            records
+        )
+
+    );
+
+}
+
+
+/* =====================================
+   시간 표시
+===================================== */
+
+function formatMinutes(
+    minutes
+) {
+
+    const hours =
+        Math.floor(
+            minutes / 60
+        );
+
+
+    const mins =
+        minutes % 60;
+
+
+    if (
+        mins === 0
+    ) {
+
+        return `${hours}시간`;
+
+    }
+
+
+    return `${hours}시간 ${mins}분`;
+
+}
+
+
+/* =====================================
+   기록 출력
+===================================== */
+
+function render() {
+
+    recordList.innerHTML =
+        "";
+
+
+    if (
+        records.length === 0
+    ) {
+
+        recordList.innerHTML =
+
+            `<div class="empty">
+                아직 봉사 기록이 없습니다.
+            </div>`;
+
+    }
+
+
+    const sortedRecords =
+
+        [...records].sort(
+
+            (a, b) =>
+
+                new Date(
+                    b.date
+                ) -
+
+                new Date(
+                    a.date
+                )
+
+        );
+
+
+    sortedRecords.forEach(
+        record => {
+
+
+            const div =
+                document.createElement(
+                    "div"
+                );
+
+
+            div.className =
+                "record";
+
+
+            div.innerHTML =
+
+                `
+
+                <div class="record-date">
+
+                    📅 ${record.date}
+
+                </div>
+
+
+                <div class="record-time">
+
+                    ⏱️ ${record.start}
+                    ~
+                    ${record.end}
+
+                    ·
+
+                    ${formatMinutes(
+                        record.minutes
+                    )}
+
+                </div>
+
+
+                <div class="record-content">
+
+                    ${record.content ||
+                    "봉사 내용 없음"}
+
+                </div>
+
+
+                <div class="record-buttons">
+
+                    <button
+                        class="edit-btn"
+                        onclick="
+                            editRecord(
+                                ${record.id}
+                            )
+                        "
+                    >
+
+                        수정
+
+                    </button>
+
+
+                    <button
+                        class="delete-btn"
+                        onclick="
+                            deleteRecord(
+                                ${record.id}
+                            )
+                        "
+                    >
+
+                        삭제
+
+                    </button>
+
+                </div>
+
+                `;
+
+
+            recordList.appendChild(
+                div
+            );
+
+        }
+    );
+
+
+    updateStats();
+
+}
+
+
+/* =====================================
+   통계 계산
+===================================== */
+
+function updateStats() {
+
+    let allMinutes =
+        0;
+
+
+    let monthMinutes =
+        0;
+
+
+    const now =
+        new Date();
+
+
+    const currentYear =
+        now.getFullYear();
+
+
+    const currentMonth =
+        now.getMonth();
+
+
+    records.forEach(
+        record => {
+
+
+            allMinutes +=
+                Number(
+                    record.minutes
+                );
+
+
+            const date =
+                new Date(
+                    record.date
+                );
+
+
+            if (
+
+                date.getFullYear() ===
+                currentYear
+
+                &&
+
+                date.getMonth() ===
+                currentMonth
+
+            ) {
+
+                monthMinutes +=
+                    Number(
+                        record.minutes
+                    );
+
+            }
+
+        }
+    );
+
+
+    document.getElementById(
+        "monthTotal"
+    )
+    .innerText =
+
+        formatMinutes(
+            monthMinutes
+        );
+
+
+    document.getElementById(
+        "allTotal"
+    )
+    .innerText =
+
+        formatMinutes(
+            allMinutes
+        );
+
+}
+
+
+/* =====================================
+   수정
+===================================== */
+
+function editRecord(
+    id
+) {
+
+    const record =
+        records.find(
+            item =>
+                item.id ===
+                id
+        );
+
+
+    if (
+        !record
+    ) {
+
+        return;
+
+    }
+
+
+    dateInput.value =
+        record.date;
+
+    startInput.value =
+        record.start;
+
+    endInput.value =
+        record.end;
+
+    contentInput.value =
+        record.content;
+
+
+    editId =
+        id;
+
+
+    document.getElementById(
+        "formTitle"
+    )
+    .innerText =
+
+        "봉사시간 수정하기";
+
+
+    saveBtn.innerText =
+        "수정 저장";
+
+
+    cancelBtn.style.display =
+        "block";
+
+
+    calculateMinutes();
+
+
+    window.scrollTo({
+
+        top: 0,
+
+        behavior:
+            "smooth"
+
+    });
+
+}
+
+
+/* =====================================
+   수정 취소
+===================================== */
+
+cancelBtn.addEventListener(
+    "click",
+    () => {
+
+        editId =
+            null;
+
+
+        clearForm();
+
+
+        saveBtn.innerText =
+            "기록 저장";
+
+
+        cancelBtn.style.display =
+            "none";
+
+
+        document.getElementById(
+            "formTitle"
+        )
+        .innerText =
+
+            "봉사시간 기록하기";
+
+    }
+);
+
+
+/* =====================================
+   삭제
+===================================== */
+
+function deleteRecord(
+    id
+) {
+
+    if (
+        !confirm(
+            "이 봉사 기록을 삭제할까요?"
+        )
+    ) {
+
+        return;
+
+    }
+
+
+    records =
+        records.filter(
+            record =>
+                record.id !==
+                id
+        );
+
+
+    saveData();
+
+    render();
+
+}
+
+
+/* =====================================
+   입력 초기화
+===================================== */
+
+function clearForm() {
+
+    dateInput.value =
+        today.toISOString()
+            .split("T")[0];
+
+    startInput.value =
+        "";
+
+    endInput.value =
+        "";
+
+    contentInput.value =
+        "";
+
+    calculatedTime.innerText =
+        "봉사시간을 입력해주세요.";
+
+}
+
+
+/* =====================================
+   처음 실행
+===================================== */
+
+render();
+
+</script>
+
+
+</body>
+
+</html>
