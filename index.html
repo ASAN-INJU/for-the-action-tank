@@ -2,239 +2,456 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
 <meta name="theme-color" content="#2563eb">
 
-<title>나의 봉사 기록 앱</title>
+<title>나의 봉사·영적 활동 기록</title>
 
 <style>
+
+/* =====================================
+   기본 설정
+===================================== */
 
 * {
     box-sizing: border-box;
 }
 
 body {
+
     margin: 0;
+
     padding: 0 10px 60px;
+
     font-family:
-        "Noto Sans KR",
-        Arial,
-        sans-serif;
+    "Noto Sans KR",
+    Arial,
+    sans-serif;
+
     background: #f3f4f6;
+
     color: #111827;
+
 }
 
 .container {
+
     width: 100%;
+
     max-width: 600px;
+
     margin: auto;
+
 }
 
+
+/* =====================================
+   헤더
+===================================== */
+
 header {
+
     text-align: center;
+
     padding: 25px 10px 15px;
+
 }
 
 header h1 {
+
     margin: 0;
-    font-size: 25px;
+
+    font-size: 24px;
+
 }
 
 header p {
+
     color: #6b7280;
-    margin-top: 8px;
+
 }
 
-nav {
+
+/* =====================================
+   탭
+===================================== */
+
+.nav {
+
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 6px;
+
+    grid-template-columns:
+    repeat(3, 1fr);
+
+    gap: 5px;
+
     margin-bottom: 15px;
+
 }
 
-nav button {
+.nav button {
+
     border: none;
+
     padding: 11px 5px;
-    border-radius: 10px;
+
+    border-radius: 8px;
+
     background: white;
+
     cursor: pointer;
+
     font-size: 13px;
+
 }
 
-nav button.active {
+.nav button.active {
+
     background: #2563eb;
+
     color: white;
+
 }
+
+
+/* =====================================
+   섹션
+===================================== */
 
 .section {
+
     display: none;
+
 }
 
 .section.active {
+
     display: block;
+
 }
 
+
+/* =====================================
+   카드
+===================================== */
+
 .card {
+
     background: white;
-    border-radius: 15px;
+
     padding: 18px;
+
     margin-bottom: 15px;
+
+    border-radius: 15px;
+
     box-shadow:
-        0 3px 10px rgba(0,0,0,0.06);
+    0 3px 10px
+    rgba(0,0,0,0.07);
+
 }
 
 .card h2 {
+
     margin-top: 0;
-    font-size: 20px;
+
+    font-size: 19px;
+
 }
 
-.card h3 {
-    font-size: 17px;
-}
+
+/* =====================================
+   입력
+===================================== */
 
 input,
 select,
 textarea {
+
     width: 100%;
-    padding: 12px;
-    margin: 5px 0 10px;
-    border: 1px solid #d1d5db;
-    border-radius: 9px;
+
+    padding: 11px;
+
+    margin-top: 6px;
+
+    margin-bottom: 10px;
+
+    border:
+    1px solid #d1d5db;
+
+    border-radius: 8px;
+
     font-size: 15px;
+
 }
 
 textarea {
+
     min-height: 80px;
+
     resize: vertical;
+
 }
+
+
+/* =====================================
+   버튼
+===================================== */
 
 button {
+
     border: none;
-    border-radius: 9px;
-    padding: 11px 15px;
+
+    border-radius: 8px;
+
+    padding: 11px 14px;
+
+    background: #2563eb;
+
+    color: white;
+
     cursor: pointer;
-    font-size: 14px;
+
 }
 
-.primary {
-    background: #2563eb;
-    color: white;
-}
+button.delete {
 
-.success {
-    background: #16a34a;
-    color: white;
-}
-
-.danger {
     background: #dc2626;
-    color: white;
+
 }
 
-.gray {
-    background: #e5e7eb;
+button.secondary {
+
+    background: #6b7280;
+
 }
 
-.item {
-    border: 1px solid #e5e7eb;
-    border-radius: 12px;
-    padding: 14px;
-    margin-top: 10px;
-    background: #fafafa;
-}
 
-.item-title {
-    font-weight: bold;
-    font-size: 17px;
-    margin-bottom: 7px;
-}
+/* =====================================
+   영적 활동
+===================================== */
 
-.item-info {
-    line-height: 1.7;
-    color: #374151;
-    font-size: 14px;
-}
+.activity {
 
-.item-buttons {
-    margin-top: 10px;
     display: flex;
-    gap: 6px;
-    flex-wrap: wrap;
+
+    align-items: center;
+
+    gap: 10px;
+
+    padding: 12px;
+
+    margin-bottom: 8px;
+
+    background: #f9fafb;
+
+    border-radius: 8px;
+
 }
 
-.total {
-    font-size: 22px;
-    font-weight: bold;
-    text-align: center;
-    padding: 15px;
+.activity input {
+
+    width: 22px;
+
+    height: 22px;
+
+    margin: 0;
+
+}
+
+
+/* =====================================
+   봉사시간 요약
+===================================== */
+
+.summary {
+
+    display: grid;
+
+    grid-template-columns:
+    repeat(2, 1fr);
+
+    gap: 10px;
+
+}
+
+.summaryBox {
+
     background: #eff6ff;
+
+    padding: 15px;
+
     border-radius: 10px;
-    color: #1d4ed8;
-}
 
-.progress {
-    height: 15px;
-    background: #e5e7eb;
-    border-radius: 10px;
-    overflow: hidden;
-    margin: 10px 0;
-}
-
-.progress-bar {
-    height: 100%;
-    background: #2563eb;
-    width: 0%;
-    transition: 0.3s;
-}
-
-.calendar-title {
     text-align: center;
-    font-size: 20px;
-    font-weight: bold;
-    margin: 10px;
+
 }
+
+.summaryBox strong {
+
+    display: block;
+
+    font-size: 22px;
+
+    color: #2563eb;
+
+}
+
+
+/* =====================================
+   월별 표
+===================================== */
+
+.monthRow {
+
+    display: grid;
+
+    grid-template-columns:
+    1fr 1fr 1fr;
+
+    padding: 10px;
+
+    border-bottom:
+    1px solid #e5e7eb;
+
+    text-align: center;
+
+}
+
+.monthRow.header {
+
+    font-weight: bold;
+
+    background: #f3f4f6;
+
+}
+
+
+/* =====================================
+   목록
+===================================== */
+
+.listItem {
+
+    padding: 14px;
+
+    margin-top: 10px;
+
+    background: #f9fafb;
+
+    border-radius: 10px;
+
+    border-left:
+    4px solid #2563eb;
+
+}
+
+.listItem strong {
+
+    font-size: 17px;
+
+}
+
+.listItem small {
+
+    display: block;
+
+    margin-top: 5px;
+
+    color: #6b7280;
+
+}
+
+
+/* =====================================
+   통독
+===================================== */
+
+.readingItem {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    padding: 10px;
+
+    border-bottom:
+    1px solid #eee;
+
+}
+
+.readingItem input {
+
+    width: 20px;
+
+    height: 20px;
+
+    margin: 0;
+
+}
+
+
+/* =====================================
+   일정
+===================================== */
+
+.scheduleItem {
+
+    padding: 12px;
+
+    margin-top: 8px;
+
+    background: #f9fafb;
+
+    border-radius: 8px;
+
+}
+
+
+/* =====================================
+   도움말
+===================================== */
 
 .help {
-    line-height: 1.8;
-    font-size: 15px;
+
+    padding: 15px;
+
+    margin-top: 10px;
+
+    background: #f9fafb;
+
+    border-radius: 10px;
+
 }
 
-.help strong {
-    color: #1d4ed8;
+.help h3 {
+
+    margin-top: 0;
+
+    color: #2563eb;
+
 }
 
-.check-item {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 10px;
-    border-bottom: 1px solid #eee;
-}
 
-.check-item input {
-    width: 20px;
-    height: 20px;
-    margin: 0;
-}
+/* =====================================
+   반응형
+===================================== */
 
-.completed {
-    text-decoration: line-through;
-    color: #9ca3af;
-}
+@media(max-width:400px) {
 
-.small {
-    font-size: 13px;
-    color: #6b7280;
-}
+    .nav button {
 
-@media (max-width: 400px) {
+        font-size: 11px;
 
-    nav {
-        grid-template-columns: repeat(2, 1fr);
-    }
+        padding: 9px 2px;
 
-    header h1 {
-        font-size: 22px;
     }
 
 }
@@ -242,63 +459,109 @@ button {
 </style>
 </head>
 
+
 <body>
 
 <div class="container">
 
+
 <header>
-    <h1>📖 나의 봉사 기록</h1>
-    <p>봉사 · 재방문 · 성경 통독 · 일정</p>
+
+<h1>📖 나의 봉사·영적 활동 기록</h1>
+
+<p>봉사 연도: 9월 ~ 다음 해 8월</p>
+
 </header>
 
-<nav>
-    <button class="active" onclick="showSection('service',this)">🕒 봉사시간</button>
-    <button onclick="showSection('returnVisit',this)">🏠 재방문</button>
-    <button onclick="showSection('bible',this)">📖 30일 통독</button>
-    <button onclick="showSection('calendar',this)">📅 일정</button>
-    <button onclick="showSection('help',this)">💬 대화 도움</button>
-</nav>
+
+<!-- =====================================
+     메뉴
+===================================== -->
+
+<div class="nav">
+
+<button
+    class="active"
+    onclick="showSection('service',this)"
+>
+봉사시간
+</button>
+
+<button
+    onclick="showSection('returnVisit',this)"
+>
+재방문
+</button>
+
+<button
+    onclick="showSection('spiritual',this)"
+>
+영적활동
+</button>
+
+<button
+    onclick="showSection('bible',this)"
+>
+30일 통독
+</button>
+
+<button
+    onclick="showSection('schedule',this)"
+>
+일정
+</button>
+
+<button
+    onclick="showSection('help',this)"
+>
+대화 도움
+</button>
+
+</div>
 
 
-<!-- =================================
-     봉사시간
-================================= -->
+<!-- =====================================
+     1. 봉사시간
+===================================== -->
 
-<section id="service" class="section active">
+<section
+    id="service"
+    class="section active"
+>
 
 <div class="card">
 
-<h2>🕒 봉사시간 기록</h2>
+<h2>⏱ 봉사시간 기록</h2>
 
-<input type="date" id="serviceDate">
+<label>
+날짜
+<input
+    type="date"
+    id="serviceDate"
+>
+</label>
 
+<label>
+봉사시간
 <input
     type="number"
     id="serviceHours"
-    placeholder="봉사 시간 (예: 2.5)"
+    min="0"
     step="0.5"
+    placeholder="예: 2"
 >
+</label>
 
-<select id="serviceType">
-
-<option value="호별 방문">호별 방문</option>
-<option value="재방문">재방문</option>
-<option value="성서 연구">성서 연구</option>
-<option value="공개 증거">공개 증거</option>
-<option value="기타">기타</option>
-
-</select>
-
+<label>
+메모
 <textarea
     id="serviceMemo"
-    placeholder="봉사 내용 메모"
+    placeholder="봉사 내용"
 ></textarea>
+</label>
 
-<button
-    class="primary"
-    onclick="addService()"
->
-기록 저장
+<button onclick="addService()">
+봉사시간 저장
 </button>
 
 </div>
@@ -306,11 +569,61 @@ button {
 
 <div class="card">
 
-<h2>📊 봉사시간 합계</h2>
+<h2>📊 현재 봉사 연도</h2>
 
-<div class="total">
-이번 달 <span id="monthTotal">0</span>시간
+<div class="summary">
+
+<div class="summaryBox">
+
+이번 달
+
+<strong id="currentMonthTotal">
+0
+</strong>
+
+시간
+
 </div>
+
+<div class="summaryBox">
+
+봉사 연도 누계
+
+<strong id="yearTotal">
+0
+</strong>
+
+시간
+
+</div>
+
+</div>
+
+</div>
+
+
+<div class="card">
+
+<h2>📅 9월~8월 봉사시간 누계</h2>
+
+<div class="monthRow header">
+
+<div>월</div>
+
+<div>월 합계</div>
+
+<div>누계</div>
+
+</div>
+
+<div id="monthlySummary"></div>
+
+</div>
+
+
+<div class="card">
+
+<h2>📝 봉사 기록</h2>
 
 <div id="serviceList"></div>
 
@@ -319,55 +632,85 @@ button {
 </section>
 
 
-<!-- =================================
-     재방문
-================================= -->
 
-<section id="returnVisit" class="section">
+<!-- =====================================
+     2. 재방문
+===================================== -->
+
+<section
+    id="returnVisit"
+    class="section"
+>
 
 <div class="card">
 
 <h2>🏠 재방문 목록</h2>
 
+<label>
+집주인 이름
 <input
-    id="visitName"
-    placeholder="집주인 이름"
+    id="visitorName"
+    placeholder="이름"
 >
+</label>
 
+<label>
+주소
 <input
-    id="visitAddress"
+    id="visitorAddress"
     placeholder="주소"
 >
+</label>
 
+<label>
+방문 날짜
 <input
     type="date"
-    id="visitDate"
+    id="visitorDate"
 >
+</label>
 
+<label>
+방문 시간
 <input
-    type="date"
-    id="nextVisitDate"
+    type="time"
+    id="visitorTime"
 >
+</label>
 
+<label>
+전한 출판물
 <input
-    id="visitPublication"
-    placeholder="전한 출판물"
+    id="visitorPublication"
+    placeholder="출판물"
 >
+</label>
 
+<label>
+대화 주제
 <input
-    id="visitTopic"
-    placeholder="대화한 주제"
+    id="visitorTopic"
+    placeholder="대화 주제"
 >
+</label>
 
+<label>
+집주인이 한 말
 <textarea
-    id="visitMemo"
-    placeholder="집주인이 한 말 / 다음 대화할 내용"
+    id="visitorWords"
+    placeholder="다음 방문 때 참고할 내용"
 ></textarea>
+</label>
 
-<button
-    class="primary"
-    onclick="addVisit()"
+<label>
+다음 방문 예정일
+<input
+    type="date"
+    id="visitorNextDate"
 >
+</label>
+
+<button onclick="addVisit()">
 재방문 저장
 </button>
 
@@ -385,55 +728,102 @@ button {
 </section>
 
 
-<!-- =================================
-     성경 30일
-================================= -->
 
-<section id="bible" class="section">
+<!-- =====================================
+     3. 영적 활동
+===================================== -->
+
+<section
+    id="spiritual"
+    class="section"
+>
 
 <div class="card">
 
-<h2>📖 그리스도인 그리스어 성경 30일 통독</h2>
+<h2>🙏 오늘의 영적 활동</h2>
 
-<p>
-30일 동안 하루에 정해진 범위를 읽고
-완료 표시를 할 수 있습니다.
-</p>
+<div class="activity">
 
-<div class="progress">
-    <div
-        class="progress-bar"
-        id="bibleProgress"
-    ></div>
+<input
+    type="checkbox"
+    id="barefoot"
+    onchange="saveDailyActivity()"
+>
+
+<label for="barefoot">
+오늘 맨발걷기
+</label>
+
 </div>
 
-<p id="bibleProgressText">
-진행률 0%
-</p>
 
-<div id="bibleList"></div>
+<div class="activity">
+
+<input
+    type="checkbox"
+    id="personalStudy"
+    onchange="saveDailyActivity()"
+>
+
+<label for="personalStudy">
+오늘 개인연구
+</label>
+
+</div>
+
+<p id="activityDate"></p>
 
 </div>
 
 </section>
 
 
-<!-- =================================
-     일정
-================================= -->
 
-<section id="calendar" class="section">
+<!-- =====================================
+     4. 성경 30일 통독
+===================================== -->
+
+<section
+    id="bible"
+    class="section"
+>
+
+<div class="card">
+
+<h2>
+📖 그리스도인 그리스어 성경
+30일 통독
+</h2>
+
+<p>
+복음서와 사도행전, 서신서, 계시록을
+섞어서 읽도록 구성했습니다.
+</p>
+
+<div id="biblePlan"></div>
+
+</div>
+
+</section>
+
+
+
+<!-- =====================================
+     5. 일정
+===================================== -->
+
+<section
+    id="schedule"
+    class="section"
+>
 
 <div class="card">
 
 <h2>📅 이번 달 일정</h2>
 
-<div
-    class="calendar-title"
-    id="currentMonthTitle"
-></div>
+<div id="thisMonthTitle"></div>
 
-<div id="currentMonthEvents"></div>
+<div id="thisMonthSchedule"></div>
 
 </div>
 
@@ -442,59 +832,34 @@ button {
 
 <h2>📅 다음 달 일정</h2>
 
-<div
-    class="calendar-title"
-    id="nextMonthTitle"
-></div>
+<div id="nextMonthTitle"></div>
 
-<div id="nextMonthEvents"></div>
+<div id="nextMonthSchedule"></div>
 
 </div>
 
 
 <div class="card">
 
-<h2>➕ 일정 추가</h2>
+<h2>➕ 영적 일정 추가</h2>
 
+<label>
+날짜
 <input
     type="date"
-    id="eventDate"
+    id="scheduleDate"
 >
+</label>
 
+<label>
+일정 내용
 <input
-    type="time"
-    id="eventTime"
+    id="scheduleText"
+    placeholder="예: 연설 임명 집회"
 >
+</label>
 
-<input
-    id="eventTitle"
-    placeholder="일정 내용"
->
-
-<select id="eventType">
-
-<option value="연설 임명 집회">
-연설 임명 집회
-</option>
-
-<option value="순회 방문">
-순회 방문
-</option>
-
-<option value="대회">
-대회
-</option>
-
-<option value="기타">
-기타
-</option>
-
-</select>
-
-<button
-    class="primary"
-    onclick="addEvent()"
->
+<button onclick="addSchedule()">
 일정 저장
 </button>
 
@@ -503,169 +868,199 @@ button {
 </section>
 
 
-<!-- =================================
-     대화 도움말
-================================= -->
 
-<section id="help" class="section">
+<!-- =====================================
+     6. 대화 도움
+===================================== -->
 
-<div class="card help">
+<section
+    id="help"
+    class="section"
+>
 
-<h2>💬 처음 만난 집주인과 대화 시작하기</h2>
+<div class="card">
+
+<h2>💬 재방문 대화 도움말</h2>
+
+
+<div class="help">
+
+<h3>1. 처음 만난 집주인에게</h3>
 
 <p>
-<strong>관심사를 질문으로 시작하기</strong>
-</p>
-
-<p>
-“요즘 세상이 여러 가지 문제를 겪고 있는데,
-앞으로 세상이 좀 더 평화로워질 수 있다고
+“오늘 잠시 시간을 내 주셔서 감사합니다.
+많은 분들이 현재 세상에서 일어나는 일들에
+대해 걱정하고 계십니다.
+혹시 앞으로 세상이 더 좋아질 수 있다고
 생각하시나요?”
 </p>
 
+</div>
+
+
+<div class="help">
+
+<h3>2. 재방문을 시작할 때</h3>
+
 <p>
-상대방의 대답을 잘 듣고,
-그 사람이 관심을 보인 내용에 맞추어
-성경의 내용을 소개합니다.
+“지난번에 우리가 나누었던 이야기를
+기억하시나요? 그때 말씀드렸던
+성서의 약속에 대해 조금 더 생각해 보았는데,
+오늘 잠시 그 내용을 함께 살펴보면 어떨까요?”
 </p>
 
 </div>
 
 
-<div class="card help">
+<div class="help">
 
-<h2>🔄 재방문 대화 도움</h2>
-
-<p>
-<strong>1. 지난 대화를 기억시켜 주기</strong>
-</p>
+<h3>3. 하느님의 왕국</h3>
 
 <p>
-“지난번에 우리가 지구의 미래에 대해
-잠깐 이야기를 나누었는데요.
-그때 말씀드린 성경의 약속에 대해
-조금 더 보여드리고 싶었습니다.”
-</p>
-
-<p>
-<strong>2. 질문으로 대화를 이어가기</strong>
-</p>
-
-<p>
-“지난번에 말씀드린 내용에 대해
-생각해 보신 적이 있으신가요?”
-</p>
-
-<p>
-<strong>3. 관심 주제에 맞추기</strong>
-</p>
-
-<p>
-환경 → 지구의 미래<br>
-가정 → 행복한 가정<br>
-불안 → 평화와 희망<br>
-죽음 → 부활의 희망<br>
-하느님의 왕국 → 미래의 통치
+“지난번에 하느님의 왕국에 대해
+이야기를 나누었습니다.
+성서는 하느님의 왕국이 인류에게
+어떤 유익을 가져올 것이라고 알려 줄까요?”
 </p>
 
 </div>
 
 
-<div class="card help">
+<div class="help">
 
-<h2>📋 재방문을 효과적으로 하기</h2>
-
-<p>
-<strong>정확하게 기록하십시오.</strong>
-</p>
+<h3>4. 지구와 평화로운 낙원</h3>
 
 <p>
-관심을 가진 사람의 이름과 주소,
-방문 날짜와 시간, 전한 출판물,
-대화한 주제를 정확하게 기록하십시오.
-첫 대화에서 집주인이 한 말을
-몇 마디 적어 두면 다음 방문에서
-대화를 다시 시작하는 데 도움이 됩니다.
-</p>
-
-<p>
-<strong>신속히 재방문하십시오.</strong>
-</p>
-
-<p>
-가능하다면 첫 대화 후 너무 오래 기다리지 않고
-재방문하여 관심이 식지 않도록 합니다.
-</p>
-
-<p>
-<strong>준비가 꼭 필요합니다.</strong>
-</p>
-
-<p>
-재방문 전에 지난 대화 내용을 다시 확인하고,
-다음에 어떤 질문을 할지 미리 준비합니다.
+“지난번에 지구가 평화로운 낙원이 될 수
+있는지에 대해 이야기했습니다.
+하느님께서 이 약속을 어떻게 이루실지
+성서에서 함께 살펴볼 수 있습니다.”
 </p>
 
 </div>
 
 
-<div class="card help">
+<div class="help">
 
-<h2>📖 성서 연구로 대화를 이어가기</h2>
-
-<p>
-상대방이 성경에 관심을 보인다면
-다음과 같이 말할 수 있습니다.
-</p>
+<h3>5. 참종교</h3>
 
 <p>
-“성경에서 이 문제에 대해 어떻게
-말하는지 함께 조금 더 살펴보시겠습니까?”
+“많은 종교가 있지만 하느님께서
+승인하시는 종교가 어떤 것인지
+궁금해하신 적이 있으신가요?
+성서는 참종교를 어떻게 식별할 수
+있는지 알려 줍니다.”
 </p>
 
+</div>
+
+
+<div class="help">
+
+<h3>6. 가정의 행복</h3>
+
 <p>
-상대방의 관심에 맞는 성경 구절을
-하나 선택하여 함께 읽고,
-다음에 계속 대화를 나눌 약속을 정합니다.
+“지난번에 가정의 행복에 대해
+이야기를 나누었습니다.
+성서의 원칙이 오늘날의 가정에도
+도움이 될 수 있다고 생각하시나요?”
 </p>
+
+</div>
+
+
+<div class="help">
+
+<h3>7. 재방문을 효과적으로 하기</h3>
+
+<ul>
+
+<li>
+첫 방문에서 나눈 대화를 정확하게 기록합니다.
+</li>
+
+<li>
+집주인의 이름과 주소를 기록합니다.
+</li>
+
+<li>
+방문 날짜와 시간을 기록합니다.
+</li>
+
+<li>
+전한 출판물을 기록합니다.
+</li>
+
+<li>
+대화 주제를 기록합니다.
+</li>
+
+<li>
+집주인이 한 말을 몇 마디 적어 둡니다.
+</li>
+
+<li>
+가능하면 며칠 안에 신속히 재방문합니다.
+</li>
+
+<li>
+재방문 전에 이전 대화 내용을 다시 확인합니다.
+</li>
+
+<li>
+상대방의 관심에 맞는 대화를 준비합니다.
+</li>
+
+</ul>
+
+</div>
 
 </div>
 
 </section>
+
 
 </div>
 
 
 <script>
 
-/* =================================
+/* =====================================
    데이터
-================================= */
+===================================== */
 
 let services =
     JSON.parse(
-        localStorage.getItem("services") || "[]"
+        localStorage.getItem(
+            "services"
+        ) || "[]"
     );
 
 let visits =
     JSON.parse(
-        localStorage.getItem("visits") || "[]"
+        localStorage.getItem(
+            "visits"
+        ) || "[]"
     );
 
-let events =
+let schedules =
     JSON.parse(
-        localStorage.getItem("events") || "[]"
+        localStorage.getItem(
+            "schedules"
+        ) || "[]"
     );
 
-let bibleDone =
+let bibleChecks =
     JSON.parse(
-        localStorage.getItem("bibleDone") || "[]"
+        localStorage.getItem(
+            "bibleChecks"
+        ) || "{}"
     );
 
 
-/* =================================
-   메뉴
-================================= */
+/* =====================================
+   화면 전환
+===================================== */
 
 function showSection(
     id,
@@ -673,99 +1068,468 @@ function showSection(
 ) {
 
     document
-        .querySelectorAll(".section")
+        .querySelectorAll(
+            ".section"
+        )
         .forEach(
             section =>
-                section.classList.remove("active")
+                section.classList.remove(
+                    "active"
+                )
         );
 
-    document
-        .getElementById(id)
-        .classList.add("active");
 
     document
-        .querySelectorAll("nav button")
+        .getElementById(
+            id
+        )
+        .classList.add(
+            "active"
+        );
+
+
+    document
+        .querySelectorAll(
+            ".nav button"
+        )
         .forEach(
             btn =>
-                btn.classList.remove("active")
+                btn.classList.remove(
+                    "active"
+                )
         );
 
-    button.classList.add("active");
+
+    button.classList.add(
+        "active"
+    );
 
 }
 
 
-/* =================================
-   봉사시간
-================================= */
+/* =====================================
+   봉사 연도 계산
+   9월~다음해 8월
+===================================== */
+
+function getServiceYear(
+    dateString
+) {
+
+    const date =
+        new Date(
+            dateString
+        );
+
+    const year =
+        date.getFullYear();
+
+    const month =
+        date.getMonth() + 1;
+
+
+    return month >= 9
+        ? year
+        : year - 1;
+
+}
+
+
+/* =====================================
+   봉사시간 추가
+===================================== */
 
 function addService() {
 
     const date =
-        document.getElementById(
+        document
+        .getElementById(
             "serviceDate"
-        ).value;
+        )
+        .value;
+
 
     const hours =
         Number(
-            document.getElementById(
+            document
+            .getElementById(
                 "serviceHours"
-            ).value
+            )
+            .value
         );
 
-    const type =
-        document.getElementById(
-            "serviceType"
-        ).value;
 
     const memo =
-        document.getElementById(
+        document
+        .getElementById(
             "serviceMemo"
-        ).value;
+        )
+        .value;
+
 
     if (
         !date ||
-        !hours
+        hours <= 0
     ) {
 
         alert(
-            "날짜와 봉사 시간을 입력하세요."
+            "날짜와 봉사시간을 입력하세요."
         );
 
         return;
 
     }
 
+
     services.push({
 
-        id: Date.now(),
+        id:
+            Date.now(),
 
         date,
 
         hours,
 
-        type,
-
         memo
 
     });
 
-    saveAll();
 
-    document.getElementById(
-        "serviceHours"
-    ).value = "";
+    localStorage.setItem(
 
-    document.getElementById(
-        "serviceMemo"
-    ).value = "";
+        "services",
+
+        JSON.stringify(
+            services
+        )
+
+    );
+
+
+    document
+        .getElementById(
+            "serviceHours"
+        )
+        .value =
+        "";
+
+
+    document
+        .getElementById(
+            "serviceMemo"
+        )
+        .value =
+        "";
+
 
     renderServices();
 
 }
 
 
-function deleteService(id) {
+/* =====================================
+   봉사시간 표시
+===================================== */
+
+function renderServices() {
+
+    const now =
+        new Date();
+
+
+    const serviceYear =
+        getServiceYear(
+            now
+                .toISOString()
+                .slice(
+                    0,
+                    10
+                )
+        );
+
+
+    const yearServices =
+        services.filter(
+            item =>
+                getServiceYear(
+                    item.date
+                ) ===
+                serviceYear
+        );
+
+
+    const total =
+        yearServices.reduce(
+            (
+                sum,
+                item
+            ) =>
+                sum +
+                Number(
+                    item.hours
+                ),
+            0
+        );
+
+
+    document
+        .getElementById(
+            "yearTotal"
+        )
+        .innerText =
+        total.toFixed(1);
+
+
+    const currentMonth =
+        now.getMonth() + 1;
+
+
+    const currentMonthTotal =
+        yearServices
+
+        .filter(
+            item => {
+
+                const d =
+                    new Date(
+                        item.date
+                    );
+
+                return (
+                    d.getFullYear()
+                    ===
+                    now.getFullYear()
+                    &&
+                    d.getMonth()
+                    + 1
+                    ===
+                    currentMonth
+                );
+
+            }
+        )
+
+        .reduce(
+            (
+                sum,
+                item
+            ) =>
+                sum +
+                Number(
+                    item.hours
+                ),
+            0
+        );
+
+
+    document
+        .getElementById(
+            "currentMonthTotal"
+        )
+        .innerText =
+        currentMonthTotal.toFixed(1);
+
+
+    /* 월별 9~8 */
+
+    const months = [
+
+        9,
+        10,
+        11,
+        12,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+
+    ];
+
+
+    let cumulative =
+        0;
+
+
+    let html =
+        "";
+
+
+    months.forEach(
+        month => {
+
+            const targetYear =
+                month >= 9
+                    ? serviceYear
+                    : serviceYear + 1;
+
+
+            const monthly =
+                yearServices
+
+                .filter(
+                    item => {
+
+                        const d =
+                            new Date(
+                                item.date
+                            );
+
+                        return (
+
+                            d.getFullYear()
+                            ===
+                            targetYear
+
+                            &&
+
+                            d.getMonth()
+                            + 1
+                            ===
+                            month
+
+                        );
+
+                    }
+                )
+
+                .reduce(
+                    (
+                        sum,
+                        item
+                    ) =>
+                        sum +
+                        Number(
+                            item.hours
+                        ),
+                    0
+                );
+
+
+            cumulative +=
+                monthly;
+
+
+            html +=
+
+            `
+            <div class="monthRow">
+
+                <div>
+                    ${month}월
+                </div>
+
+                <div>
+                    ${monthly.toFixed(1)}
+                </div>
+
+                <div>
+                    ${cumulative.toFixed(1)}
+                </div>
+
+            </div>
+            `;
+
+        }
+    );
+
+
+    document
+        .getElementById(
+            "monthlySummary"
+        )
+        .innerHTML =
+        html;
+
+
+    /* 기록 */
+
+    const list =
+        document
+        .getElementById(
+            "serviceList"
+        );
+
+
+    list.innerHTML =
+        "";
+
+
+    services
+
+    .slice()
+
+    .sort(
+        (
+            a,
+            b
+        ) =>
+            b.date.localeCompare(
+                a.date
+            )
+    )
+
+    .forEach(
+        item => {
+
+            const div =
+                document
+                .createElement(
+                    "div"
+                );
+
+
+            div.className =
+                "listItem";
+
+
+            div.innerHTML =
+
+            `
+            <strong>
+                ${item.date}
+            </strong>
+
+            <small>
+                봉사시간:
+                ${item.hours}시간
+            </small>
+
+            <small>
+                ${item.memo || ""}
+            </small>
+
+            <br>
+
+            <button
+                class="delete"
+                onclick="deleteService(${item.id})"
+            >
+                삭제
+            </button>
+            `;
+
+
+            list.appendChild(
+                div
+            );
+
+        }
+    );
+
+}
+
+
+/* =====================================
+   봉사 기록 삭제
+===================================== */
+
+function deleteService(
+    id
+) {
 
     services =
         services.filter(
@@ -773,203 +1537,285 @@ function deleteService(id) {
                 item.id !== id
         );
 
-    saveAll();
+
+    localStorage.setItem(
+
+        "services",
+
+        JSON.stringify(
+            services
+        )
+
+    );
+
 
     renderServices();
 
 }
 
 
-function renderServices() {
-
-    const list =
-        document.getElementById(
-            "serviceList"
-        );
-
-    list.innerHTML = "";
-
-    const now =
-        new Date();
-
-    const month =
-        now.toISOString()
-            .slice(0,7);
-
-    let total = 0;
-
-    services
-        .sort(
-            (a,b) =>
-                b.date.localeCompare(a.date)
-        )
-        .forEach(
-            item => {
-
-                if (
-                    item.date.startsWith(month)
-                ) {
-
-                    total +=
-                        Number(
-                            item.hours
-                        );
-
-                }
-
-                const div =
-                    document.createElement(
-                        "div"
-                    );
-
-                div.className =
-                    "item";
-
-                div.innerHTML = `
-
-                    <div class="item-title">
-                        ${item.date}
-                    </div>
-
-                    <div class="item-info">
-
-                        봉사:
-                        ${item.hours}시간<br>
-
-                        종류:
-                        ${item.type}<br>
-
-                        ${item.memo || ""}
-
-                    </div>
-
-                    <div class="item-buttons">
-
-                        <button
-                            class="danger"
-                            onclick="deleteService(${item.id})"
-                        >
-                            삭제
-                        </button>
-
-                    </div>
-
-                `;
-
-                list.appendChild(div);
-
-            }
-        );
-
-    document.getElementById(
-        "monthTotal"
-    ).innerText =
-        total;
-
-}
-
-
-/* =================================
-   재방문
-================================= */
+/* =====================================
+   재방문 추가
+===================================== */
 
 function addVisit() {
 
-    const name =
-        document.getElementById(
-            "visitName"
-        ).value;
+    const item = {
 
-    const address =
-        document.getElementById(
-            "visitAddress"
-        ).value;
+        id:
+            Date.now(),
 
-    const visitDate =
-        document.getElementById(
-            "visitDate"
-        ).value;
+        name:
+            document
+            .getElementById(
+                "visitorName"
+            )
+            .value,
 
-    const nextVisitDate =
-        document.getElementById(
-            "nextVisitDate"
-        ).value;
+        address:
+            document
+            .getElementById(
+                "visitorAddress"
+            )
+            .value,
 
-    const publication =
-        document.getElementById(
-            "visitPublication"
-        ).value;
+        date:
+            document
+            .getElementById(
+                "visitorDate"
+            )
+            .value,
 
-    const topic =
-        document.getElementById(
-            "visitTopic"
-        ).value;
+        time:
+            document
+            .getElementById(
+                "visitorTime"
+            )
+            .value,
 
-    const memo =
-        document.getElementById(
-            "visitMemo"
-        ).value;
+        publication:
+            document
+            .getElementById(
+                "visitorPublication"
+            )
+            .value,
+
+        topic:
+            document
+            .getElementById(
+                "visitorTopic"
+            )
+            .value,
+
+        words:
+            document
+            .getElementById(
+                "visitorWords"
+            )
+            .value,
+
+        nextDate:
+            document
+            .getElementById(
+                "visitorNextDate"
+            )
+            .value,
+
+        done:
+            false
+
+    };
+
 
     if (
-        !name &&
-        !address
+        !item.name
     ) {
 
         alert(
-            "이름이나 주소를 입력하세요."
+            "집주인 이름을 입력하세요."
         );
 
         return;
 
     }
 
-    visits.push({
 
-        id: Date.now(),
-
-        name,
-
-        address,
-
-        visitDate,
-
-        nextVisitDate,
-
-        publication,
-
-        topic,
-
-        memo
-
-    });
-
-    saveAll();
-
-    [
-        "visitName",
-        "visitAddress",
-        "visitDate",
-        "nextVisitDate",
-        "visitPublication",
-        "visitTopic",
-        "visitMemo"
-
-    ].forEach(
-        id => {
-
-            document.getElementById(
-                id
-            ).value = "";
-
-        }
+    visits.push(
+        item
     );
+
+
+    localStorage.setItem(
+
+        "visits",
+
+        JSON.stringify(
+            visits
+        )
+
+    );
+
 
     renderVisits();
 
 }
 
 
-function deleteVisit(id) {
+/* =====================================
+   재방문 표시
+===================================== */
+
+function renderVisits() {
+
+    const list =
+        document
+        .getElementById(
+            "visitList"
+        );
+
+
+    list.innerHTML =
+        "";
+
+
+    visits
+
+    .slice()
+
+    .sort(
+        (
+            a,
+            b
+        ) =>
+            (
+                a.nextDate || ""
+            )
+            .localeCompare(
+                b.nextDate || ""
+            )
+    )
+
+    .forEach(
+        item => {
+
+            const div =
+                document
+                .createElement(
+                    "div"
+                );
+
+
+            div.className =
+                "listItem";
+
+
+            div.innerHTML =
+
+            `
+            <strong>
+                ${item.name}
+            </strong>
+
+            <small>
+                주소:
+                ${item.address}
+            </small>
+
+            <small>
+                첫 방문:
+                ${item.date}
+                ${item.time || ""}
+            </small>
+
+            <small>
+                전한 출판물:
+                ${item.publication}
+            </small>
+
+            <small>
+                대화 주제:
+                ${item.topic}
+            </small>
+
+            <small>
+                집주인의 말:
+                ${item.words}
+            </small>
+
+            <small>
+                다음 방문:
+                ${item.nextDate}
+            </small>
+
+            <br>
+
+            <button
+                onclick="toggleVisit(${item.id})"
+            >
+                ${item.done
+                    ? "재방문 완료"
+                    : "재방문 체크"}
+            </button>
+
+            <button
+                class="delete"
+                onclick="deleteVisit(${item.id})"
+            >
+                삭제
+            </button>
+            `;
+
+
+            list.appendChild(
+                div
+            );
+
+        }
+    );
+
+}
+
+
+function toggleVisit(
+    id
+) {
+
+    const item =
+        visits.find(
+            x =>
+                x.id === id
+        );
+
+
+    if (
+        item
+    ) {
+
+        item.done =
+            !item.done;
+
+    }
+
+
+    localStorage.setItem(
+
+        "visits",
+
+        JSON.stringify(
+            visits
+        )
+
+    );
+
+
+    renderVisits();
+
+}
+
+
+function deleteVisit(
+    id
+) {
 
     visits =
         visits.filter(
@@ -977,504 +1823,609 @@ function deleteVisit(id) {
                 item.id !== id
         );
 
-    saveAll();
+
+    localStorage.setItem(
+
+        "visits",
+
+        JSON.stringify(
+            visits
+        )
+
+    );
+
 
     renderVisits();
 
 }
 
 
-function renderVisits() {
+/* =====================================
+   오늘 영적 활동
+===================================== */
 
-    const list =
-        document.getElementById(
-            "visitList"
+function loadDailyActivity() {
+
+    const today =
+        new Date()
+        .toISOString()
+        .slice(
+            0,
+            10
         );
 
-    list.innerHTML = "";
 
-    visits
-        .sort(
-            (a,b) =>
-                (a.nextVisitDate || "")
-                .localeCompare(
-                    b.nextVisitDate || ""
-                )
+    const saved =
+        JSON.parse(
+
+            localStorage.getItem(
+                "dailyActivity"
+            )
+
+            ||
+
+            "{}"
+
+        );
+
+
+    const data =
+        saved.date === today
+            ? saved
+            : {
+
+                date:
+                    today,
+
+                barefoot:
+                    false,
+
+                personalStudy:
+                    false
+
+            };
+
+
+    document
+        .getElementById(
+            "barefoot"
         )
-        .forEach(
-            item => {
+        .checked =
+        data.barefoot;
 
-                const div =
-                    document.createElement(
-                        "div"
-                    );
 
-                div.className =
-                    "item";
+    document
+        .getElementById(
+            "personalStudy"
+        )
+        .checked =
+        data.personalStudy;
 
-                div.innerHTML = `
 
-                    <div class="item-title">
-                        🏠 ${item.name || "이름 없음"}
-                    </div>
-
-                    <div class="item-info">
-
-                        주소:
-                        ${item.address || "-"}<br>
-
-                        첫 방문:
-                        ${item.visitDate || "-"}<br>
-
-                        다음 방문:
-                        ${item.nextVisitDate || "-"}<br>
-
-                        출판물:
-                        ${item.publication || "-"}<br>
-
-                        관심 주제:
-                        ${item.topic || "-"}<br>
-
-                        메모:
-                        ${item.memo || "-"}
-
-                    </div>
-
-                    <div class="item-buttons">
-
-                        <button
-                            class="danger"
-                            onclick="deleteVisit(${item.id})"
-                        >
-                            삭제
-                        </button>
-
-                    </div>
-
-                `;
-
-                list.appendChild(div);
-
-            }
-        );
+    document
+        .getElementById(
+            "activityDate"
+        )
+        .innerText =
+        "날짜: " +
+        today;
 
 }
 
 
-/* =================================
-   성경 30일 통독
-================================= */
+function saveDailyActivity() {
+
+    const data = {
+
+        date:
+
+            new Date()
+            .toISOString()
+            .slice(
+                0,
+                10
+            ),
+
+        barefoot:
+
+            document
+            .getElementById(
+                "barefoot"
+            )
+            .checked,
+
+        personalStudy:
+
+            document
+            .getElementById(
+                "personalStudy"
+            )
+            .checked
+
+    };
+
+
+    localStorage.setItem(
+
+        "dailyActivity",
+
+        JSON.stringify(
+            data
+        )
+
+    );
+
+}
+
+
+/* =====================================
+   30일 성경 통독
+===================================== */
 
 const biblePlan = [
 
-"마태복음 1-4장",
-"마태복음 5-8장",
-"마태복음 9-12장",
-"마태복음 13-16장",
-"마태복음 17-20장",
-"마태복음 21-24장",
-"마태복음 25-28장",
-"마가복음 1-4장",
-"마가복음 5-8장",
-"마가복음 9-12장",
-"마가복음 13-16장",
-"누가복음 1-4장",
-"누가복음 5-8장",
-"누가복음 9-12장",
-"누가복음 13-16장",
-"누가복음 17-20장",
-"누가복음 21-24장",
-"요한복음 1-4장",
-"요한복음 5-8장",
-"요한복음 9-12장",
-"요한복음 13-17장",
-"사도행전 1-5장",
-"사도행전 6-10장",
-"사도행전 11-15장",
-"사도행전 16-20장",
-"사도행전 21-24장",
-"사도행전 25-28장",
-"로마서-고린도 전서",
-"고린도 후서-갈라디아서",
-"에베소서-요한 계시록"
+"1일차: 마태복음 1~7장",
+
+"2일차: 로마서 1~8장",
+
+"3일차: 마태복음 8~14장",
+
+"4일차: 고린도 전서 1~8장",
+
+"5일차: 마가복음 1~8장",
+
+"6일차: 에베소서 1장~빌립보서 4장",
+
+"7일차: 누가복음 1~8장",
+
+"8일차: 히브리서 1~7장",
+
+"9일차: 요한복음 1~7장",
+
+"10일차: 사도행전 1~8장",
+
+"11일차: 갈라디아서 1장~골로새서 4장",
+
+"12일차: 누가복음 9~16장",
+
+"13일차: 베드로 전서 1장~요한1서 5장",
+
+"14일차: 마태복음 15~21장",
+
+"15일차: 사도행전 9~16장",
+
+"16일차: 로마서 9~16장",
+
+"17일차: 마가복음 9~16장",
+
+"18일차: 고린도 전서 9장~고린도 후서 13장",
+
+"19일차: 요한복음 8~14장",
+
+"20일차: 사도행전 17~24장",
+
+"21일차: 데살로니가 전서~디모데 전서",
+
+"22일차: 요한복음 15~21장",
+
+"23일차: 사도행전 25~28장",
+
+"24일차: 디모데 후서~빌레몬서",
+
+"25일차: 야고보서~유다서",
+
+"26일차: 마태복음 22~28장",
+
+"27일차: 요한 계시록 1~7장",
+
+"28일차: 요한 계시록 8~14장",
+
+"29일차: 요한 계시록 15~22장",
+
+"30일차: 그리스도인 그리스어 성경 전체에서 기억에 남은 부분 다시 읽기"
 
 ];
 
 
 function renderBible() {
 
-    const list =
-        document.getElementById(
-            "bibleList"
+    const box =
+        document
+        .getElementById(
+            "biblePlan"
         );
 
-    list.innerHTML = "";
+
+    box.innerHTML =
+        "";
+
 
     biblePlan.forEach(
         (
-            reading,
+            text,
             index
         ) => {
 
-            const checked =
-                bibleDone.includes(
-                    index
-                );
+            const day =
+                index + 1;
+
 
             const div =
-                document.createElement(
+                document
+                .createElement(
                     "div"
                 );
 
+
             div.className =
-                "check-item";
+                "readingItem";
 
-            div.innerHTML = `
 
-                <input
-                    type="checkbox"
-                    ${checked ? "checked" : ""}
-                    onchange="toggleBible(${index})"
-                >
+            div.innerHTML =
 
-                <span
-                    class="${
-                        checked
-                        ? "completed"
-                        : ""
-                    }"
-                >
-                    ${index + 1}일차 :
-                    ${reading}
-                </span>
+            `
+            <input
+                type="checkbox"
+                ${bibleChecks[day]
+                    ? "checked"
+                    : ""}
+                onchange="
+                    bibleChecks[${day}]
+                    =
+                    this.checked;
 
+                    localStorage.setItem(
+                        'bibleChecks',
+                        JSON.stringify(
+                            bibleChecks
+                        )
+                    );
+            ">
+
+            <span>
+                ${text}
+            </span>
             `;
 
-            list.appendChild(div);
+
+            box.appendChild(
+                div
+            );
 
         }
     );
 
-    const percent =
-        Math.round(
-            bibleDone.length /
-            biblePlan.length *
-            100
-        );
-
-    document.getElementById(
-        "bibleProgress"
-    ).style.width =
-        percent + "%";
-
-    document.getElementById(
-        "bibleProgressText"
-    ).innerText =
-        `진행률 ${percent}%`;
-
 }
 
 
-function toggleBible(index) {
+/* =====================================
+   일정 추가
+===================================== */
 
-    if (
-        bibleDone.includes(index)
-    ) {
-
-        bibleDone =
-            bibleDone.filter(
-                item =>
-                    item !== index
-            );
-
-    }
-
-    else {
-
-        bibleDone.push(index);
-
-    }
-
-    saveAll();
-
-    renderBible();
-
-}
-
-
-/* =================================
-   일정
-================================= */
-
-function addEvent() {
+function addSchedule() {
 
     const date =
-        document.getElementById(
-            "eventDate"
-        ).value;
+        document
+        .getElementById(
+            "scheduleDate"
+        )
+        .value;
 
-    const time =
-        document.getElementById(
-            "eventTime"
-        ).value;
 
-    const title =
-        document.getElementById(
-            "eventTitle"
-        ).value;
+    const text =
+        document
+        .getElementById(
+            "scheduleText"
+        )
+        .value;
 
-    const type =
-        document.getElementById(
-            "eventType"
-        ).value;
 
     if (
         !date ||
-        !title
+        !text
     ) {
 
         alert(
-            "날짜와 일정 내용을 입력하세요."
+            "날짜와 일정을 입력하세요."
         );
 
         return;
 
     }
 
-    events.push({
 
-        id: Date.now(),
+    schedules.push({
+
+        id:
+            Date.now(),
 
         date,
 
-        time,
-
-        title,
-
-        type
+        text
 
     });
 
-    saveAll();
 
-    document.getElementById(
-        "eventTitle"
-    ).value = "";
+    localStorage.setItem(
 
-    renderEvents();
+        "schedules",
+
+        JSON.stringify(
+            schedules
+        )
+
+    );
+
+
+    document
+        .getElementById(
+            "scheduleText"
+        )
+        .value =
+        "";
+
+
+    renderSchedules();
 
 }
 
 
-function deleteEvent(id) {
+/* =====================================
+   일정 표시
+===================================== */
 
-    events =
-        events.filter(
-            item =>
-                item.id !== id
-        );
-
-    saveAll();
-
-    renderEvents();
-
-}
-
-
-function renderEvents() {
+function renderSchedules() {
 
     const now =
         new Date();
 
-    const currentMonth =
-        now.toISOString()
-            .slice(0,7);
 
-    const next =
+    const thisYear =
+        now.getFullYear();
+
+
+    const thisMonth =
+        now.getMonth();
+
+
+    const nextDate =
         new Date(
-            now.getFullYear(),
-            now.getMonth() + 1,
+
+            thisYear,
+
+            thisMonth + 1,
+
             1
+
         );
+
+
+    const nextYear =
+        nextDate.getFullYear();
+
 
     const nextMonth =
-        next.getFullYear() +
-        "-" +
-        String(
-            next.getMonth() + 1
-        ).padStart(
-            2,
-            "0"
-        );
+        nextDate.getMonth();
 
 
-    document.getElementById(
-        "currentMonthTitle"
-    ).innerText =
-        currentMonth;
+    document
+        .getElementById(
+            "thisMonthTitle"
+        )
+        .innerText =
 
-    document.getElementById(
-        "nextMonthTitle"
-    ).innerText =
-        nextMonth;
+        `${thisYear}년
+        ${thisMonth + 1}월`;
 
 
-    renderMonthEvents(
-        "currentMonthEvents",
-        currentMonth
+    document
+        .getElementById(
+            "nextMonthTitle"
+        )
+        .innerText =
+
+        `${nextYear}년
+        ${nextMonth + 1}월`;
+
+
+    renderMonthSchedule(
+
+        thisYear,
+
+        thisMonth,
+
+        "thisMonthSchedule"
+
     );
 
-    renderMonthEvents(
-        "nextMonthEvents",
-        nextMonth
+
+    renderMonthSchedule(
+
+        nextYear,
+
+        nextMonth,
+
+        "nextMonthSchedule"
+
     );
 
 }
 
 
-function renderMonthEvents(
-    elementId,
-    month
+function renderMonthSchedule(
+
+    year,
+
+    month,
+
+    elementId
+
 ) {
 
     const box =
-        document.getElementById(
+        document
+        .getElementById(
             elementId
         );
 
-    box.innerHTML = "";
 
-    const filtered =
-        events
-            .filter(
-                item =>
-                    item.date.startsWith(
-                        month
-                    )
-            )
-            .sort(
-                (a,b) =>
-                    a.date.localeCompare(
-                        b.date
-                    )
+    box.innerHTML =
+        "";
+
+
+    schedules
+
+    .filter(
+        item => {
+
+            const d =
+                new Date(
+                    item.date
+                );
+
+
+            return (
+
+                d.getFullYear()
+                ===
+                year
+
+                &&
+
+                d.getMonth()
+                ===
+                month
+
             );
 
+        }
+    )
 
-    if (
-        filtered.length === 0
-    ) {
+    .sort(
+        (
+            a,
+            b
+        ) =>
+            a.date.localeCompare(
+                b.date
+            )
+    )
 
-        box.innerHTML =
-            `<p class="small">
-                등록된 일정이 없습니다.
-            </p>`;
-
-        return;
-
-    }
-
-
-    filtered.forEach(
+    .forEach(
         item => {
 
             const div =
-                document.createElement(
+                document
+                .createElement(
                     "div"
                 );
 
+
             div.className =
-                "item";
+                "scheduleItem";
 
-            div.innerHTML = `
 
-                <div class="item-title">
-                    📅 ${item.date}
-                    ${item.time || ""}
-                </div>
+            div.innerHTML =
 
-                <div class="item-info">
+            `
+            📅
+            <strong>
+                ${item.date}
+            </strong>
 
-                    ${item.type}<br>
+            <br>
 
-                    ${item.title}
+            ${item.text}
 
-                </div>
+            <br><br>
 
-                <div class="item-buttons">
-
-                    <button
-                        class="danger"
-                        onclick="deleteEvent(${item.id})"
-                    >
-                        삭제
-                    </button>
-
-                </div>
-
+            <button
+                class="delete"
+                onclick="
+                    deleteSchedule(
+                        ${item.id}
+                    )
+                "
+            >
+                삭제
+            </button>
             `;
 
-            box.appendChild(div);
+
+            box.appendChild(
+                div
+            );
 
         }
     );
 
-}
 
+    if (
+        !box.innerHTML
+    ) {
 
-/* =================================
-   저장
-================================= */
-
-function saveAll() {
-
-    localStorage.setItem(
-        "services",
-        JSON.stringify(services)
-    );
-
-    localStorage.setItem(
-        "visits",
-        JSON.stringify(visits)
-    );
-
-    localStorage.setItem(
-        "events",
-        JSON.stringify(events)
-    );
-
-    localStorage.setItem(
-        "bibleDone",
-        JSON.stringify(bibleDone)
-    );
-
-}
-
-
-/* =================================
-   시작
-================================= */
-
-document.addEventListener(
-    "DOMContentLoaded",
-    () => {
-
-        renderServices();
-
-        renderVisits();
-
-        renderBible();
-
-        renderEvents();
-
-        document.getElementById(
-            "serviceDate"
-        ).value =
-            new Date()
-                .toISOString()
-                .slice(0,10);
+        box.innerHTML =
+            "등록된 일정이 없습니다.";
 
     }
-);
+
+}
+
+
+function deleteSchedule(
+    id
+) {
+
+    schedules =
+        schedules.filter(
+            item =>
+                item.id !== id
+        );
+
+
+    localStorage.setItem(
+
+        "schedules",
+
+        JSON.stringify(
+            schedules
+        )
+
+    );
+
+
+    renderSchedules();
+
+}
+
+
+/* =====================================
+   초기 실행
+===================================== */
+
+document
+    .getElementById(
+        "serviceDate"
+    )
+    .value =
+
+    new Date()
+    .toISOString()
+    .slice(
+        0,
+        10
+    );
+
+
+renderServices();
+
+renderVisits();
+
+loadDailyActivity();
+
+renderBible();
+
+renderSchedules();
 
 </script>
 
