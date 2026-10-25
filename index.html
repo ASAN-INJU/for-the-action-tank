@@ -6,20 +6,38 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#1769aa">
 <title>오늘의 전시대 순환봉사 배정표</title>
+
 <style>
 *{box-sizing:border-box}
-body{margin:0;background:#f2f6fb;color:#203047;font-family:Arial,"Noto Sans KR",sans-serif;font-size:16px;line-height:1.6}
-header{background:#1769aa;color:white;text-align:center;padding:23px 12px}
+body{
+  margin:0;background:#f2f6fb;color:#203047;
+  font-family:Arial,"Noto Sans KR",sans-serif;
+  font-size:16px;line-height:1.6
+}
+header{
+  background:#1769aa;color:white;text-align:center;
+  padding:23px 12px
+}
 header h1{font-size:23px;margin:0 0 5px}
 header p{margin:0;font-size:14px}
-main{max-width:900px;margin:auto;padding:12px}
-.card{background:white;border-radius:14px;padding:16px;margin-bottom:15px;box-shadow:0 2px 8px #0000000d}
+main{max-width:950px;margin:auto;padding:12px}
+.card{
+  background:white;border-radius:14px;padding:16px;
+  margin-bottom:15px;box-shadow:0 2px 8px #0000000d
+}
 h2{font-size:19px;margin:0 0 12px;color:#1769aa}
 h3{font-size:16px;margin:15px 0 7px}
-input,textarea,button{font:inherit;border-radius:9px;padding:11px}
-input,textarea{width:100%;border:1px solid #ccd6e2;background:white}
+input,select,textarea,button{
+  font:inherit;border-radius:9px;padding:10px
+}
+input,select,textarea{
+  width:100%;border:1px solid #ccd6e2;background:white
+}
 textarea{min-height:90px;resize:vertical}
-button{border:0;background:#1769aa;color:white;cursor:pointer;font-weight:bold}
+button{
+  border:0;background:#1769aa;color:white;
+  cursor:pointer;font-weight:bold
+}
 button:active{opacity:.8}
 .buttons{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
 .buttons button{flex:1;min-width:125px}
@@ -27,31 +45,50 @@ button:active{opacity:.8}
 .green{background:#16845b}
 .orange{background:#c46a18}
 .small{font-size:13px;color:#66758a}
-.names{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
-.namebox label{display:block;font-size:13px;color:#617188;margin-bottom:3px}
-.group-card{border:1px solid #dce6f1;border-radius:10px;padding:12px;margin:10px 0;background:#fbfdff}
+.member-inputs{display:grid;gap:9px}
+.member-row{
+  display:grid;grid-template-columns:minmax(0,1fr) 105px;
+  gap:8px;align-items:center
+}
+.member-row label{
+  grid-column:1/-1;font-size:13px;color:#617188;
+  margin-bottom:-7px
+}
+.group-card{
+  border:1px solid #dce6f1;border-radius:10px;
+  padding:12px;margin:10px 0;background:#fbfdff
+}
 .group-title{font-weight:bold;color:#1769aa;font-size:17px}
 .member-list{display:flex;flex-wrap:wrap;gap:7px;margin-top:8px}
-.member{background:#e8f1fc;color:#174f83;padding:6px 11px;border-radius:20px;font-size:14px}
+.member{
+  background:#e8f1fc;color:#174f83;
+  padding:6px 11px;border-radius:20px;font-size:14px
+}
 .person-buttons{display:flex;flex-wrap:wrap;gap:7px;margin-top:10px}
 .person-buttons button{background:#e5effb;color:#14528b}
 .person-buttons button.active{background:#1769aa;color:white}
 .notice{background:#fff8df;border-left:4px solid #e8ad30}
 .result{white-space:pre-line;overflow-wrap:anywhere}
 .table-wrap{overflow-x:auto}
-table{border-collapse:collapse;width:100%;min-width:570px}
-th,td{border:1px solid #dce4ee;padding:8px 6px;text-align:center;vertical-align:middle;white-space:pre-line}
+table{border-collapse:collapse;width:100%;min-width:590px}
+th,td{
+  border:1px solid #dce4ee;padding:8px 6px;
+  text-align:center;vertical-align:middle;white-space:pre-line
+}
 th{background:#eaf2fb}
 td{font-size:13px}
 footer{text-align:center;padding:20px;color:#78869a;font-size:13px}
 @media(max-width:420px){
- main{padding:8px}.card{padding:12px}header h1{font-size:21px}
- input,textarea,button{padding:10px}.names{gap:7px}
+  main{padding:8px}
+  .card{padding:12px}
+  header h1{font-size:21px}
+  .member-row{grid-template-columns:minmax(0,1fr) 92px;gap:6px}
+  input,select,textarea,button{padding:9px}
 }
 </style>
 </head>
-<body>
 
+<body>
 <header>
   <h1>오늘의 전시대 순환봉사 배정표</h1>
   <p>함께 봉사하고 서로 배려하는 순환 일정</p>
@@ -60,18 +97,28 @@ footer{text-align:center;padding:20px;color:#78869a;font-size:13px}
 <main>
 
 <section class="card">
-  <h2>① 참여자 이름 및 조 편성</h2>
-  <p class="small">이름을 수정할 수 있습니다. 빈칸은 참여하지 않는 인원으로 처리됩니다.</p>
-  <div id="nameInputs" class="names"></div>
+  <h2>① 이름 입력 및 조 선택</h2>
+  <p class="small">
+    이름을 입력하고 오른쪽에서 원하는 조를 선택하세요.
+    이름이 비어 있으면 해당 참여자는 배정되지 않습니다.
+  </p>
+
+  <div id="memberInputs" class="member-inputs"></div>
+
   <div class="buttons">
     <button onclick="makeSchedule()">배정표 만들기</button>
     <button class="secondary" onclick="resetNames()">처음 명단으로 복구</button>
+    <button class="orange" onclick="clearAll()">전체 초기화</button>
   </div>
+</section>
+
+<section class="card">
+  <h2>② 조별 명단</h2>
   <div id="groupsView"></div>
 </section>
 
 <section class="card notice">
-  <h2>② 공지사항</h2>
+  <h2>③ 공지사항</h2>
   <textarea id="noticeInput" placeholder="봉사 관련 공지사항을 입력하세요."></textarea>
   <div class="buttons">
     <button class="green" onclick="saveNotice()">공지 저장</button>
@@ -80,24 +127,29 @@ footer{text-align:center;padding:20px;color:#78869a;font-size:13px}
 </section>
 
 <section class="card">
-  <h2>③ 개인별 봉사 일정</h2>
-  <p class="small">이름을 선택하면 소속 조와 개인 일정을 확인할 수 있습니다.</p>
+  <h2>④ 개인별 봉사 일정</h2>
+  <p class="small">이름을 누르면 소속 조와 개인별 일정이 표시됩니다.</p>
   <div id="personButtons" class="person-buttons"></div>
   <div id="personSchedule">이름을 선택해 주세요.</div>
 </section>
 
 <section class="card">
-  <h2>④ 전체 순환봉사 배정표</h2>
+  <h2>⑤ 전체 순환봉사 배정표</h2>
   <p class="small">15분 단위 교대 · 각 일정 2시간 · 총 8회</p>
-  <p class="small">A 전시대: 영인면사무소 앞<br>
-  B 전시대: 농협 하나로마트 앞</p>
+  <p class="small">
+    A 전시대: 영인면사무소 앞<br>
+    B 전시대: 농협 하나로마트 앞
+  </p>
   <div id="allSchedules"></div>
 </section>
 
 <section class="card">
-  <h2>⑤ 배정표 공유</h2>
-  <p>이름과 공지사항을 포함한 공유 링크를 만들어 카톡방에 보내세요.</p>
-  <p class="small">명단이나 공지를 변경하면 새 링크를 만들어 다시 공유해야 합니다.</p>
+  <h2>⑥ 배정표 공유</h2>
+  <p>이름, 조 편성, 공지사항을 포함한 공유 링크를 만들어 카톡방에 보내세요.</p>
+  <p class="small">
+    명단이나 공지를 변경하면 새 공유 링크를 만들어 다시 보내야 합니다.
+    링크를 가진 사람은 포함된 명단을 볼 수 있습니다.
+  </p>
   <div class="buttons">
     <button class="green" onclick="shareSchedule()">공유 링크 만들기 및 복사</button>
     <button class="secondary" onclick="copyCurrentLink()">현재 링크 복사</button>
@@ -117,6 +169,14 @@ const INITIAL_NAMES = [
   "지임영","박원경","박혜자"
 ];
 
+// 기본 조 편성: 3명씩 4개 조
+const INITIAL_GROUPS = [
+  1,1,1,
+  2,2,2,
+  3,3,3,
+  4,4,4
+];
+
 const DAYS = [
   {title:"수요일 저녁",time:"18:00~20:00",start:18*60},
   {title:"토요일 오전",time:"10:00~12:00",start:10*60},
@@ -126,37 +186,56 @@ const DAYS = [
 const PLACES = {
   A:"A 전시대\n영인면사무소 앞",
   B:"B 전시대\n농협 하나로마트 앞",
-  street:"거리 봉사",
+  street:"가두봉사",
   rest:"휴식"
 };
 
 let selectedPerson = -1;
 let groups = [[],[],[],[]];
 
-function renderNameInputs(names){
-  const root=document.getElementById("nameInputs");
-  root.innerHTML="";
+function renderMemberInputs(names, groupNumbers){
+  const root = document.getElementById("memberInputs");
+  root.innerHTML = "";
 
   for(let i=0;i<12;i++){
-    const box=document.createElement("div");
-    box.className="namebox";
+    const row = document.createElement("div");
+    row.className = "member-row";
 
-    const label=document.createElement("label");
-    label.htmlFor="name"+i;
-    label.textContent=(Math.floor(i/3)+1)+"조 · 참여자 "+(i+1);
+    const label = document.createElement("label");
+    label.htmlFor = "name" + i;
+    label.textContent = "참여자 " + (i+1);
 
-    const input=document.createElement("input");
-    input.id="name"+i;
-    input.value=names[i]||"";
-    input.placeholder="이름 입력";
-    input.autocomplete="off";
+    const input = document.createElement("input");
+    input.id = "name" + i;
+    input.placeholder = "이름 입력";
+    input.autocomplete = "off";
+    input.value = names[i] || "";
+
+    const select = document.createElement("select");
+    select.id = "group" + i;
+    select.setAttribute("aria-label", "참여자 " + (i+1) + " 조 선택");
+
+    for(let g=1;g<=4;g++){
+      const option = document.createElement("option");
+      option.value = String(g);
+      option.textContent = g + "조";
+      select.appendChild(option);
+    }
+
+    select.value = String(groupNumbers[i] || INITIAL_GROUPS[i]);
 
     input.addEventListener("input",()=>{
       makeSchedule(false);
     });
 
-    box.append(label,input);
-    root.appendChild(box);
+    select.addEventListener("change",()=>{
+      makeSchedule(false);
+    });
+
+    row.appendChild(label);
+    row.appendChild(input);
+    row.appendChild(select);
+    root.appendChild(row);
   }
 }
 
@@ -166,43 +245,53 @@ function getNames(){
   );
 }
 
+function getGroupNumbers(){
+  return Array.from({length:12},(_,i)=>
+    Number(document.getElementById("group"+i).value)
+  );
+}
+
 function makeGroups(){
-  const names=getNames();
-  groups=[[],[],[],[]];
+  const names = getNames();
+  const groupNumbers = getGroupNumbers();
+
+  groups = [[],[],[],[]];
 
   names.forEach((name,index)=>{
-    if(name){
-      groups[Math.floor(index/3)].push({
-        name:name,
-        index:index
-      });
-    }
+    if(!name) return;
+
+    const groupIndex = groupNumbers[index] - 1;
+
+    groups[groupIndex].push({
+      name:name,
+      index:index
+    });
   });
 }
 
 function renderGroups(){
-  const root=document.getElementById("groupsView");
-  root.innerHTML="<h3>조별 명단</h3>";
+  const root = document.getElementById("groupsView");
+  root.innerHTML = "";
 
   groups.forEach((group,i)=>{
-    const box=document.createElement("div");
-    box.className="group-card";
+    const box = document.createElement("div");
+    box.className = "group-card";
 
-    const title=document.createElement("div");
-    title.className="group-title";
-    title.textContent=(i+1)+"조 ("+group.length+"명)";
+    const title = document.createElement("div");
+    title.className = "group-title";
+    title.textContent = (i+1) + "조 (" + group.length + "명)";
     box.appendChild(title);
 
-    const members=document.createElement("div");
-    members.className="member-list";
+    const members = document.createElement("div");
+    members.className = "member-list";
 
-    if(group.length===0){
-      members.textContent="등록된 참여자가 없습니다.";
+    if(group.length === 0){
+      members.textContent = "등록된 참여자가 없습니다.";
     }else{
       group.forEach(person=>{
-        const span=document.createElement("span");
-        span.className="member";
-        span.textContent=person.name;
+        const span = document.createElement("span");
+        span.className = "member";
+        span.textContent = person.name;
         members.appendChild(span);
       });
     }
@@ -213,70 +302,74 @@ function renderGroups(){
 }
 
 /*
-  1조: A 전시대부터 시작
-  2조: 거리 봉사부터 시작
-  3조: B 전시대부터 시작
-  4조: B 전시대부터 시작
+  기본 시작 방식:
+  1조: A 전시대
+  2조: 가두봉사
+  3조: B 전시대
+  4조: B 전시대
 
-  이후 각 조는 A, B, 거리 봉사, 휴식의
-  순환 역할을 이어갑니다.
+  이후 15분마다 A 전시대, B 전시대,
+  가두봉사, 휴식 역할을 순환합니다.
 */
 function getRole(groupIndex,slot){
-  const starts=[0,2,1,1];
-  const roles=["A","B","street","rest"];
+  const starts = [0,2,1,1];
+  const roles = ["A","B","street","rest"];
   return roles[(starts[groupIndex]+slot)%4];
 }
 
 function formatTime(start,slot){
-  const a=start+slot*15;
-  const b=a+15;
-  const fmt=n=>
-    String(Math.floor(n/60)).padStart(2,"0")+":"+
+  const a = start + slot*15;
+  const b = a + 15;
+
+  const fmt = n =>
+    String(Math.floor(n/60)).padStart(2,"0") + ":" +
     String(n%60).padStart(2,"0");
-  return fmt(a)+"~"+fmt(b);
+
+  return fmt(a) + "~" + fmt(b);
 }
 
 function renderAllSchedules(){
-  const root=document.getElementById("allSchedules");
-  root.innerHTML="";
+  const root = document.getElementById("allSchedules");
+  root.innerHTML = "";
 
   DAYS.forEach(day=>{
-    const heading=document.createElement("h3");
-    heading.textContent=day.title+" ("+day.time+")";
+    const heading = document.createElement("h3");
+    heading.textContent = day.title + " (" + day.time + ")";
     root.appendChild(heading);
 
-    const wrap=document.createElement("div");
-    wrap.className="table-wrap";
+    const wrap = document.createElement("div");
+    wrap.className = "table-wrap";
 
-    const table=document.createElement("table");
-    const thead=document.createElement("thead");
-    const headRow=document.createElement("tr");
+    const table = document.createElement("table");
+    const thead = document.createElement("thead");
+    const headRow = document.createElement("tr");
 
     ["시간","1조","2조","3조","4조"].forEach(text=>{
-      const th=document.createElement("th");
-      th.textContent=text;
+      const th = document.createElement("th");
+      th.textContent = text;
       headRow.appendChild(th);
     });
 
     thead.appendChild(headRow);
     table.appendChild(thead);
 
-    const tbody=document.createElement("tbody");
+    const tbody = document.createElement("tbody");
 
     for(let slot=0;slot<8;slot++){
-      const row=document.createElement("tr");
-      const timeCell=document.createElement("td");
-      timeCell.textContent=formatTime(day.start,slot);
+      const row = document.createElement("tr");
+
+      const timeCell = document.createElement("td");
+      timeCell.textContent = formatTime(day.start,slot);
       row.appendChild(timeCell);
 
       for(let g=0;g<4;g++){
-        const td=document.createElement("td");
-        const names=groups[g].map(p=>p.name);
-        const role=getRole(g,slot);
+        const td = document.createElement("td");
+        const names = groups[g].map(person=>person.name);
+        const role = getRole(g,slot);
 
-        td.textContent=
-          (names.length?names.join(", "):"미배정")+
-          "\n\n"+PLACES[role];
+        td.textContent =
+          (names.length ? names.join(", ") : "미배정") +
+          "\n\n" + PLACES[role];
 
         row.appendChild(td);
       }
@@ -291,20 +384,20 @@ function renderAllSchedules(){
 }
 
 function renderPersonButtons(){
-  const root=document.getElementById("personButtons");
-  root.innerHTML="";
+  const root = document.getElementById("personButtons");
+  root.innerHTML = "";
 
-  groups.forEach((group,g)=>{
+  groups.forEach((group)=>{
     group.forEach(person=>{
-      const btn=document.createElement("button");
-      btn.textContent=person.name;
+      const btn = document.createElement("button");
+      btn.textContent = person.name;
 
-      if(person.index===selectedPerson){
+      if(person.index === selectedPerson){
         btn.classList.add("active");
       }
 
-      btn.onclick=()=>{
-        selectedPerson=person.index;
+      btn.onclick = ()=>{
+        selectedPerson = person.index;
         renderPersonButtons();
         showPerson(person.index);
       };
@@ -325,72 +418,109 @@ function escapeHTML(value){
 }
 
 function showPerson(index){
-  const names=getNames();
-  const name=names[index];
-  const root=document.getElementById("personSchedule");
+  const names = getNames();
+  const groupNumbers = getGroupNumbers();
+  const name = names[index];
+  const root = document.getElementById("personSchedule");
 
-  if(!name){
-    root.textContent="이름을 입력해 주세요.";
+  if(index < 0 || !name){
+    root.textContent = "이름을 선택해 주세요.";
     return;
   }
 
-  const groupIndex=Math.floor(index/3);
-  let html="<h3>"+escapeHTML(name)+"님 · "+(groupIndex+1)+"조</h3>";
+  const groupIndex = groupNumbers[index]-1;
+
+  let html = "<h3>" + escapeHTML(name) + "님 · " +
+    (groupIndex+1) + "조</h3>";
 
   DAYS.forEach(day=>{
-    html+="<h3>"+day.title+" ("+day.time+")</h3><ul>";
+    html += "<h3>" + day.title + " (" + day.time + ")</h3><ul>";
 
     for(let slot=0;slot<8;slot++){
-      html+="<li><b>"+formatTime(day.start,slot)+
-        "</b><br>"+escapeHTML(PLACES[getRole(groupIndex,slot)]).replace(/\n/g,"<br>")+
+      const role = getRole(groupIndex,slot);
+      html += "<li><b>" + formatTime(day.start,slot) +
+        "</b><br>" +
+        escapeHTML(PLACES[role]).replace(/\n/g,"<br>") +
         "</li>";
     }
 
-    html+="</ul>";
+    html += "</ul>";
   });
 
-  root.innerHTML=html;
+  root.innerHTML = html;
 }
 
 function makeSchedule(updatePerson=true){
-  const oldSelected=selectedPerson;
+  const oldSelected = selectedPerson;
+
   makeGroups();
   renderGroups();
   renderAllSchedules();
   renderPersonButtons();
 
-  if(updatePerson && oldSelected>=0 && getNames()[oldSelected]){
+  const names = getNames();
+
+  if(updatePerson && oldSelected>=0 && names[oldSelected]){
     showPerson(oldSelected);
-  }else if(oldSelected<0 || !getNames()[oldSelected]){
-    const first=getNames().findIndex(n=>n);
-    selectedPerson=first;
+  }else if(oldSelected<0 || !names[oldSelected]){
+    selectedPerson = names.findIndex(name=>name!=="");
     renderPersonButtons();
 
-    if(first>=0) showPerson(first);
-    else document.getElementById("personSchedule").textContent="이름을 입력해 주세요.";
+    if(selectedPerson>=0){
+      showPerson(selectedPerson);
+    }else{
+      document.getElementById("personSchedule").textContent =
+        "이름을 입력해 주세요.";
+    }
   }else{
     showPerson(oldSelected);
   }
 }
 
 function saveNotice(){
-  const text=document.getElementById("noticeInput").value.trim();
-  document.getElementById("noticeView").textContent=
-    text ? "📢 "+text : "등록된 공지사항이 없습니다.";
+  const notice = document.getElementById("noticeInput").value.trim();
+
+  document.getElementById("noticeView").textContent =
+    notice ? "📢 " + notice : "등록된 공지사항이 없습니다.";
+}
+
+function resetNames(){
+  if(!confirm("처음 이름과 기본 조 편성으로 복구할까요?")) return;
+
+  selectedPerson = -1;
+  renderMemberInputs(INITIAL_NAMES,INITIAL_GROUPS);
+  makeSchedule();
+}
+
+function clearAll(){
+  if(!confirm("이름과 조 편성을 모두 초기화할까요?")) return;
+
+  selectedPerson = -1;
+  renderMemberInputs(
+    Array(12).fill(""),
+    INITIAL_GROUPS
+  );
+
+  document.getElementById("noticeInput").value = "";
+  document.getElementById("shareResult").value = "";
+  saveNotice();
+  makeSchedule();
 }
 
 function getShareData(){
   return {
     names:getNames(),
+    groups:getGroupNumbers(),
     notice:document.getElementById("noticeInput").value,
-    version:1
+    version:2
   };
 }
 
 function encodeData(data){
-  const bytes=new TextEncoder().encode(JSON.stringify(data));
-  let binary="";
-  bytes.forEach(b=>binary+=String.fromCharCode(b));
+  const bytes = new TextEncoder().encode(JSON.stringify(data));
+  let binary = "";
+
+  bytes.forEach(b=>binary += String.fromCharCode(b));
 
   return btoa(binary)
     .replace(/\+/g,"-")
@@ -399,11 +529,12 @@ function encodeData(data){
 }
 
 function decodeData(str){
-  let base=str.replace(/-/g,"+").replace(/_/g,"/");
-  while(base.length%4) base+="=";
+  let base = str.replace(/-/g,"+").replace(/_/g,"/");
+  while(base.length%4) base += "=";
 
-  const binary=atob(base);
-  const bytes=Uint8Array.from(binary,c=>c.charCodeAt(0));
+  const binary = atob(base);
+  const bytes = Uint8Array.from(binary,c=>c.charCodeAt(0));
+
   return JSON.parse(new TextDecoder().decode(bytes));
 }
 
@@ -413,26 +544,28 @@ async function copyText(text){
     return true;
   }
 
-  const area=document.createElement("textarea");
-  area.value=text;
-  area.style.position="fixed";
-  area.style.opacity="0";
+  const area = document.createElement("textarea");
+  area.value = text;
+  area.style.position = "fixed";
+  area.style.opacity = "0";
   document.body.appendChild(area);
   area.select();
 
-  const success=document.execCommand("copy");
+  const success = document.execCommand("copy");
   area.remove();
-  return success;
+
+  if(!success) throw new Error("복사 실패");
+  return true;
 }
 
 async function shareSchedule(){
   makeSchedule();
   saveNotice();
 
-  const base=location.href.split("#")[0];
-  const link=base+"#data="+encodeData(getShareData());
+  const base = location.href.split("#")[0];
+  const link = base + "#data=" + encodeData(getShareData());
 
-  document.getElementById("shareResult").value=link;
+  document.getElementById("shareResult").value = link;
 
   try{
     await copyText(link);
@@ -447,42 +580,47 @@ async function copyCurrentLink(){
     await copyText(location.href);
     alert("현재 페이지 링크를 복사했습니다.");
   }catch(e){
-    document.getElementById("shareResult").value=location.href;
+    document.getElementById("shareResult").value = location.href;
   }
-}
-
-function resetNames(){
-  if(!confirm("명단을 처음 이름으로 복구할까요?")) return;
-
-  renderNameInputs(INITIAL_NAMES);
-  selectedPerson=-1;
-  makeSchedule();
 }
 
 function loadSharedData(){
   if(!location.hash.startsWith("#data=")) return;
 
   try{
-    const data=decodeData(location.hash.slice(6));
+    const data = decodeData(location.hash.slice(6));
 
     if(Array.isArray(data.names)){
-      const names=Array.from({length:12},(_,i)=>data.names[i]||"");
-      renderNameInputs(names);
+      const names = Array.from(
+        {length:12},
+        (_,i)=>data.names[i]||""
+      );
+
+      const groupNumbers = Array.from(
+        {length:12},
+        (_,i)=>{
+          const value = data.groups && data.groups[i];
+          return Number(value)>=1 && Number(value)<=4
+            ? Number(value)
+            : INITIAL_GROUPS[i];
+        }
+      );
+
+      renderMemberInputs(names,groupNumbers);
     }
 
-    document.getElementById("noticeInput").value=data.notice||"";
+    document.getElementById("noticeInput").value = data.notice||"";
     saveNotice();
     makeSchedule();
   }catch(e){
-    document.getElementById("shareResult").value=
+    document.getElementById("shareResult").value =
       "공유 데이터를 읽을 수 없습니다. 링크가 올바른지 확인해 주세요.";
   }
 }
 
-renderNameInputs(INITIAL_NAMES);
+renderMemberInputs(INITIAL_NAMES,INITIAL_GROUPS);
 makeSchedule();
 loadSharedData();
 </script>
-
 </body>
 </html>
