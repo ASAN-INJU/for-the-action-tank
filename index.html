@@ -3,91 +3,126 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#246BFD">
 <title>오늘의 전시대 순환봉사 배정표</title>
+
 <style>
 *{box-sizing:border-box}
-body{margin:0;background:#f3f6fb;color:#202938;font-family:Arial,"Noto Sans KR",sans-serif;font-size:16px}
-header{background:#246bfd;color:white;text-align:center;padding:20px 12px}
-header h1{font-size:23px;margin:0 0 6px}
-header p{margin:0;font-size:14px}
-main{max-width:850px;margin:auto;padding:14px}
-.card{background:white;border-radius:14px;padding:16px;margin-bottom:14px;box-shadow:0 2px 8px #0000000c}
+body{
+  margin:0;background:#f3f6fb;color:#253044;
+  font-family:Arial,"Noto Sans KR",sans-serif;font-size:16px
+}
+header{background:#246bfd;color:white;text-align:center;padding:18px 10px}
+header h1{font-size:22px;margin:0 0 7px}
+header p{font-size:14px;margin:0}
+main{max-width:850px;margin:auto;padding:12px}
+.card{
+  background:white;border-radius:14px;padding:16px;
+  margin-bottom:14px;box-shadow:0 2px 8px #0000000c
+}
 h2{font-size:19px;margin:0 0 13px}
-h3{font-size:17px;margin:12px 0 8px}
-.small{font-size:13px;color:#687386}
-label{display:block;font-weight:bold;margin-bottom:6px}
+h3{font-size:17px;margin:14px 0 9px}
+.small{font-size:13px;color:#687386;line-height:1.6}
 input,select,textarea,button{font:inherit}
-input,select,textarea{width:100%;padding:11px;border:1px solid #cbd5e1;border-radius:9px;background:white}
-textarea{min-height:85px;resize:vertical}
+input[type=text],select,textarea{
+  width:100%;padding:11px;border:1px solid #cbd5e1;
+  border-radius:9px;background:white;color:#253044
+}
+textarea{min-height:90px;resize:vertical}
 .people{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
-.person{border:1px solid #e1e7f0;border-radius:10px;padding:10px}
-.person input{margin-bottom:7px}
-.session{display:flex;align-items:flex-start;gap:10px;padding:12px;margin:8px 0;border:1px solid #dbe3ef;border-radius:10px;cursor:pointer}
-.session input{width:22px;height:22px;flex-shrink:0;margin:1px 0 0}
+.person{padding:10px;border:1px solid #e1e7f0;border-radius:10px}
+.person input{margin-bottom:8px}
+.session{
+  display:flex;align-items:center;gap:11px;padding:13px;
+  margin:8px 0;border:1px solid #dbe3ef;border-radius:10px;
+  cursor:pointer
+}
+.session input{width:23px;height:23px;flex-shrink:0}
 .session strong{display:block}
-.session span{font-size:14px;color:#667085;display:block;margin-top:3px}
-button{border:0;border-radius:10px;padding:12px 14px;background:#246bfd;color:white;font-weight:bold;cursor:pointer}
-button.secondary{background:#e8eef9;color:#204a91}
-button.dark{background:#334155}
+.session small{display:block;margin-top:4px;color:#687386}
+button{
+  border:0;border-radius:10px;padding:12px 14px;
+  background:#246bfd;color:white;font-weight:bold;cursor:pointer
+}
+.secondary{background:#e8eef9;color:#204a91}
+.dark{background:#334155;color:white}
 .actions{display:flex;flex-wrap:wrap;gap:8px}
-.actions button{flex:1;min-width:125px}
-.notice{background:#fff9e8;border:1px solid #f1df9e;border-radius:10px;padding:10px;font-size:14px}
-.table-wrap{overflow-x:auto}
-table{width:100%;border-collapse:collapse;font-size:14px;min-width:490px}
-th,td{padding:9px 7px;border:1px solid #dce3ed;text-align:center}
+.actions button{flex:1;min-width:120px}
+.notice{
+  background:#fff9e8;border:1px solid #f1df9e;
+  border-radius:10px;padding:12px;line-height:1.8
+}
+.table-wrap{width:100%;overflow-x:auto;margin:8px 0 18px}
+table{width:100%;min-width:500px;border-collapse:collapse;font-size:13px}
+th,td{padding:8px 5px;border:1px solid #dce3ed;text-align:center;vertical-align:middle}
 th{background:#edf3ff}
-td.left{text-align:left}
-.tag{display:inline-block;padding:4px 7px;border-radius:6px;background:#e8f0ff;color:#204a91;font-size:12px;font-weight:bold}
-.rest{background:#f1f3f5;color:#606a78}
-.street{background:#fff0d8;color:#8a5100}
-#shareLink{margin-top:10px;word-break:break-all}
-.person-schedule{padding:10px 0;border-bottom:1px solid #e5eaf1}
-.hidden{display:none}
+.tag{display:inline-block;padding:4px 6px;border-radius:6px;background:#e8f0ff;color:#204a91;font-weight:bold;font-size:12px}
+.tag.street{background:#fff0d8;color:#8a5100}
+.tag.rest{background:#f0f1f3;color:#626b79}
+.member-names{font-size:12px;color:#536074;display:block;margin-top:5px;overflow-wrap:anywhere}
+.person-schedule{padding:12px 0;border-bottom:1px solid #e5eaf1;line-height:1.9}
+.hidden{display:none!important}
+#shareUrl{margin-top:8px}
 @media(max-width:430px){
- main{padding:9px}
- .card{padding:13px}
- header h1{font-size:20px}
- .people{grid-template-columns:1fr}
+  main{padding:9px}
+  .card{padding:13px}
+  header h1{font-size:20px}
+  .people{grid-template-columns:1fr}
 }
 @media print{
- body{background:white}
- header{background:white;color:black}
- button,#shareLink,.no-print{display:none!important}
- .card{box-shadow:none;border:1px solid #ddd;break-inside:avoid}
+  body{background:white}
+  header{background:white;color:black}
+  .no-print{display:none!important}
+  .card{box-shadow:none;border:1px solid #ddd;break-inside:avoid}
 }
 </style>
 </head>
+
 <body>
 <header>
   <h1>오늘의 전시대 순환봉사 배정표</h1>
-  <p>봉사 종류를 선택하고 조별 순환 일정을 확인하세요</p>
+  <p>봉사 선택 · 조별 배정 · 개인별 일정</p>
 </header>
 
 <main>
   <section class="card">
-    <h2>① 봉사 일정 선택</h2>
-    <p class="small">원하는 봉사를 선택하세요. 여러 개를 함께 선택할 수 있습니다.</p>
+    <h2>① 봉사 종류 선택</h2>
+    <p class="small">참여할 봉사를 선택하세요. 세 가지 중 하나만 선택하거나 여러 개를 선택할 수 있습니다.</p>
 
     <label class="session">
       <input type="checkbox" id="wed" checked>
-      <div><strong>수요일 저녁 봉사</strong><span>오후 6:00 ~ 8:00</span></div>
+      <div>
+        <strong>수요일 저녁 봉사</strong>
+        <small>오후 6:00 ~ 8:00</small>
+      </div>
     </label>
+
     <label class="session">
       <input type="checkbox" id="satMorning" checked>
-      <div><strong>토요일 오전 봉사</strong><span>오전 10:00 ~ 12:00</span></div>
+      <div>
+        <strong>토요일 오전 봉사</strong>
+        <small>오전 10:00 ~ 12:00</small>
+      </div>
     </label>
+
     <label class="session">
       <input type="checkbox" id="satEvening" checked>
-      <div><strong>토요일 저녁 봉사</strong><span>오후 6:00 ~ 8:00</span></div>
+      <div>
+        <strong>토요일 저녁 봉사</strong>
+        <small>오후 6:00 ~ 8:00</small>
+      </div>
     </label>
-    <p class="small">선택한 봉사 일정만 아래 배정표와 개인별 일정에 표시됩니다.</p>
+
+    <div class="actions">
+      <button type="button" class="secondary" id="selectAll">세 가지 모두 선택</button>
+      <button type="button" class="secondary" id="selectNone">모두 선택 해제</button>
+    </div>
   </section>
 
   <section class="card">
-    <h2>② 참여자 이름 및 조 선택</h2>
-    <p class="small">이름을 입력하고 해당하는 조를 선택하세요. 이름을 입력하면 참여자 번호 대신 이름이 표시됩니다.</p>
+    <h2>② 참여자 이름과 조 선택</h2>
+    <p class="small">이름을 입력하고 각 참여자의 조를 선택하세요. 이름이 입력되면 입력란에는 실제 이름이 표시됩니다.</p>
     <div class="people" id="people"></div>
   </section>
 
@@ -101,13 +136,14 @@ td.left{text-align:left}
     <div class="notice">
       <strong>A 전시대:</strong> 영인면사무소 앞<br>
       <strong>B 전시대:</strong> 농협 하나로마트 앞<br>
-      <strong>교대 간격:</strong> 15분
+      <strong>교대 간격:</strong> 15분<br>
+      <strong>봉사 시간:</strong> 각 일정 2시간
     </div>
     <div id="schedule"></div>
   </section>
 
   <section class="card">
-    <h2>⑤ 개인별 일정 확인</h2>
+    <h2>⑤ 개인별 일정</h2>
     <label for="personSelect">참여자 선택</label>
     <select id="personSelect">
       <option value="">참여자를 선택하세요</option>
@@ -118,322 +154,431 @@ td.left{text-align:left}
   <section class="card no-print">
     <h2>⑥ 저장 및 공유</h2>
     <div class="actions">
-      <button onclick="saveData()">내용 저장</button>
-      <button class="secondary" onclick="makeShareLink()">공유 링크 만들기</button>
-      <button class="dark" onclick="window.print()">배정표 인쇄</button>
+      <button type="button" id="saveBtn">내용 저장</button>
+      <button type="button" id="shareBtn">공유 링크 만들기</button>
+      <button type="button" class="dark" id="printBtn">배정표 인쇄</button>
     </div>
-    <div id="shareLink" class="hidden">
-      <p class="small">아래 링크를 복사해 카카오톡 단체방에 보내세요.</p>
-      <input id="shareUrl" readonly>
-      <button style="width:100%;margin-top:8px" onclick="copyShareLink()">공유 링크 복사</button>
+    <div id="shareArea" class="hidden">
+      <p class="small">아래 링크를 복사하여 카카오톡에 보내세요.</p>
+      <input type="text" id="shareUrl" readonly>
+      <button type="button" id="copyBtn" style="width:100%;margin-top:8px">링크 복사</button>
     </div>
-    <p id="saveMessage" class="small"></p>
+    <p id="message" class="small" aria-live="polite"></p>
   </section>
 </main>
 
 <script>
-const KEY = "displayStandVolunteerAppV3";
+(function(){
+"use strict";
+
+const STORAGE_KEY = "displayStandVolunteerAppV4";
+
 const peopleEl = document.getElementById("people");
 const scheduleEl = document.getElementById("schedule");
 const personSelect = document.getElementById("personSelect");
+const noticeEl = document.getElementById("notice");
+const messageEl = document.getElementById("message");
 
-let people = Array.from({length:12}, () => ({name:"", group:"1"}));
-let selected = {wed:true, satMorning:true, satEvening:true};
-let noticeText = "";
+let people = Array.from({length:12}, function(){
+  return {name:"",group:"1"};
+});
 
-function safeDecodeData() {
-  try {
-    const params = new URLSearchParams(location.search);
-    const data = params.get("data");
-    if (!data) return null;
-    return JSON.parse(decodeURIComponent(escape(atob(data))));
-  } catch(e) {
-    return null;
-  }
+let selected = {
+  wed:true,
+  satMorning:true,
+  satEvening:true
+};
+
+const sessions = [
+  {key:"wed",title:"수요일 저녁 봉사",start:"18:00"},
+  {key:"satMorning",title:"토요일 오전 봉사",start:"10:00"},
+  {key:"satEvening",title:"토요일 저녁 봉사",start:"18:00"}
+];
+
+function escapeHTML(value){
+  return String(value).replace(/[&<>"']/g,function(c){
+    return {
+      "&":"&amp;",
+      "<":"&lt;",
+      ">":"&gt;",
+      '"':"&quot;",
+      "'":"&#39;"
+    }[c];
+  });
 }
 
-function applyData(data) {
-  if (!data || typeof data !== "object") return;
-  if (Array.isArray(data.people)) {
-    people = Array.from({length:12}, (_,i) => {
-      const p = data.people[i] || {};
-      return {
-        name: String(p.name || ""),
-        group: ["1","2","3","4"].includes(String(p.group)) ? String(p.group) : "1"
-      };
-    });
-  }
-  if (data.selected) {
-    selected = {
-      wed: data.selected.wed !== false,
-      satMorning: data.selected.satMorning !== false,
-      satEvening: data.selected.satEvening !== false
-    };
-  }
-  noticeText = String(data.notice || "");
-}
-
-function readLocalData() {
-  try {
-    const raw = localStorage.getItem(KEY);
-    if (raw) applyData(JSON.parse(raw));
-  } catch(e) {}
-}
-
-function readControls() {
+function readControls(){
   selected.wed = document.getElementById("wed").checked;
   selected.satMorning = document.getElementById("satMorning").checked;
   selected.satEvening = document.getElementById("satEvening").checked;
-  noticeText = document.getElementById("notice").value;
 }
 
-function getData() {
+function getData(){
   readControls();
   return {
-    people: people.map(p => ({name:p.name, group:p.group})),
-    selected: {...selected},
-    notice: noticeText
+    version:4,
+    people:people.map(function(p){
+      return {name:p.name,group:p.group};
+    }),
+    selected:{
+      wed:selected.wed,
+      satMorning:selected.satMorning,
+      satEvening:selected.satEvening
+    },
+    notice:noticeEl.value
   };
 }
 
-function renderPeople() {
+function loadData(data){
+  if(!data || typeof data!=="object") return;
+
+  if(Array.isArray(data.people)){
+    people = Array.from({length:12},function(_,i){
+      const p = data.people[i] || {};
+      const group = String(p.group || "1");
+      return {
+        name:String(p.name || ""),
+        group:["1","2","3","4"].includes(group) ? group : "1"
+      };
+    });
+  }
+
+  if(data.selected && typeof data.selected==="object"){
+    selected = {
+      wed:data.selected.wed !== false,
+      satMorning:data.selected.satMorning !== false,
+      satEvening:data.selected.satEvening !== false
+    };
+  }
+
+  noticeEl.value = String(data.notice || "");
+}
+
+function loadInitialData(){
+  try{
+    const params = new URLSearchParams(window.location.search);
+    const encoded = params.get("data");
+
+    if(encoded){
+      const json = decodeURIComponent(escape(atob(encoded)));
+      loadData(JSON.parse(json));
+      return;
+    }
+  }catch(error){
+    // 잘못된 공유 데이터는 아래의 저장 데이터로 대체합니다.
+  }
+
+  try{
+    const saved = localStorage.getItem(STORAGE_KEY);
+    if(saved) loadData(JSON.parse(saved));
+  }catch(error){}
+}
+
+function saveQuietly(){
+  try{
+    localStorage.setItem(STORAGE_KEY,JSON.stringify(getData()));
+  }catch(error){}
+}
+
+function renderPeople(){
   peopleEl.innerHTML = "";
-  people.forEach((p,i) => {
+
+  people.forEach(function(p,i){
     const box = document.createElement("div");
     box.className = "person";
 
-    const name = document.createElement("input");
-    name.type = "text";
-    name.maxLength = 30;
-    name.placeholder = "참여자 " + (i+1) + " 이름";
-    name.value = p.name;
-    name.setAttribute("aria-label", "참여자 " + (i+1) + " 이름");
-    name.addEventListener("input", () => {
-      people[i].name = name.value;
+    const nameInput = document.createElement("input");
+    nameInput.type = "text";
+    nameInput.maxLength = 30;
+    nameInput.placeholder = "이름 입력";
+    nameInput.setAttribute("aria-label","참여자 "+(i+1)+" 이름");
+    nameInput.value = p.name;
+
+    nameInput.addEventListener("input",function(){
+      people[i].name = nameInput.value;
       renderPersonOptions();
       renderSchedule();
       renderPersonalSchedule();
+      saveQuietly();
     });
 
-    const group = document.createElement("select");
-    group.setAttribute("aria-label", "참여자 " + (i+1) + " 조 선택");
-    group.innerHTML = `
-      <option value="1">1조</option>
-      <option value="2">2조</option>
-      <option value="3">3조</option>
-      <option value="4">4조</option>`;
-    group.value = p.group;
-    group.addEventListener("change", () => {
-      people[i].group = group.value;
+    const groupSelect = document.createElement("select");
+    groupSelect.setAttribute("aria-label","참여자 "+(i+1)+" 조 선택");
+
+    groupSelect.innerHTML =
+      '<option value="1">1조</option>'+
+      '<option value="2">2조</option>'+
+      '<option value="3">3조</option>'+
+      '<option value="4">4조</option>';
+
+    groupSelect.value = p.group;
+
+    groupSelect.addEventListener("change",function(){
+      people[i].group = groupSelect.value;
+      renderPersonOptions();
       renderSchedule();
       renderPersonalSchedule();
+      saveQuietly();
     });
 
-    box.appendChild(name);
-    box.appendChild(group);
+    box.appendChild(nameInput);
+    box.appendChild(groupSelect);
     peopleEl.appendChild(box);
   });
 }
 
-function renderPersonOptions() {
-  const previous = personSelect.value;
+function renderPersonOptions(){
+  const oldValue = personSelect.value;
   personSelect.innerHTML = '<option value="">참여자를 선택하세요</option>';
 
-  people.forEach((p,i) => {
-    if (!p.name.trim()) return;
+  people.forEach(function(p,i){
+    if(!p.name.trim()) return;
+
     const option = document.createElement("option");
     option.value = String(i);
-    option.textContent = p.name.trim() + " (" + p.group + "조)";
+    option.textContent = p.name.trim()+" ("+p.group+"조)";
     personSelect.appendChild(option);
   });
 
-  if ([...personSelect.options].some(o => o.value === previous)) {
-    personSelect.value = previous;
+  if(Array.from(personSelect.options).some(function(o){
+    return o.value===oldValue;
+  })){
+    personSelect.value = oldValue;
   }
 }
 
-const sessions = [
-  {key:"wed", title:"수요일 저녁", time:"18:00~20:00"},
-  {key:"satMorning", title:"토요일 오전", time:"10:00~12:00"},
-  {key:"satEvening", title:"토요일 저녁", time:"18:00~20:00"}
-];
+function roleFor(group,step){
+  /*
+    시작 배정:
+    1조 A 전시대
+    2조 가두봉사
+    3조 B 전시대
+    4조 B 전시대
 
-function roleFor(group, step) {
-  // 1조는 A, 2조는 가두봉사, 3조와 4조는 B에서 시작합니다.
-  const startRoles = ["A","street","B","B"];
-  const cycle = [
+    이후 15분마다 다음 배정표로 순환합니다.
+  */
+  const rotation = [
     ["A","street","B","B"],
     ["street","B","rest","A"],
     ["B","rest","A","street"],
     ["rest","A","street","B"]
   ];
-  return cycle[step % cycle.length][group-1] || startRoles[group-1];
+
+  return rotation[step%rotation.length][group-1];
 }
 
-function roleLabel(role) {
-  if (role === "A") return "A 전시대";
-  if (role === "B") return "B 전시대";
-  if (role === "street") return "가두봉사";
+function roleName(role){
+  if(role==="A") return "A 전시대";
+  if(role==="B") return "B 전시대";
+  if(role==="street") return "가두봉사";
   return "휴식";
 }
 
-function roleClass(role) {
-  if (role === "street") return "street";
-  if (role === "rest") return "rest";
+function timeAt(start,step){
+  const parts = start.split(":");
+  const total = Number(parts[0])*60 + Number(parts[1]) + step*15;
+  const h = String(Math.floor(total/60)%24).padStart(2,"0");
+  const m = String(total%60).padStart(2,"0");
+  return h+":"+m;
+}
+
+function roleClass(role){
+  if(role==="street") return "street";
+  if(role==="rest") return "rest";
   return "";
 }
 
-function namesInGroup(group) {
-  const list = people.filter(p => Number(p.group) === group && p.name.trim());
-  return list.length ? list.map(p => escapeHtml(p.name.trim())).join(", ") : "배정된 이름 없음";
+function groupNames(group){
+  const list = people.filter(function(p){
+    return Number(p.group)===group && p.name.trim();
+  });
+
+  if(!list.length) return "이름 미입력";
+
+  return list.map(function(p){
+    return escapeHTML(p.name.trim());
+  }).join(", ");
 }
 
-function escapeHtml(value) {
-  return String(value).replace(/[&<>"']/g, c => ({
-    "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;", "'":"&#39;"
-  })[c]);
-}
-
-function renderSchedule() {
+function renderSchedule(){
   readControls();
   scheduleEl.innerHTML = "";
 
-  const chosen = sessions.filter(s => selected[s.key]);
-  if (!chosen.length) {
-    scheduleEl.innerHTML = '<p class="small">봉사 일정을 하나 이상 선택해 주세요.</p>';
+  const chosen = sessions.filter(function(s){
+    return selected[s.key];
+  });
+
+  if(chosen.length===0){
+    scheduleEl.innerHTML =
+      '<p class="small">선택된 봉사가 없습니다. 위에서 봉사 종류를 선택해 주세요.</p>';
     return;
   }
 
-  chosen.forEach(session => {
-    const section = document.createElement("div");
-    section.style.marginTop = "18px";
+  chosen.forEach(function(session){
+    const section = document.createElement("section");
     const heading = document.createElement("h3");
-    heading.textContent = session.title + " (" + session.time + ")";
+    heading.textContent = session.title+" ("+session.start+" 시작)";
     section.appendChild(heading);
 
-    let html = '<div class="table-wrap"><table><thead><tr><th>시간</th><th>1조</th><th>2조</th><th>3조</th><th>4조</th></tr></thead><tbody>';
+    let html =
+      '<div class="table-wrap"><table><thead><tr>'+
+      '<th>시간</th><th>1조</th><th>2조</th><th>3조</th><th>4조</th>'+
+      '</tr></thead><tbody>';
 
-    for (let step=0; step<8; step++) {
-      const totalMinutes = Number(session.time.slice(0,2))*60 + Number(session.time.slice(3,5)) + step*15;
-      const startH = String(Math.floor(totalMinutes/60)%24).padStart(2,"0");
-      const startM = String(totalMinutes%60).padStart(2,"0");
-      const endMinutes = totalMinutes + 15;
-      const endH = String(Math.floor(endMinutes/60)%24).padStart(2,"0");
-      const endM = String(endMinutes%60).padStart(2,"0");
+    for(let step=0;step<8;step++){
+      html += "<tr><td>"+timeAt(session.start,step)+
+        "<br>~"+timeAt(session.start,step+1)+"</td>";
 
-      html += '<tr><td>' + startH + ':' + startM + '<br>~' + endH + ':' + endM + '</td>';
-
-      for (let group=1; group<=4; group++) {
+      for(let group=1;group<=4;group++){
         const role = roleFor(group,step);
-        html += '<td><span class="tag ' + roleClass(role) + '">' + roleLabel(role) + '</span><br><span class="small">' + namesInGroup(group) + '</span></td>';
+        html += '<td><span class="tag '+roleClass(role)+'">'+
+          roleName(role)+'</span><span class="member-names">'+
+          groupNames(group)+'</span></td>';
       }
-      html += '</tr>';
+
+      html += "</tr>";
     }
 
-    html += '</tbody></table></div>';
-    section.innerHTML += html;
+    html += "</tbody></table></div>";
+    section.insertAdjacentHTML("beforeend",html);
     scheduleEl.appendChild(section);
   });
 }
 
-function renderPersonalSchedule() {
+function renderPersonalSchedule(){
   readControls();
-  const value = personSelect.value;
-  const output = document.getElementById("personalSchedule");
 
-  if (value === "" || !people[Number(value)]) {
+  const output = document.getElementById("personalSchedule");
+  const value = personSelect.value;
+
+  if(value===""){
     output.innerHTML = "";
     return;
   }
 
   const p = people[Number(value)];
-  const group = Number(p.group);
-  let html = '<h3>' + escapeHtml(p.name || "참여자") + ' — ' + group + '조</h3>';
-  const chosen = sessions.filter(s => selected[s.key]);
-
-  if (!chosen.length) {
-    output.innerHTML = html + '<p class="small">선택된 봉사 일정이 없습니다.</p>';
+  if(!p){
+    output.innerHTML = "";
     return;
   }
 
-  chosen.forEach(session => {
-    html += '<div class="person-schedule"><strong>' + session.title + ' (' + session.time + ')</strong><br>';
-    for (let step=0; step<8; step++) {
-      const role = roleFor(group,step);
-      const totalMinutes = Number(session.time.slice(0,2))*60 + Number(session.time.slice(3,5)) + step*15;
-      const h = String(Math.floor(totalMinutes/60)%24).padStart(2,"0");
-      const m = String(totalMinutes%60).padStart(2,"0");
-      html += '<span class="small">' + h + ':' + m + ' — ' + roleLabel(role) + '</span><br>';
-    }
-    html += '</div>';
+  const chosen = sessions.filter(function(s){
+    return selected[s.key];
   });
+
+  let html = "<h3>"+escapeHTML(p.name)+" ("+p.group+"조)</h3>";
+
+  if(chosen.length===0){
+    output.innerHTML = html+
+      '<p class="small">선택된 봉사가 없습니다.</p>';
+    return;
+  }
+
+  chosen.forEach(function(session){
+    html += '<div class="person-schedule"><strong>'+
+      session.title+" ("+session.start+" 시작)</strong><br>";
+
+    for(let step=0;step<8;step++){
+      const role = roleFor(Number(p.group),step);
+      html += '<span class="small">'+
+        timeAt(session.start,step)+"~"+
+        timeAt(session.start,step+1)+" : "+
+        roleName(role)+'</span><br>';
+    }
+
+    html += "</div>";
+  });
+
   output.innerHTML = html;
 }
 
-function saveData() {
-  const data = getData();
-  try {
-    localStorage.setItem(KEY, JSON.stringify(data));
-    document.getElementById("saveMessage").textContent = "이 기기에 저장했습니다.";
-  } catch(e) {
-    document.getElementById("saveMessage").textContent = "저장하지 못했습니다. 브라우저 설정을 확인해 주세요.";
+function refresh(){
+  renderSchedule();
+  renderPersonalSchedule();
+  saveQuietly();
+}
+
+["wed","satMorning","satEvening"].forEach(function(id){
+  document.getElementById(id).addEventListener("change",refresh);
+});
+
+document.getElementById("selectAll").addEventListener("click",function(){
+  document.getElementById("wed").checked = true;
+  document.getElementById("satMorning").checked = true;
+  document.getElementById("satEvening").checked = true;
+  refresh();
+});
+
+document.getElementById("selectNone").addEventListener("click",function(){
+  document.getElementById("wed").checked = false;
+  document.getElementById("satMorning").checked = false;
+  document.getElementById("satEvening").checked = false;
+  refresh();
+});
+
+noticeEl.addEventListener("input",saveQuietly);
+personSelect.addEventListener("change",renderPersonalSchedule);
+
+document.getElementById("saveBtn").addEventListener("click",function(){
+  try{
+    localStorage.setItem(STORAGE_KEY,JSON.stringify(getData()));
+    messageEl.textContent = "저장했습니다. 이 브라우저에서 다시 열어도 내용이 유지됩니다.";
+  }catch(error){
+    messageEl.textContent = "저장에 실패했습니다. 브라우저 설정을 확인해 주세요.";
   }
-}
+});
 
-function makeShareLink() {
-  const data = getData();
-  const encoded = btoa(unescape(encodeURIComponent(JSON.stringify(data))));
-  const url = location.href.split("?")[0] + "?data=" + encodeURIComponent(encoded);
+document.getElementById("shareBtn").addEventListener("click",function(){
+  try{
+    const json = JSON.stringify(getData());
+    const encoded = btoa(unescape(encodeURIComponent(json)));
+    const url = window.location.href.split("?")[0]+"?data="+encodeURIComponent(encoded);
 
-  document.getElementById("shareUrl").value = url;
-  document.getElementById("shareLink").classList.remove("hidden");
-  document.getElementById("saveMessage").textContent =
-    "공유 링크를 만들었습니다. 링크에 이름, 조, 선택한 봉사, 공지사항이 포함됩니다.";
-}
+    document.getElementById("shareUrl").value = url;
+    document.getElementById("shareArea").classList.remove("hidden");
+    messageEl.textContent = "공유 링크를 만들었습니다. 다른 휴대폰에서 열어 확인해 주세요.";
+  }catch(error){
+    messageEl.textContent = "공유 링크를 만들지 못했습니다.";
+  }
+});
 
-async function copyShareLink() {
+document.getElementById("copyBtn").addEventListener("click",async function(){
   const field = document.getElementById("shareUrl");
-  try {
+
+  try{
     await navigator.clipboard.writeText(field.value);
-    document.getElementById("saveMessage").textContent = "공유 링크를 복사했습니다.";
-  } catch(e) {
+    messageEl.textContent = "공유 링크를 복사했습니다. 카카오톡에 붙여넣으세요.";
+  }catch(error){
     field.focus();
     field.select();
-    document.execCommand("copy");
-    document.getElementById("saveMessage").textContent = "링크를 선택했습니다. 복사해 주세요.";
+
+    try{
+      const copied = document.execCommand("copy");
+      messageEl.textContent = copied
+        ? "공유 링크를 복사했습니다."
+        : "링크를 선택했습니다. 복사해 주세요.";
+    }catch(e){
+      messageEl.textContent = "링크를 길게 눌러 복사해 주세요.";
+    }
   }
-}
+});
 
-document.getElementById("wed").addEventListener("change", () => {
-  renderSchedule(); renderPersonalSchedule();
+document.getElementById("printBtn").addEventListener("click",function(){
+  window.print();
 });
-document.getElementById("satMorning").addEventListener("change", () => {
-  renderSchedule(); renderPersonalSchedule();
-});
-document.getElementById("satEvening").addEventListener("change", () => {
-  renderSchedule(); renderPersonalSchedule();
-});
-document.getElementById("notice").addEventListener("input", () => {
-  noticeText = document.getElementById("notice").value;
-});
-personSelect.addEventListener("change", renderPersonalSchedule);
 
-const sharedData = safeDecodeData();
-if (sharedData) {
-  applyData(sharedData);
-} else {
-  readLocalData();
-}
+loadInitialData();
 
 document.getElementById("wed").checked = selected.wed;
 document.getElementById("satMorning").checked = selected.satMorning;
 document.getElementById("satEvening").checked = selected.satEvening;
-document.getElementById("notice").value = noticeText;
 
 renderPeople();
 renderPersonOptions();
 renderSchedule();
 renderPersonalSchedule();
+
+})();
 </script>
 </body>
 </html>
