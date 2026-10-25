@@ -4,531 +4,436 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#2457a7">
+<meta name="theme-color" content="#246BFD">
 <title>오늘의 전시대 순환봉사 배정표</title>
 <style>
-:root{--blue:#2457a7;--bg:#f3f6fb;--ink:#172033;--muted:#667085;--line:#dce3ed}
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--ink);font-family:Arial,"Noto Sans KR",sans-serif;font-size:16px;line-height:1.45}
-main{max-width:900px;margin:auto;padding:14px}
-header{background:var(--blue);color:white;border-radius:16px;padding:20px 14px;text-align:center}
-header h1{font-size:clamp(21px,5vw,29px);margin:0 0 5px}
-header p{margin:0;font-size:14px;opacity:.95}
-section{background:white;border:1px solid var(--line);border-radius:14px;padding:15px;margin-top:13px}
-h2{font-size:19px;margin:0 0 12px}
-h3{font-size:16px;margin:0 0 8px}
-.small{font-size:13px;color:var(--muted)}
-.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
-.field label{display:block;font-size:13px;color:var(--muted);margin-bottom:4px}
+body{margin:0;background:#f3f6fb;color:#202938;font-family:Arial,"Noto Sans KR",sans-serif;font-size:16px}
+header{background:#246bfd;color:white;text-align:center;padding:20px 12px}
+header h1{font-size:23px;margin:0 0 6px}
+header p{margin:0;font-size:14px}
+main{max-width:850px;margin:auto;padding:14px}
+.card{background:white;border-radius:14px;padding:16px;margin-bottom:14px;box-shadow:0 2px 8px #0000000c}
+h2{font-size:19px;margin:0 0 13px}
+h3{font-size:17px;margin:12px 0 8px}
+.small{font-size:13px;color:#687386}
+label{display:block;font-weight:bold;margin-bottom:6px}
 input,select,textarea,button{font:inherit}
-input,select,textarea{width:100%;padding:11px;border:1px solid #cbd5e1;border-radius:9px;background:white;color:var(--ink)}
-textarea{resize:vertical;min-height:85px}
-button{border:0;border-radius:9px;padding:11px 13px;background:var(--blue);color:white;font-weight:700;cursor:pointer}
-button.secondary{background:#e8eef8;color:#193d77}
-button.light{background:#f0f2f5;color:#293548}
-.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:11px}
-.actions button{flex:1 1 150px}
-.people{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
-.person{border:1px solid var(--line);border-radius:10px;padding:10px}
-.group-tag{display:inline-block;padding:3px 8px;border-radius:20px;font-size:12px;font-weight:bold;margin-bottom:7px}
-.g1{background:#dceafe;color:#174ea6}
-.g2{background:#ddf5e5;color:#176b3a}
-.g3{background:#fce8d5;color:#934500}
-.g4{background:#f1e2fa;color:#6d2994}
-.notice{background:#fff9e9;border:1px solid #f1dfa5;border-radius:10px;padding:10px}
+input,select,textarea{width:100%;padding:11px;border:1px solid #cbd5e1;border-radius:9px;background:white}
+textarea{min-height:85px;resize:vertical}
+.people{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.person{border:1px solid #e1e7f0;border-radius:10px;padding:10px}
+.person input{margin-bottom:7px}
+.session{display:flex;align-items:flex-start;gap:10px;padding:12px;margin:8px 0;border:1px solid #dbe3ef;border-radius:10px;cursor:pointer}
+.session input{width:22px;height:22px;flex-shrink:0;margin:1px 0 0}
+.session strong{display:block}
+.session span{font-size:14px;color:#667085;display:block;margin-top:3px}
+button{border:0;border-radius:10px;padding:12px 14px;background:#246bfd;color:white;font-weight:bold;cursor:pointer}
+button.secondary{background:#e8eef9;color:#204a91}
+button.dark{background:#334155}
+.actions{display:flex;flex-wrap:wrap;gap:8px}
+.actions button{flex:1;min-width:125px}
+.notice{background:#fff9e8;border:1px solid #f1df9e;border-radius:10px;padding:10px;font-size:14px}
 .table-wrap{overflow-x:auto}
-table{border-collapse:collapse;width:100%;min-width:620px;font-size:14px}
-th,td{border:1px solid var(--line);padding:8px;text-align:left;vertical-align:top}
-th{background:#edf2f9}
-.slot{border:1px solid var(--line);border-radius:11px;padding:11px;margin-top:10px}
-.slot h3{margin-bottom:9px}
-.slot .table-wrap{margin-top:8px}
-.personal-row{padding:10px;border-bottom:1px solid var(--line)}
-.personal-row:last-child{border-bottom:0}
-footer{text-align:center;color:var(--muted);font-size:12px;padding:18px 0}
-[hidden]{display:none!important}
-@media(max-width:520px){
+table{width:100%;border-collapse:collapse;font-size:14px;min-width:490px}
+th,td{padding:9px 7px;border:1px solid #dce3ed;text-align:center}
+th{background:#edf3ff}
+td.left{text-align:left}
+.tag{display:inline-block;padding:4px 7px;border-radius:6px;background:#e8f0ff;color:#204a91;font-size:12px;font-weight:bold}
+.rest{background:#f1f3f5;color:#606a78}
+.street{background:#fff0d8;color:#8a5100}
+#shareLink{margin-top:10px;word-break:break-all}
+.person-schedule{padding:10px 0;border-bottom:1px solid #e5eaf1}
+.hidden{display:none}
+@media(max-width:430px){
  main{padding:9px}
- .grid,.people{grid-template-columns:1fr}
- section{padding:12px}
- header{padding:17px 10px}
+ .card{padding:13px}
+ header h1{font-size:20px}
+ .people{grid-template-columns:1fr}
 }
 @media print{
  body{background:white}
- main{max-width:none}
- button,.actions,#registerSection{display:none!important}
- section{break-inside:avoid}
+ header{background:white;color:black}
+ button,#shareLink,.no-print{display:none!important}
+ .card{box-shadow:none;border:1px solid #ddd;break-inside:avoid}
 }
 </style>
 </head>
 <body>
-<main>
 <header>
-<h1>오늘의 전시대 순환봉사 배정표</h1>
-<p>4개 조 · 15분 교대 · 전체 명단 및 일정 공유</p>
+  <h1>오늘의 전시대 순환봉사 배정표</h1>
+  <p>봉사 종류를 선택하고 조별 순환 일정을 확인하세요</p>
 </header>
 
-<section id="registerSection">
-<h2>① 참여자 이름과 조 등록</h2>
-<p class="small">이름을 입력하고 조를 선택하세요. 이름을 입력하면 참여자 번호 표시는 사라집니다.</p>
-<div id="peopleInputs" class="people"></div>
-<div class="actions">
-<button id="saveBtn">명단 저장</button>
-<button class="secondary" id="clearBtn">명단 비우기</button>
-</div>
-</section>
+<main>
+  <section class="card">
+    <h2>① 봉사 일정 선택</h2>
+    <p class="small">원하는 봉사를 선택하세요. 여러 개를 함께 선택할 수 있습니다.</p>
 
-<section>
-<h2>② 공지사항</h2>
-<textarea id="notice" maxlength="500" placeholder="공지사항을 입력하세요.
-예: 봉사 시작 5분 전까지 모여 주세요.
-변경 사항은 이곳에 적어 주세요."></textarea>
-<div class="actions">
-<button id="saveNoticeBtn">공지사항 저장</button>
-</div>
-</section>
+    <label class="session">
+      <input type="checkbox" id="wed" checked>
+      <div><strong>수요일 저녁 봉사</strong><span>오후 6:00 ~ 8:00</span></div>
+    </label>
+    <label class="session">
+      <input type="checkbox" id="satMorning" checked>
+      <div><strong>토요일 오전 봉사</strong><span>오전 10:00 ~ 12:00</span></div>
+    </label>
+    <label class="session">
+      <input type="checkbox" id="satEvening" checked>
+      <div><strong>토요일 저녁 봉사</strong><span>오후 6:00 ~ 8:00</span></div>
+    </label>
+    <p class="small">선택한 봉사 일정만 아래 배정표와 개인별 일정에 표시됩니다.</p>
+  </section>
 
-<section>
-<h2>③ 봉사 일정 선택</h2>
-<div class="grid">
-<div class="field">
-<label for="slotSelect">일정</label>
-<select id="slotSelect">
-<option value="wed">수요일 저녁 18:00~20:00</option>
-<option value="satAM">토요일 오전 10:00~12:00</option>
-<option value="satPM">토요일 저녁 18:00~20:00</option>
-</select>
-</div>
-<div class="field">
-<label for="personSelect">개인 일정 보기</label>
-<select id="personSelect">
-<option value="">참여자 선택</option>
-</select>
-</div>
-</div>
-<div class="actions">
-<button id="showPlanBtn">전체 순환 계획표 보기</button>
-<button class="secondary" id="showPersonBtn">개인별 일정 보기</button>
-</div>
-<p class="small">A 전시대: 영인면사무소 앞 · B 전시대: 농협 하나로마트 앞</p>
-</section>
+  <section class="card">
+    <h2>② 참여자 이름 및 조 선택</h2>
+    <p class="small">이름을 입력하고 해당하는 조를 선택하세요. 이름을 입력하면 참여자 번호 대신 이름이 표시됩니다.</p>
+    <div class="people" id="people"></div>
+  </section>
 
-<section id="planSection">
-<h2>④ 전체 순환 계획표</h2>
-<div id="planOutput"></div>
-</section>
+  <section class="card">
+    <h2>③ 공지사항</h2>
+    <textarea id="notice" placeholder="공지사항을 입력하세요.&#10;예: 봉사 시작 5분 전까지 모여 주세요."></textarea>
+  </section>
 
-<section id="personalSection" hidden>
-<h2>⑤ 개인별 일정</h2>
-<div id="personalOutput"></div>
-</section>
+  <section class="card">
+    <h2>④ 전체 순환봉사 배정표</h2>
+    <div class="notice">
+      <strong>A 전시대:</strong> 영인면사무소 앞<br>
+      <strong>B 전시대:</strong> 농협 하나로마트 앞<br>
+      <strong>교대 간격:</strong> 15분
+    </div>
+    <div id="schedule"></div>
+  </section>
 
-<section>
-<h2>⑥ 공유 및 인쇄</h2>
-<p class="small">공유 링크에는 현재 이름, 조, 공지사항이 들어갑니다. 명단을 수정하면 새 링크를 만들어 다시 공유하세요.</p>
-<div class="actions">
-<button id="shareBtn">공유 링크 만들기</button>
-<button class="secondary" id="copyBtn">현재 링크 복사</button>
-<button class="light" id="printBtn">계획표 인쇄</button>
-</div>
-<input id="shareUrl" aria-label="공유 링크" readonly placeholder="링크 만들기 버튼을 누르세요" style="margin-top:10px">
-<p id="shareStatus" class="small" aria-live="polite"></p>
-</section>
+  <section class="card">
+    <h2>⑤ 개인별 일정 확인</h2>
+    <label for="personSelect">참여자 선택</label>
+    <select id="personSelect">
+      <option value="">참여자를 선택하세요</option>
+    </select>
+    <div id="personalSchedule"></div>
+  </section>
 
-<footer>전시대 순환봉사 배정표 · 휴대폰용</footer>
+  <section class="card no-print">
+    <h2>⑥ 저장 및 공유</h2>
+    <div class="actions">
+      <button onclick="saveData()">내용 저장</button>
+      <button class="secondary" onclick="makeShareLink()">공유 링크 만들기</button>
+      <button class="dark" onclick="window.print()">배정표 인쇄</button>
+    </div>
+    <div id="shareLink" class="hidden">
+      <p class="small">아래 링크를 복사해 카카오톡 단체방에 보내세요.</p>
+      <input id="shareUrl" readonly>
+      <button style="width:100%;margin-top:8px" onclick="copyShareLink()">공유 링크 복사</button>
+    </div>
+    <p id="saveMessage" class="small"></p>
+  </section>
 </main>
 
 <script>
-(function(){
-'use strict';
+const KEY = "displayStandVolunteerAppV3";
+const peopleEl = document.getElementById("people");
+const scheduleEl = document.getElementById("schedule");
+const personSelect = document.getElementById("personSelect");
 
-const STORE='displayStandRotationApp_v2';
-const groupNames=['1조','2조','3조','4조'];
-const groupClasses=['g1','g2','g3','g4'];
+let people = Array.from({length:12}, () => ({name:"", group:"1"}));
+let selected = {wed:true, satMorning:true, satEvening:true};
+let noticeText = "";
 
-const slotNames={
- wed:'수요일 저녁 18:00~20:00',
- satAM:'토요일 오전 10:00~12:00',
- satPM:'토요일 저녁 18:00~20:00'
-};
+function safeDecodeData() {
+  try {
+    const params = new URLSearchParams(location.search);
+    const data = params.get("data");
+    if (!data) return null;
+    return JSON.parse(decodeURIComponent(escape(atob(data))));
+  } catch(e) {
+    return null;
+  }
+}
 
-const roles={
- A:'A 전시대<br><span class="small">영인면사무소 앞</span>',
- B:'B 전시대<br><span class="small">농협 하나로마트 앞</span>',
- street:'가두봉사',
- rest:'휴식'
-};
+function applyData(data) {
+  if (!data || typeof data !== "object") return;
+  if (Array.isArray(data.people)) {
+    people = Array.from({length:12}, (_,i) => {
+      const p = data.people[i] || {};
+      return {
+        name: String(p.name || ""),
+        group: ["1","2","3","4"].includes(String(p.group)) ? String(p.group) : "1"
+      };
+    });
+  }
+  if (data.selected) {
+    selected = {
+      wed: data.selected.wed !== false,
+      satMorning: data.selected.satMorning !== false,
+      satEvening: data.selected.satEvening !== false
+    };
+  }
+  noticeText = String(data.notice || "");
+}
 
-let state={
- people:Array.from({length:12},()=>({name:'',group:1})),
- notice:'',
- slot:'wed'
-};
+function readLocalData() {
+  try {
+    const raw = localStorage.getItem(KEY);
+    if (raw) applyData(JSON.parse(raw));
+  } catch(e) {}
+}
 
-const $=id=>document.getElementById(id);
+function readControls() {
+  selected.wed = document.getElementById("wed").checked;
+  selected.satMorning = document.getElementById("satMorning").checked;
+  selected.satEvening = document.getElementById("satEvening").checked;
+  noticeText = document.getElementById("notice").value;
+}
 
-function safeLoad(){
- try{
-  const params=new URLSearchParams(location.search);
-  const packed=params.get('data');
+function getData() {
+  readControls();
+  return {
+    people: people.map(p => ({name:p.name, group:p.group})),
+    selected: {...selected},
+    notice: noticeText
+  };
+}
 
-  if(packed){
-   const incoming=JSON.parse(
-    decodeURIComponent(escape(atob(packed)))
-   );
+function renderPeople() {
+  peopleEl.innerHTML = "";
+  people.forEach((p,i) => {
+    const box = document.createElement("div");
+    box.className = "person";
 
-   if(incoming && Array.isArray(incoming.people)){
-    state.people=Array.from({length:12},(_,i)=>({
-     name:String(incoming.people[i]?.name||''),
-     group:Math.min(4,Math.max(1,Number(incoming.people[i]?.group)||1))
-    }));
-    state.notice=String(incoming.notice||'');
-    state.slot=slotNames[incoming.slot]?incoming.slot:'wed';
+    const name = document.createElement("input");
+    name.type = "text";
+    name.maxLength = 30;
+    name.placeholder = "참여자 " + (i+1) + " 이름";
+    name.value = p.name;
+    name.setAttribute("aria-label", "참여자 " + (i+1) + " 이름");
+    name.addEventListener("input", () => {
+      people[i].name = name.value;
+      renderPersonOptions();
+      renderSchedule();
+      renderPersonalSchedule();
+    });
+
+    const group = document.createElement("select");
+    group.setAttribute("aria-label", "참여자 " + (i+1) + " 조 선택");
+    group.innerHTML = `
+      <option value="1">1조</option>
+      <option value="2">2조</option>
+      <option value="3">3조</option>
+      <option value="4">4조</option>`;
+    group.value = p.group;
+    group.addEventListener("change", () => {
+      people[i].group = group.value;
+      renderSchedule();
+      renderPersonalSchedule();
+    });
+
+    box.appendChild(name);
+    box.appendChild(group);
+    peopleEl.appendChild(box);
+  });
+}
+
+function renderPersonOptions() {
+  const previous = personSelect.value;
+  personSelect.innerHTML = '<option value="">참여자를 선택하세요</option>';
+
+  people.forEach((p,i) => {
+    if (!p.name.trim()) return;
+    const option = document.createElement("option");
+    option.value = String(i);
+    option.textContent = p.name.trim() + " (" + p.group + "조)";
+    personSelect.appendChild(option);
+  });
+
+  if ([...personSelect.options].some(o => o.value === previous)) {
+    personSelect.value = previous;
+  }
+}
+
+const sessions = [
+  {key:"wed", title:"수요일 저녁", time:"18:00~20:00"},
+  {key:"satMorning", title:"토요일 오전", time:"10:00~12:00"},
+  {key:"satEvening", title:"토요일 저녁", time:"18:00~20:00"}
+];
+
+function roleFor(group, step) {
+  // 1조는 A, 2조는 가두봉사, 3조와 4조는 B에서 시작합니다.
+  const startRoles = ["A","street","B","B"];
+  const cycle = [
+    ["A","street","B","B"],
+    ["street","B","rest","A"],
+    ["B","rest","A","street"],
+    ["rest","A","street","B"]
+  ];
+  return cycle[step % cycle.length][group-1] || startRoles[group-1];
+}
+
+function roleLabel(role) {
+  if (role === "A") return "A 전시대";
+  if (role === "B") return "B 전시대";
+  if (role === "street") return "가두봉사";
+  return "휴식";
+}
+
+function roleClass(role) {
+  if (role === "street") return "street";
+  if (role === "rest") return "rest";
+  return "";
+}
+
+function namesInGroup(group) {
+  const list = people.filter(p => Number(p.group) === group && p.name.trim());
+  return list.length ? list.map(p => escapeHtml(p.name.trim())).join(", ") : "배정된 이름 없음";
+}
+
+function escapeHtml(value) {
+  return String(value).replace(/[&<>"']/g, c => ({
+    "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;", "'":"&#39;"
+  })[c]);
+}
+
+function renderSchedule() {
+  readControls();
+  scheduleEl.innerHTML = "";
+
+  const chosen = sessions.filter(s => selected[s.key]);
+  if (!chosen.length) {
+    scheduleEl.innerHTML = '<p class="small">봉사 일정을 하나 이상 선택해 주세요.</p>';
     return;
-   }
   }
- }catch(e){}
 
- try{
-  const saved=localStorage.getItem(STORE);
-  if(saved){
-   const s=JSON.parse(saved);
-   if(Array.isArray(s.people)){
-    state.people=Array.from({length:12},(_,i)=>({
-     name:String(s.people[i]?.name||''),
-     group:Math.min(4,Math.max(1,Number(s.people[i]?.group)||1))
-    }));
-   }
-   state.notice=String(s.notice||'');
-   state.slot=slotNames[s.slot]?s.slot:'wed';
-  }
- }catch(e){}
-}
+  chosen.forEach(session => {
+    const section = document.createElement("div");
+    section.style.marginTop = "18px";
+    const heading = document.createElement("h3");
+    heading.textContent = session.title + " (" + session.time + ")";
+    section.appendChild(heading);
 
-function save(){
- try{
-  localStorage.setItem(STORE,JSON.stringify(state));
- }catch(e){}
-}
+    let html = '<div class="table-wrap"><table><thead><tr><th>시간</th><th>1조</th><th>2조</th><th>3조</th><th>4조</th></tr></thead><tbody>';
 
-function escapeHtml(s){
- return String(s).replace(/[&<>"']/g,c=>({
-  '&':'&amp;',
-  '<':'&lt;',
-  '>':'&gt;',
-  '"':'&quot;',
-  "'":'&#39;'
- }[c]));
-}
+    for (let step=0; step<8; step++) {
+      const totalMinutes = Number(session.time.slice(0,2))*60 + Number(session.time.slice(3,5)) + step*15;
+      const startH = String(Math.floor(totalMinutes/60)%24).padStart(2,"0");
+      const startM = String(totalMinutes%60).padStart(2,"0");
+      const endMinutes = totalMinutes + 15;
+      const endH = String(Math.floor(endMinutes/60)%24).padStart(2,"0");
+      const endM = String(endMinutes%60).padStart(2,"0");
 
-function renderPeople(){
- $('peopleInputs').innerHTML=state.people.map((p,i)=>`
-  <div class="person">
-   ${p.name.trim()?'':`<span class="group-tag ${groupClasses[p.group-1]}">참여자 ${i+1}</span>`}
-   <div class="field">
-    <label for="name${i}">이름 ${i+1}</label>
-    <input id="name${i}" maxlength="30" placeholder="이름 입력"
-     value="${escapeHtml(p.name)}">
-   </div>
-   <div class="field" style="margin-top:7px">
-    <label for="group${i}">소속 조</label>
-    <select id="group${i}">
-     ${groupNames.map((g,j)=>`
-      <option value="${j+1}" ${p.group===j+1?'selected':''}>${g}</option>
-     `).join('')}
-    </select>
-   </div>
-  </div>
- `).join('');
+      html += '<tr><td>' + startH + ':' + startM + '<br>~' + endH + ':' + endM + '</td>';
 
- state.people.forEach((p,i)=>{
-  $('name'+i).addEventListener('input',e=>{
-   state.people[i].name=e.target.value;
-   save();
-   renderPeoplePreservingFocus(i);
-   renderPersonOptions();
-   renderPlan();
+      for (let group=1; group<=4; group++) {
+        const role = roleFor(group,step);
+        html += '<td><span class="tag ' + roleClass(role) + '">' + roleLabel(role) + '</span><br><span class="small">' + namesInGroup(group) + '</span></td>';
+      }
+      html += '</tr>';
+    }
+
+    html += '</tbody></table></div>';
+    section.innerHTML += html;
+    scheduleEl.appendChild(section);
   });
+}
 
-  $('group'+i).addEventListener('change',e=>{
-   state.people[i].group=Number(e.target.value);
-   save();
-   renderPeople();
-   renderPersonOptions();
-   renderPlan();
+function renderPersonalSchedule() {
+  readControls();
+  const value = personSelect.value;
+  const output = document.getElementById("personalSchedule");
+
+  if (value === "" || !people[Number(value)]) {
+    output.innerHTML = "";
+    return;
+  }
+
+  const p = people[Number(value)];
+  const group = Number(p.group);
+  let html = '<h3>' + escapeHtml(p.name || "참여자") + ' — ' + group + '조</h3>';
+  const chosen = sessions.filter(s => selected[s.key]);
+
+  if (!chosen.length) {
+    output.innerHTML = html + '<p class="small">선택된 봉사 일정이 없습니다.</p>';
+    return;
+  }
+
+  chosen.forEach(session => {
+    html += '<div class="person-schedule"><strong>' + session.title + ' (' + session.time + ')</strong><br>';
+    for (let step=0; step<8; step++) {
+      const role = roleFor(group,step);
+      const totalMinutes = Number(session.time.slice(0,2))*60 + Number(session.time.slice(3,5)) + step*15;
+      const h = String(Math.floor(totalMinutes/60)%24).padStart(2,"0");
+      const m = String(totalMinutes%60).padStart(2,"0");
+      html += '<span class="small">' + h + ':' + m + ' — ' + roleLabel(role) + '</span><br>';
+    }
+    html += '</div>';
   });
- });
+  output.innerHTML = html;
 }
 
-function renderPeoplePreservingFocus(index){
- const input=$('name'+index);
- const pos=input ? input.selectionStart : null;
- renderPeople();
- const replacement=$('name'+index);
- if(replacement){
-  replacement.focus();
-  if(pos!==null) replacement.setSelectionRange(pos,pos);
- }
-}
-
-function renderPersonOptions(){
- const old=$('personSelect').value;
-
- $('personSelect').innerHTML=
-  '<option value="">참여자 선택</option>'+
-  state.people.map((p,i)=>p.name.trim()
-   ?`<option value="${i}">${escapeHtml(p.name.trim())} (${p.group}조)</option>`
-   :''
-  ).join('');
-
- if(old && $('personSelect').querySelector(`option[value="${old}"]`)){
-  $('personSelect').value=old;
- }
-}
-
-function assignments(step){
- const rolesByStep=[
-  ['A','street','B','B'],
-  ['street','B','rest','A'],
-  ['B','rest','A','street'],
-  ['rest','A','street','B']
- ];
- return rolesByStep[step%4].map((role,i)=>({
-  group:i+1,
-  role
- }));
-}
-
-function timeFor(step,startHour){
- const mins=startHour*60+step*15;
- const h=Math.floor(mins/60);
- const m=mins%60;
- const end=mins+15;
-
- return `${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}–${String(Math.floor(end/60)).padStart(2,'0')}:${String(end%60).padStart(2,'0')}`;
-}
-
-function makeSlot(slot){
- const start=slot==='satAM'?10:18;
- let rows='';
-
- for(let step=0;step<8;step++){
-  const a=assignments(step);
-
-  rows+=`<tr>
-   <td>${timeFor(step,start)}</td>
-   ${a.map(x=>`
-    <td>
-     <b class="${groupClasses[x.group-1]}">${x.group}조</b><br>
-     ${roles[x.role]}
-    </td>
-   `).join('')}
-  </tr>`;
- }
-
- return `
-  <div class="slot">
-   <h3>${slotNames[slot]}</h3>
-   <div class="table-wrap">
-    <table>
-     <thead>
-      <tr><th>시간</th><th>1조</th><th>2조</th><th>3조</th><th>4조</th></tr>
-     </thead>
-     <tbody>${rows}</tbody>
-    </table>
-   </div>
-  </div>`;
-}
-
-function renderPlan(){
- const names=state.people.filter(p=>p.name.trim()).map(p=>`
-  <span class="group-tag ${groupClasses[p.group-1]}">${p.group}조</span>
-  ${escapeHtml(p.name.trim())}
- `).join('　') ||
- '<span class="small">아직 등록된 참여자가 없습니다.</span>';
-
- const notice=state.notice.trim()
-  ?`<div class="notice"><b>공지사항</b><br>${escapeHtml(state.notice).replace(/\n/g,'<br>')}</div>`
-  :'';
-
- $('planOutput').innerHTML=`
-  ${notice}
-  <div style="margin:10px 0"><b>참여자 명단</b><br>${names}</div>
-  ${makeSlot('wed')}
-  ${makeSlot('satAM')}
-  ${makeSlot('satPM')}
-  <p class="small">※ 실제 현장 인원에 따라 조별 배정과 휴식은 담당자가 조정할 수 있습니다.</p>
- `;
-}
-
-function renderPersonal(){
- const idx=$('personSelect').value;
-
- if(idx===''){
-  $('personalOutput').innerHTML='<p>먼저 참여자를 선택해 주세요.</p>';
-  return;
- }
-
- const p=state.people[Number(idx)];
-
- if(!p || !p.name.trim()){
-  $('personalOutput').innerHTML='<p>이름이 등록되지 않았습니다.</p>';
-  return;
- }
-
- let out=`<p><b>${escapeHtml(p.name)}</b> · ${p.group}조</p>`;
-
- for(const slot of ['wed','satAM','satPM']){
-  const start=slot==='satAM'?10:18;
-
-  out+=`<div class="slot"><h3>${slotNames[slot]}</h3>`;
-
-  for(let step=0;step<8;step++){
-   const a=assignments(step).find(x=>x.group===p.group);
-   const roleText=roles[a.role]
-    .replace(/<br><span class="small">.*?<\/span>/,'')
-    .replace(/<[^>]+>/g,'');
-
-   out+=`
-    <div class="personal-row">
-     <b>${timeFor(step,start)}</b> — ${roleText}
-    </div>
-   `;
+function saveData() {
+  const data = getData();
+  try {
+    localStorage.setItem(KEY, JSON.stringify(data));
+    document.getElementById("saveMessage").textContent = "이 기기에 저장했습니다.";
+  } catch(e) {
+    document.getElementById("saveMessage").textContent = "저장하지 못했습니다. 브라우저 설정을 확인해 주세요.";
   }
-
-  out+='</div>';
- }
-
- $('personalOutput').innerHTML=out;
 }
 
-function renderAll(){
- renderPeople();
- renderPersonOptions();
- $('notice').value=state.notice;
- $('slotSelect').value=state.slot;
- renderPlan();
+function makeShareLink() {
+  const data = getData();
+  const encoded = btoa(unescape(encodeURIComponent(JSON.stringify(data))));
+  const url = location.href.split("?")[0] + "?data=" + encodeURIComponent(encoded);
+
+  document.getElementById("shareUrl").value = url;
+  document.getElementById("shareLink").classList.remove("hidden");
+  document.getElementById("saveMessage").textContent =
+    "공유 링크를 만들었습니다. 링크에 이름, 조, 선택한 봉사, 공지사항이 포함됩니다.";
 }
 
-function packData(){
- const data={
-  people:state.people.map(p=>({
-   name:p.name.trim(),
-   group:p.group
-  })),
-  notice:state.notice,
-  slot:state.slot
- };
-
- return btoa(unescape(encodeURIComponent(JSON.stringify(data))));
-}
-
-$('saveBtn').addEventListener('click',()=>{
- state.people.forEach((p,i)=>{
-  p.name=$('name'+i).value.trim();
-  p.group=Number($('group'+i).value)||1;
- });
-
- save();
- renderAll();
- $('shareStatus').textContent='명단을 저장했습니다.';
-});
-
-$('clearBtn').addEventListener('click',()=>{
- if(!confirm('이 기기의 참여자 이름을 모두 비울까요?'))return;
-
- state.people=state.people.map(p=>({
-  name:'',
-  group:p.group
- }));
-
- save();
- renderAll();
- $('shareStatus').textContent='이름을 비웠습니다.';
-});
-
-$('saveNoticeBtn').addEventListener('click',()=>{
- state.notice=$('notice').value;
- save();
- renderPlan();
- $('shareStatus').textContent='공지사항을 저장했습니다.';
-});
-
-$('slotSelect').addEventListener('change',e=>{
- state.slot=e.target.value;
- save();
-});
-
-$('showPlanBtn').addEventListener('click',()=>{
- $('planSection').scrollIntoView({behavior:'smooth'});
-});
-
-$('showPersonBtn').addEventListener('click',()=>{
- renderPersonal();
- $('personalSection').hidden=false;
- $('personalSection').scrollIntoView({behavior:'smooth'});
-});
-
-$('personSelect').addEventListener('change',()=>{
- if($('personSelect').value!==''){
-  renderPersonal();
-  $('personalSection').hidden=false;
- }
-});
-
-$('shareBtn').addEventListener('click',()=>{
- state.people.forEach((p,i)=>{
-  const n=$('name'+i);
-  const g=$('group'+i);
-  if(n)p.name=n.value.trim();
-  if(g)p.group=Number(g.value)||1;
- });
-
- state.notice=$('notice').value;
- state.slot=$('slotSelect').value;
-
- save();
- renderAll();
-
- const url=new URL(location.href);
- url.search='';
- url.hash='';
- url.searchParams.set('data',packData());
-
- $('shareUrl').value=url.toString();
- $('shareStatus').textContent='공유 링크를 만들었습니다. 링크를 복사해 카카오톡에 보내세요.';
-});
-
-$('copyBtn').addEventListener('click',async()=>{
- const val=$('shareUrl').value;
-
- if(!val){
-  $('shareStatus').textContent='먼저 공유 링크를 만들어 주세요.';
-  return;
- }
-
- try{
-  await navigator.clipboard.writeText(val);
-  $('shareStatus').textContent='링크를 복사했습니다. 카카오톡에 붙여넣으세요.';
- }catch(e){
-  $('shareUrl').focus();
-  $('shareUrl').select();
-
-  try{
-   document.execCommand('copy');
-   $('shareStatus').textContent='링크를 복사했습니다. 카카오톡에 붙여넣으세요.';
-  }catch(err){
-   $('shareStatus').textContent='링크를 길게 눌러 복사해 주세요.';
+async function copyShareLink() {
+  const field = document.getElementById("shareUrl");
+  try {
+    await navigator.clipboard.writeText(field.value);
+    document.getElementById("saveMessage").textContent = "공유 링크를 복사했습니다.";
+  } catch(e) {
+    field.focus();
+    field.select();
+    document.execCommand("copy");
+    document.getElementById("saveMessage").textContent = "링크를 선택했습니다. 복사해 주세요.";
   }
- }
+}
+
+document.getElementById("wed").addEventListener("change", () => {
+  renderSchedule(); renderPersonalSchedule();
 });
+document.getElementById("satMorning").addEventListener("change", () => {
+  renderSchedule(); renderPersonalSchedule();
+});
+document.getElementById("satEvening").addEventListener("change", () => {
+  renderSchedule(); renderPersonalSchedule();
+});
+document.getElementById("notice").addEventListener("input", () => {
+  noticeText = document.getElementById("notice").value;
+});
+personSelect.addEventListener("change", renderPersonalSchedule);
 
-$('printBtn').addEventListener('click',()=>window.print());
+const sharedData = safeDecodeData();
+if (sharedData) {
+  applyData(sharedData);
+} else {
+  readLocalData();
+}
 
-safeLoad();
-renderAll();
+document.getElementById("wed").checked = selected.wed;
+document.getElementById("satMorning").checked = selected.satMorning;
+document.getElementById("satEvening").checked = selected.satEvening;
+document.getElementById("notice").value = noticeText;
 
-})();
+renderPeople();
+renderPersonOptions();
+renderSchedule();
+renderPersonalSchedule();
 </script>
 </body>
 </html>
