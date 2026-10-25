@@ -8,137 +8,124 @@
 <title>오늘의 전시대 순환봉사 배정표</title>
 <style>
 *{box-sizing:border-box}
-body{
-  margin:0;background:#f2f6fb;color:#203047;
-  font-family:Arial,"Noto Sans KR",sans-serif;
-  font-size:16px;line-height:1.6
-}
-header{
-  background:#1769aa;color:white;text-align:center;
-  padding:23px 12px
-}
+body{margin:0;background:#f2f6fb;color:#203047;font-family:Arial,"Noto Sans KR",sans-serif;font-size:16px;line-height:1.6}
+header{background:#1769aa;color:white;text-align:center;padding:23px 12px}
 header h1{font-size:23px;margin:0 0 5px}
 header p{margin:0;font-size:14px}
-main{max-width:900px;margin:auto;padding:14px}
-.card{
-  background:white;border-radius:14px;padding:16px;
-  margin-bottom:15px;box-shadow:0 2px 8px #0000000d
-}
+main{max-width:900px;margin:auto;padding:12px}
+.card{background:white;border-radius:14px;padding:16px;margin-bottom:15px;box-shadow:0 2px 8px #0000000d}
 h2{font-size:19px;margin:0 0 12px;color:#1769aa}
-h3{font-size:16px;margin:14px 0 7px}
-input,textarea,button{
-  font:inherit;border-radius:9px;padding:11px;
-}
-input,textarea{
-  width:100%;border:1px solid #ccd6e2;background:#fff
-}
-textarea{min-height:95px;resize:vertical}
-.names{
-  display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
-  gap:9px
-}
-.namebox label{display:block;font-size:13px;color:#617188;margin-bottom:3px}
-button{
-  border:0;background:#1769aa;color:white;
-  cursor:pointer;font-weight:bold
-}
+h3{font-size:16px;margin:15px 0 7px}
+input,textarea,button{font:inherit;border-radius:9px;padding:11px}
+input,textarea{width:100%;border:1px solid #ccd6e2;background:white}
+textarea{min-height:90px;resize:vertical}
+button{border:0;background:#1769aa;color:white;cursor:pointer;font-weight:bold}
 button:active{opacity:.8}
 .buttons{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
-.buttons button{flex:1;min-width:130px}
+.buttons button{flex:1;min-width:125px}
 .secondary{background:#e6edf5;color:#203047}
 .green{background:#16845b}
 .orange{background:#c46a18}
-.person-buttons{
-  display:flex;flex-wrap:wrap;gap:7px;margin-top:10px
-}
+.small{font-size:13px;color:#66758a}
+.names{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+.namebox label{display:block;font-size:13px;color:#617188;margin-bottom:3px}
+.group-card{border:1px solid #dce6f1;border-radius:10px;padding:12px;margin:10px 0;background:#fbfdff}
+.group-title{font-weight:bold;color:#1769aa;font-size:17px}
+.member-list{display:flex;flex-wrap:wrap;gap:7px;margin-top:8px}
+.member{background:#e8f1fc;color:#174f83;padding:6px 11px;border-radius:20px;font-size:14px}
+.person-buttons{display:flex;flex-wrap:wrap;gap:7px;margin-top:10px}
 .person-buttons button{background:#e5effb;color:#14528b}
 .person-buttons button.active{background:#1769aa;color:white}
 .notice{background:#fff8df;border-left:4px solid #e8ad30}
+.result{white-space:pre-line;overflow-wrap:anywhere}
 .table-wrap{overflow-x:auto}
-table{border-collapse:collapse;width:100%;min-width:600px}
-th,td{
-  border:1px solid #dce4ee;padding:9px 7px;
-  text-align:center;vertical-align:middle
-}
+table{border-collapse:collapse;width:100%;min-width:570px}
+th,td{border:1px solid #dce4ee;padding:8px 6px;text-align:center;vertical-align:middle;white-space:pre-line}
 th{background:#eaf2fb}
-td{font-size:14px}
-td:first-child{font-weight:bold}
-.small{font-size:13px;color:#66758a}
-.result{white-space:pre-line}
+td{font-size:13px}
 footer{text-align:center;padding:20px;color:#78869a;font-size:13px}
-.hidden{display:none}
 @media(max-width:420px){
-  main{padding:9px}
-  .card{padding:12px}
-  header h1{font-size:21px}
-  .names{gap:7px}
-  input,textarea,button{padding:10px}
+ main{padding:8px}.card{padding:12px}header h1{font-size:21px}
+ input,textarea,button{padding:10px}.names{gap:7px}
 }
 </style>
 </head>
 <body>
+
 <header>
   <h1>오늘의 전시대 순환봉사 배정표</h1>
-  <p>함께 봉사하고, 서로 배려하는 순환 일정</p>
+  <p>함께 봉사하고 서로 배려하는 순환 일정</p>
 </header>
 
 <main>
-  <section class="card">
-    <h2>① 참여자 이름 입력</h2>
-    <p class="small">이름을 입력하면 기본 안내 문구는 사라집니다. 빈칸은 참여하지 않는 자리로 둘 수 있습니다.</p>
-    <div class="names" id="nameInputs"></div>
-    <div class="buttons">
-      <button onclick="makeSchedule()">배정표 만들기</button>
-      <button class="secondary" onclick="clearNames()">이름 지우기</button>
-    </div>
-  </section>
 
-  <section class="card notice">
-    <h2>② 공지사항</h2>
-    <textarea id="noticeInput" placeholder="봉사 관련 공지사항을 입력하세요."></textarea>
-    <div class="buttons">
-      <button class="green" onclick="saveNotice()">공지 저장</button>
-    </div>
-    <div id="noticeView" class="result"></div>
-  </section>
+<section class="card">
+  <h2>① 참여자 이름 및 조 편성</h2>
+  <p class="small">이름을 수정할 수 있습니다. 빈칸은 참여하지 않는 인원으로 처리됩니다.</p>
+  <div id="nameInputs" class="names"></div>
+  <div class="buttons">
+    <button onclick="makeSchedule()">배정표 만들기</button>
+    <button class="secondary" onclick="resetNames()">처음 명단으로 복구</button>
+  </div>
+  <div id="groupsView"></div>
+</section>
 
-  <section class="card">
-    <h2>③ 개인별 봉사 일정</h2>
-    <p class="small">아래에서 이름을 선택하면 해당 참여자의 일정을 볼 수 있습니다.</p>
-    <div id="personButtons" class="person-buttons"></div>
-    <div id="personSchedule" class="result">이름을 입력하고 배정표를 만들어 주세요.</div>
-  </section>
+<section class="card notice">
+  <h2>② 공지사항</h2>
+  <textarea id="noticeInput" placeholder="봉사 관련 공지사항을 입력하세요."></textarea>
+  <div class="buttons">
+    <button class="green" onclick="saveNotice()">공지 저장</button>
+  </div>
+  <p id="noticeView" class="result">등록된 공지사항이 없습니다.</p>
+</section>
 
-  <section class="card">
-    <h2>④ 전체 순환봉사 배정표</h2>
-    <p class="small">교대 간격: 15분 · 한 회당 2시간</p>
-    <div id="allSchedules"></div>
-  </section>
+<section class="card">
+  <h2>③ 개인별 봉사 일정</h2>
+  <p class="small">이름을 선택하면 소속 조와 개인 일정을 확인할 수 있습니다.</p>
+  <div id="personButtons" class="person-buttons"></div>
+  <div id="personSchedule">이름을 선택해 주세요.</div>
+</section>
 
-  <section class="card">
-    <h2>⑤ 배정표 공유</h2>
-    <p>이름과 공지사항, 전체 배정표를 다른 사람에게 공유합니다.</p>
-    <p class="small">공유 링크에는 입력한 이름과 공지사항이 포함됩니다. 참여자 수가 많거나 공지사항이 길면 링크가 길어질 수 있습니다.</p>
-    <div class="buttons">
-      <button class="green" onclick="shareSchedule()">공유 링크 만들기</button>
-      <button class="secondary" onclick="copyPageLink()">현재 링크 복사</button>
-    </div>
-    <div id="shareResult" class="result"></div>
-  </section>
+<section class="card">
+  <h2>④ 전체 순환봉사 배정표</h2>
+  <p class="small">15분 단위 교대 · 각 일정 2시간 · 총 8회</p>
+  <p class="small">A 전시대: 영인면사무소 앞<br>
+  B 전시대: 농협 하나로마트 앞</p>
+  <div id="allSchedules"></div>
+</section>
+
+<section class="card">
+  <h2>⑤ 배정표 공유</h2>
+  <p>이름과 공지사항을 포함한 공유 링크를 만들어 카톡방에 보내세요.</p>
+  <p class="small">명단이나 공지를 변경하면 새 링크를 만들어 다시 공유해야 합니다.</p>
+  <div class="buttons">
+    <button class="green" onclick="shareSchedule()">공유 링크 만들기 및 복사</button>
+    <button class="secondary" onclick="copyCurrentLink()">현재 링크 복사</button>
+  </div>
+  <textarea id="shareResult" readonly placeholder="공유 링크가 여기에 표시됩니다."></textarea>
+</section>
+
 </main>
 
 <footer>전시대 순환봉사 배정표 · 휴대폰 및 PC 이용 가능</footer>
 
 <script>
+const INITIAL_NAMES = [
+  "김진석","이순희","고원섭",
+  "배영옥","모남철","박선자",
+  "이희락","조혜숙","김미라",
+  "지임영","박원경","박혜자"
+];
+
 const DAYS = [
-  {key:"wed", title:"수요일 저녁", time:"18:00~20:00"},
-  {key:"satam", title:"토요일 오전", time:"10:00~12:00"},
-  {key:"satpm", title:"토요일 저녁", time:"18:00~20:00"}
+  {title:"수요일 저녁",time:"18:00~20:00",start:18*60},
+  {title:"토요일 오전",time:"10:00~12:00",start:10*60},
+  {title:"토요일 저녁",time:"18:00~20:00",start:18*60}
 ];
 
 const PLACES = {
-  A:"A 전시대 (영인면사무소 앞)",
-  B:"B 전시대 (농협 하나로마트 앞)",
+  A:"A 전시대\n영인면사무소 앞",
+  B:"B 전시대\n농협 하나로마트 앞",
   street:"거리 봉사",
   rest:"휴식"
 };
@@ -146,187 +133,250 @@ const PLACES = {
 let selectedPerson = -1;
 let groups = [[],[],[],[]];
 
-function getNames(){
-  return Array.from({length:12},(_,i)=>{
-    return document.getElementById("name"+i).value.trim();
-  });
-}
-
-function renderNameInputs(names=[]){
+function renderNameInputs(names){
   const root=document.getElementById("nameInputs");
   root.innerHTML="";
+
   for(let i=0;i<12;i++){
     const box=document.createElement("div");
     box.className="namebox";
+
     const label=document.createElement("label");
     label.htmlFor="name"+i;
-    label.textContent="참여자 "+(i+1);
+    label.textContent=(Math.floor(i/3)+1)+"조 · 참여자 "+(i+1);
+
     const input=document.createElement("input");
     input.id="name"+i;
-    input.placeholder="이름 입력";
     input.value=names[i]||"";
+    input.placeholder="이름 입력";
     input.autocomplete="off";
+
     input.addEventListener("input",()=>{
-      updatePersonButtons();
-      if(selectedPerson===i) showPerson(i);
+      makeSchedule(false);
     });
+
     box.append(label,input);
     root.appendChild(box);
   }
 }
 
-function clearNames(){
-  if(!confirm("입력한 이름을 모두 지울까요?")) return;
-  renderNameInputs();
-  selectedPerson=-1;
-  updatePersonButtons();
-  document.getElementById("allSchedules").innerHTML="";
-  document.getElementById("personSchedule").textContent="이름을 입력하고 배정표를 만들어 주세요.";
+function getNames(){
+  return Array.from({length:12},(_,i)=>
+    document.getElementById("name"+i).value.trim()
+  );
 }
 
-function getGroupAssignments(){
+function makeGroups(){
   const names=getNames();
   groups=[[],[],[],[]];
-  names.forEach((name,i)=>{
-    if(name) groups[Math.floor(i/3)].push({name,index:i});
+
+  names.forEach((name,index)=>{
+    if(name){
+      groups[Math.floor(index/3)].push({
+        name:name,
+        index:index
+      });
+    }
   });
 }
 
-function makeSchedule(){
-  getGroupAssignments();
-  renderAllSchedules();
-  updatePersonButtons();
-  if(selectedPerson>=0) showPerson(selectedPerson);
-  else {
-    const names=getNames();
-    const first=names.findIndex(n=>n);
-    if(first>=0){
-      selectedPerson=first;
-      updatePersonButtons();
-      showPerson(first);
+function renderGroups(){
+  const root=document.getElementById("groupsView");
+  root.innerHTML="<h3>조별 명단</h3>";
+
+  groups.forEach((group,i)=>{
+    const box=document.createElement("div");
+    box.className="group-card";
+
+    const title=document.createElement("div");
+    title.className="group-title";
+    title.textContent=(i+1)+"조 ("+group.length+"명)";
+    box.appendChild(title);
+
+    const members=document.createElement("div");
+    members.className="member-list";
+
+    if(group.length===0){
+      members.textContent="등록된 참여자가 없습니다.";
+    }else{
+      group.forEach(person=>{
+        const span=document.createElement("span");
+        span.className="member";
+        span.textContent=person.name;
+        members.appendChild(span);
+      });
     }
-  }
+
+    box.appendChild(members);
+    root.appendChild(box);
+  });
 }
 
-function roleFor(groupIndex,slotIndex){
-  // 첫 교대: 1그룹 A, 3그룹 B,
-  // 2·4그룹은 거리 봉사 또는 휴식으로 시작
-  const initial=["A","street","B","rest"];
+/*
+  1조: A 전시대부터 시작
+  2조: 거리 봉사부터 시작
+  3조: B 전시대부터 시작
+  4조: B 전시대부터 시작
+
+  이후 각 조는 A, B, 거리 봉사, 휴식의
+  순환 역할을 이어갑니다.
+*/
+function getRole(groupIndex,slot){
+  const starts=[0,2,1,1];
   const roles=["A","B","street","rest"];
-  if(slotIndex===0) return initial[groupIndex];
-  return roles[(groupIndex+slotIndex)%4];
+  return roles[(starts[groupIndex]+slot)%4];
 }
 
-function timeLabel(slot){
-  const mins=18*60+slot*15;
-  const hh=String(Math.floor(mins/60)).padStart(2,"0");
-  const mm=String(mins%60).padStart(2,"0");
-  const end=mins+15;
-  return hh+":"+mm+"~"+
-    String(Math.floor(end/60)).padStart(2,"0")+":"+
-    String(end%60).padStart(2,"0");
-}
-
-function slotTime(dayIndex,slot){
-  const start=dayIndex===1?10*60:18*60;
-  const mins=start+slot*15;
-  const end=mins+15;
-  const fmt=n=>String(Math.floor(n/60)).padStart(2,"0")+":"+
+function formatTime(start,slot){
+  const a=start+slot*15;
+  const b=a+15;
+  const fmt=n=>
+    String(Math.floor(n/60)).padStart(2,"0")+":"+
     String(n%60).padStart(2,"0");
-  return fmt(mins)+"~"+fmt(end);
+  return fmt(a)+"~"+fmt(b);
 }
 
 function renderAllSchedules(){
   const root=document.getElementById("allSchedules");
   root.innerHTML="";
-  DAYS.forEach((day,dayIndex)=>{
+
+  DAYS.forEach(day=>{
     const heading=document.createElement("h3");
     heading.textContent=day.title+" ("+day.time+")";
     root.appendChild(heading);
+
     const wrap=document.createElement("div");
     wrap.className="table-wrap";
+
     const table=document.createElement("table");
     const thead=document.createElement("thead");
-    const tr=document.createElement("tr");
-    ["시간","1그룹","2그룹","3그룹","4그룹"].forEach(t=>{
+    const headRow=document.createElement("tr");
+
+    ["시간","1조","2조","3조","4조"].forEach(text=>{
       const th=document.createElement("th");
-      th.textContent=t;tr.appendChild(th);
+      th.textContent=text;
+      headRow.appendChild(th);
     });
-    thead.appendChild(tr);table.appendChild(thead);
+
+    thead.appendChild(headRow);
+    table.appendChild(thead);
+
     const tbody=document.createElement("tbody");
 
     for(let slot=0;slot<8;slot++){
       const row=document.createElement("tr");
-      const time=document.createElement("td");
-      time.textContent=slotTime(dayIndex,slot);
-      row.appendChild(time);
+      const timeCell=document.createElement("td");
+      timeCell.textContent=formatTime(day.start,slot);
+      row.appendChild(timeCell);
+
       for(let g=0;g<4;g++){
         const td=document.createElement("td");
-        const role=roleFor(g,slot);
-        const memberNames=groups[g].map(p=>p.name);
-        td.textContent=(memberNames.length?memberNames.join(", "):"미배정")
-          +"\n"+PLACES[role];
+        const names=groups[g].map(p=>p.name);
+        const role=getRole(g,slot);
+
+        td.textContent=
+          (names.length?names.join(", "):"미배정")+
+          "\n\n"+PLACES[role];
+
         row.appendChild(td);
       }
+
       tbody.appendChild(row);
     }
+
     table.appendChild(tbody);
     wrap.appendChild(table);
     root.appendChild(wrap);
   });
 }
 
-function updatePersonButtons(){
+function renderPersonButtons(){
   const root=document.getElementById("personButtons");
   root.innerHTML="";
-  getNames().forEach((name,i)=>{
-    if(!name) return;
-    const btn=document.createElement("button");
-    btn.textContent=name;
-    if(i===selectedPerson) btn.classList.add("active");
-    btn.onclick=()=>{
-      selectedPerson=i;
-      updatePersonButtons();
-      showPerson(i);
-    };
-    root.appendChild(btn);
+
+  groups.forEach((group,g)=>{
+    group.forEach(person=>{
+      const btn=document.createElement("button");
+      btn.textContent=person.name;
+
+      if(person.index===selectedPerson){
+        btn.classList.add("active");
+      }
+
+      btn.onclick=()=>{
+        selectedPerson=person.index;
+        renderPersonButtons();
+        showPerson(person.index);
+      };
+
+      root.appendChild(btn);
+    });
   });
+}
+
+function escapeHTML(value){
+  return String(value).replace(/[&<>"']/g,c=>({
+    "&":"&amp;",
+    "<":"&lt;",
+    ">":"&gt;",
+    '"':"&quot;",
+    "'":"&#39;"
+  })[c]);
 }
 
 function showPerson(index){
   const names=getNames();
   const name=names[index];
   const root=document.getElementById("personSchedule");
-  if(!name){root.textContent="먼저 이름을 입력해 주세요.";return;}
-  const groupIndex=Math.floor(index/3);
-  const groupMembers=groups[groupIndex]||[];
-  const member=groupMembers.find(p=>p.index===index);
-  if(!member){
-    getGroupAssignments();
+
+  if(!name){
+    root.textContent="이름을 입력해 주세요.";
+    return;
   }
-  let html="<h3>"+escapeHTML(name)+"님의 봉사 일정</h3>";
-  html+="<p>소속: "+(groupIndex+1)+"그룹</p>";
-  DAYS.forEach((day,dayIndex)=>{
+
+  const groupIndex=Math.floor(index/3);
+  let html="<h3>"+escapeHTML(name)+"님 · "+(groupIndex+1)+"조</h3>";
+
+  DAYS.forEach(day=>{
     html+="<h3>"+day.title+" ("+day.time+")</h3><ul>";
+
     for(let slot=0;slot<8;slot++){
-      html+="<li>"+slotTime(dayIndex,slot)+" — "+
-        PLACES[roleFor(groupIndex,slot)]+"</li>";
+      html+="<li><b>"+formatTime(day.start,slot)+
+        "</b><br>"+escapeHTML(PLACES[getRole(groupIndex,slot)]).replace(/\n/g,"<br>")+
+        "</li>";
     }
+
     html+="</ul>";
   });
+
   root.innerHTML=html;
 }
 
-function saveNotice(){
-  const notice=document.getElementById("noticeInput").value.trim();
-  document.getElementById("noticeView").textContent=
-    notice ? "📢 "+notice : "등록된 공지사항이 없습니다.";
+function makeSchedule(updatePerson=true){
+  const oldSelected=selectedPerson;
+  makeGroups();
+  renderGroups();
+  renderAllSchedules();
+  renderPersonButtons();
+
+  if(updatePerson && oldSelected>=0 && getNames()[oldSelected]){
+    showPerson(oldSelected);
+  }else if(oldSelected<0 || !getNames()[oldSelected]){
+    const first=getNames().findIndex(n=>n);
+    selectedPerson=first;
+    renderPersonButtons();
+
+    if(first>=0) showPerson(first);
+    else document.getElementById("personSchedule").textContent="이름을 입력해 주세요.";
+  }else{
+    showPerson(oldSelected);
+  }
 }
 
-function escapeHTML(s){
-  return String(s).replace(/[&<>"']/g,c=>({
-    "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
-  })[c]);
+function saveNotice(){
+  const text=document.getElementById("noticeInput").value.trim();
+  document.getElementById("noticeView").textContent=
+    text ? "📢 "+text : "등록된 공지사항이 없습니다.";
 }
 
 function getShareData(){
@@ -341,62 +391,98 @@ function encodeData(data){
   const bytes=new TextEncoder().encode(JSON.stringify(data));
   let binary="";
   bytes.forEach(b=>binary+=String.fromCharCode(b));
-  return btoa(binary).replace(/\+/g,"-").replace(/\//g,"_").replace(/=+$/,"");
+
+  return btoa(binary)
+    .replace(/\+/g,"-")
+    .replace(/\//g,"_")
+    .replace(/=+$/,"");
 }
 
 function decodeData(str){
-  const base=str.replace(/-/g,"+").replace(/_/g,"/");
+  let base=str.replace(/-/g,"+").replace(/_/g,"/");
+  while(base.length%4) base+="=";
+
   const binary=atob(base);
   const bytes=Uint8Array.from(binary,c=>c.charCodeAt(0));
   return JSON.parse(new TextDecoder().decode(bytes));
 }
 
-function shareSchedule(){
-  const data=getShareData();
-  const link=location.href.split("#")[0]+"#data="+encodeData(data);
-  document.getElementById("shareResult").textContent=link;
+async function copyText(text){
   if(navigator.clipboard && window.isSecureContext){
-    navigator.clipboard.writeText(link).then(()=>{
-      document.getElementById("shareResult").textContent=
-        "공유 링크를 만들고 복사했습니다.\n\n"+link;
-    }).catch(()=>{});
+    await navigator.clipboard.writeText(text);
+    return true;
+  }
+
+  const area=document.createElement("textarea");
+  area.value=text;
+  area.style.position="fixed";
+  area.style.opacity="0";
+  document.body.appendChild(area);
+  area.select();
+
+  const success=document.execCommand("copy");
+  area.remove();
+  return success;
+}
+
+async function shareSchedule(){
+  makeSchedule();
+  saveNotice();
+
+  const base=location.href.split("#")[0];
+  const link=base+"#data="+encodeData(getShareData());
+
+  document.getElementById("shareResult").value=link;
+
+  try{
+    await copyText(link);
+    alert("공유 링크를 복사했습니다. 카톡방에 붙여넣어 보내세요.");
+  }catch(e){
+    alert("링크가 아래 칸에 표시되었습니다. 직접 복사해 주세요.");
   }
 }
 
-function copyPageLink(){
-  const link=location.href;
-  if(navigator.clipboard && window.isSecureContext){
-    navigator.clipboard.writeText(link).then(()=>{
-      document.getElementById("shareResult").textContent=
-        "현재 페이지 링크를 복사했습니다.";
-    }).catch(()=>{
-      document.getElementById("shareResult").textContent=link;
-    });
-  }else{
-    document.getElementById("shareResult").textContent=link;
+async function copyCurrentLink(){
+  try{
+    await copyText(location.href);
+    alert("현재 페이지 링크를 복사했습니다.");
+  }catch(e){
+    document.getElementById("shareResult").value=location.href;
   }
+}
+
+function resetNames(){
+  if(!confirm("명단을 처음 이름으로 복구할까요?")) return;
+
+  renderNameInputs(INITIAL_NAMES);
+  selectedPerson=-1;
+  makeSchedule();
 }
 
 function loadSharedData(){
-  const hash=location.hash;
-  if(!hash.startsWith("#data=")) return;
+  if(!location.hash.startsWith("#data=")) return;
+
   try{
-    const data=decodeData(hash.slice(6));
+    const data=decodeData(location.hash.slice(6));
+
     if(Array.isArray(data.names)){
-      renderNameInputs(data.names);
+      const names=Array.from({length:12},(_,i)=>data.names[i]||"");
+      renderNameInputs(names);
     }
+
     document.getElementById("noticeInput").value=data.notice||"";
     saveNotice();
     makeSchedule();
   }catch(e){
-    document.getElementById("shareResult").textContent=
-      "공유 데이터를 읽을 수 없습니다. 링크가 손상되었는지 확인해 주세요.";
+    document.getElementById("shareResult").value=
+      "공유 데이터를 읽을 수 없습니다. 링크가 올바른지 확인해 주세요.";
   }
 }
 
-renderNameInputs();
-updatePersonButtons();
+renderNameInputs(INITIAL_NAMES);
+makeSchedule();
 loadSharedData();
 </script>
+
 </body>
 </html>
